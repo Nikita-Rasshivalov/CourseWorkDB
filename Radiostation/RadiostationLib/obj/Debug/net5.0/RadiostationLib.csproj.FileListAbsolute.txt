@@ -1,0 +1,12 @@
+C:\Users\nikit\Desktop\БД\CousreWorkDb\CourseWorkDB\Radiostation\RadiostationLib\bin\Debug\net5.0\RadiostationLib.deps.json
+C:\Users\nikit\Desktop\БД\CousreWorkDb\CourseWorkDB\Radiostation\RadiostationLib\bin\Debug\net5.0\RadiostationLib.dll
+C:\Users\nikit\Desktop\БД\CousreWorkDb\CourseWorkDB\Radiostation\RadiostationLib\bin\Debug\net5.0\ref\RadiostationLib.dll
+C:\Users\nikit\Desktop\БД\CousreWorkDb\CourseWorkDB\Radiostation\RadiostationLib\bin\Debug\net5.0\RadiostationLib.pdb
+C:\Users\nikit\Desktop\БД\CousreWorkDb\CourseWorkDB\Radiostation\RadiostationLib\obj\Debug\net5.0\RadiostationLib.csproj.AssemblyReference.cache
+C:\Users\nikit\Desktop\БД\CousreWorkDb\CourseWorkDB\Radiostation\RadiostationLib\obj\Debug\net5.0\RadiostationLib.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\nikit\Desktop\БД\CousreWorkDb\CourseWorkDB\Radiostation\RadiostationLib\obj\Debug\net5.0\RadiostationLib.AssemblyInfoInputs.cache
+C:\Users\nikit\Desktop\БД\CousreWorkDb\CourseWorkDB\Radiostation\RadiostationLib\obj\Debug\net5.0\RadiostationLib.AssemblyInfo.cs
+C:\Users\nikit\Desktop\БД\CousreWorkDb\CourseWorkDB\Radiostation\RadiostationLib\obj\Debug\net5.0\RadiostationLib.csproj.CoreCompileInputs.cache
+C:\Users\nikit\Desktop\БД\CousreWorkDb\CourseWorkDB\Radiostation\RadiostationLib\obj\Debug\net5.0\RadiostationLib.dll
+C:\Users\nikit\Desktop\БД\CousreWorkDb\CourseWorkDB\Radiostation\RadiostationLib\obj\Debug\net5.0\ref\RadiostationLib.dll
+C:\Users\nikit\Desktop\БД\CousreWorkDb\CourseWorkDB\Radiostation\RadiostationLib\obj\Debug\net5.0\RadiostationLib.pdb

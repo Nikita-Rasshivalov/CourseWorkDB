@@ -5,7 +5,6 @@ Id int not null identity(1,1) primary key,
 PerformerId int not null,
 GenreId int not null,
 Album varchar(50) not null,
-RecordYear int not null,
 RecordDate date not null,
 Lasting int not null,
 Rating decimal(2,1) not null
