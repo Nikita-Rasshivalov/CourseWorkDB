@@ -6,7 +6,18 @@ using System.Threading.Tasks;
 
 namespace RadiostationLib.ModelsLib
 {
-    class Performer
+   public class Performer
     {
+        public Performer()
+        {
+            Records = new HashSet<Record>();
+        }
+
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public int? GroupId { get; set; }
+
+        public virtual Group Group { get; set; }
+        public virtual ICollection<Record> Records { get; set; }
     }
 }

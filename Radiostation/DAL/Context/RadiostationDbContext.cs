@@ -1,10 +1,11 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
+using RadiostationWeb.Models;
 
 #nullable disable
 
-namespace RadiostationWeb.Models
+namespace DAL.Context
 {
     public partial class RadiostationDbContext : DbContext
     {
