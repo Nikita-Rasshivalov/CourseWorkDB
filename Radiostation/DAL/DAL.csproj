@@ -19,7 +19,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\RadiostationLib\RadiostationLib.csproj" />
-    <ProjectReference Include="..\RadiostationWeb\RadiostationWeb.csproj" />
   </ItemGroup>
 
 </Project>

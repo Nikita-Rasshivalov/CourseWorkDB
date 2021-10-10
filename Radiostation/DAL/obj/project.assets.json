@@ -1529,23 +1529,6 @@
         "runtime": {
           "bin/placeholder/RadiostationLib.dll": {}
         }
-      },
-      "RadiostationWeb/1.0.0": {
-        "type": "project",
-        "framework": ".NETCoreApp,Version=v5.0",
-        "dependencies": {
-          "Microsoft.EntityFrameworkCore": "5.0.10",
-          "Microsoft.EntityFrameworkCore.SqlServer": "5.0.10"
-        },
-        "compile": {
-          "bin/placeholder/RadiostationWeb.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/RadiostationWeb.dll": {}
-        },
-        "frameworkReferences": [
-          "Microsoft.AspNetCore.App"
-        ]
       }
     }
   },
@@ -5819,11 +5802,6 @@
       "type": "project",
       "path": "../RadiostationLib/RadiostationLib.csproj",
       "msbuildProject": "../RadiostationLib/RadiostationLib.csproj"
-    },
-    "RadiostationWeb/1.0.0": {
-      "type": "project",
-      "path": "../RadiostationWeb/RadiostationWeb.csproj",
-      "msbuildProject": "../RadiostationWeb/RadiostationWeb.csproj"
     }
   },
   "projectFileDependencyGroups": {
@@ -5832,8 +5810,7 @@
       "Microsoft.EntityFrameworkCore.Design >= 5.0.10",
       "Microsoft.EntityFrameworkCore.SqlServer >= 5.0.10",
       "Microsoft.EntityFrameworkCore.Tools >= 5.0.10",
-      "RadiostationLib >= 1.0.0",
-      "RadiostationWeb >= 1.0.0"
+      "RadiostationLib >= 1.0.0"
     ]
   },
   "packageFolders": {
@@ -5870,9 +5847,6 @@
           "projectReferences": {
             "C:\\Users\\nikit\\Desktop\\БД\\CousreWorkDb\\CourseWorkDB\\Radiostation\\RadiostationLib\\RadiostationLib.csproj": {
               "projectPath": "C:\\Users\\nikit\\Desktop\\БД\\CousreWorkDb\\CourseWorkDB\\Radiostation\\RadiostationLib\\RadiostationLib.csproj"
-            },
-            "C:\\Users\\nikit\\Desktop\\БД\\CousreWorkDb\\CourseWorkDB\\Radiostation\\RadiostationWeb\\RadiostationWeb.csproj": {
-              "projectPath": "C:\\Users\\nikit\\Desktop\\БД\\CousreWorkDb\\CourseWorkDB\\Radiostation\\RadiostationWeb\\RadiostationWeb.csproj"
             }
           }
         }
