@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace DAL
 {
@@ -9,7 +10,7 @@ namespace DAL
         void Create(T entity);
         void Remove(T entity);
         void Update(T entity);
-        IEnumerable<T> GetAll();
+        IQueryable<T> GetAll();
 
 
     }

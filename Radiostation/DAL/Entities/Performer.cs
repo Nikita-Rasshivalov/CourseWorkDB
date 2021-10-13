@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RadiostationLib.ModelsLib
+namespace DAL.Entities
 {
    public class Performer
     {
