@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "L9QqP87hJBYsQhzBywCgBEDg1gz8VUPXI9T1LTlqoujk18/GPR4SbkR0fMW00xBGYtokKLsGjw4hkerazHFv4A==",
+  "dgSpecHash": "X1PuhVsDpiNVXdvYFLQDitFFxawfLBi521mA6+Jq/5rKZlOOBgGVUUPsrjf0VV53r10wbQOHPDK+0pEfnZjn6g==",
   "success": true,
   "projectFilePath": "C:\\Users\\nikit\\Desktop\\БД\\CousreWorkDb\\CourseWorkDB\\Radiostation\\RadiostationWeb\\RadiostationWeb.csproj",
   "expectedPackageFiles": [
@@ -127,7 +127,8 @@
     "C:\\Users\\nikit\\.nuget\\packages\\system.xml.readerwriter\\4.3.0\\system.xml.readerwriter.4.3.0.nupkg.sha512",
     "C:\\Users\\nikit\\.nuget\\packages\\system.xml.xdocument\\4.3.0\\system.xml.xdocument.4.3.0.nupkg.sha512",
     "C:\\Users\\nikit\\.nuget\\packages\\system.xml.xmldocument\\4.3.0\\system.xml.xmldocument.4.3.0.nupkg.sha512",
-    "C:\\Users\\nikit\\.nuget\\packages\\system.xml.xmlserializer\\4.3.0\\system.xml.xmlserializer.4.3.0.nupkg.sha512"
+    "C:\\Users\\nikit\\.nuget\\packages\\system.xml.xmlserializer\\4.3.0\\system.xml.xmlserializer.4.3.0.nupkg.sha512",
+    "C:\\Users\\nikit\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\5.0.12\\microsoft.netcore.app.host.win-x64.5.0.12.nupkg.sha512"
   ],
   "logs": []
 }

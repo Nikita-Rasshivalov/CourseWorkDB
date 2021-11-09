@@ -4,7 +4,6 @@ C:\Users\nikit\Desktop\БД\CousreWorkDb\CourseWorkDB\Radiostation\DAL\bin\Debug
 C:\Users\nikit\Desktop\БД\CousreWorkDb\CourseWorkDB\Radiostation\DAL\bin\Debug\net5.0\RadiostationDAL.dll
 C:\Users\nikit\Desktop\БД\CousreWorkDb\CourseWorkDB\Radiostation\DAL\bin\Debug\net5.0\ref\RadiostationDAL.dll
 C:\Users\nikit\Desktop\БД\CousreWorkDb\CourseWorkDB\Radiostation\DAL\bin\Debug\net5.0\RadiostationDAL.pdb
-C:\Users\nikit\Desktop\БД\CousreWorkDb\CourseWorkDB\Radiostation\DAL\obj\Debug\net5.0\RadiostationDAL.csproj.AssemblyReference.cache
 C:\Users\nikit\Desktop\БД\CousreWorkDb\CourseWorkDB\Radiostation\DAL\obj\Debug\net5.0\RadiostationDAL.GeneratedMSBuildEditorConfig.editorconfig
 C:\Users\nikit\Desktop\БД\CousreWorkDb\CourseWorkDB\Radiostation\DAL\obj\Debug\net5.0\RadiostationDAL.AssemblyInfoInputs.cache
 C:\Users\nikit\Desktop\БД\CousreWorkDb\CourseWorkDB\Radiostation\DAL\obj\Debug\net5.0\RadiostationDAL.AssemblyInfo.cs
