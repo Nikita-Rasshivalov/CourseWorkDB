@@ -12,3 +12,4 @@ C:\Users\nikit\Desktop\БД\CousreWorkDb\CourseWorkDB\Radiostation\DAL\obj\Debug
 C:\Users\nikit\Desktop\БД\CousreWorkDb\CourseWorkDB\Radiostation\DAL\obj\Debug\net5.0\ref\RadiostationDAL.dll
 C:\Users\nikit\Desktop\БД\CousreWorkDb\CourseWorkDB\Radiostation\DAL\obj\Debug\net5.0\RadiostationDAL.pdb
 C:\Users\nikit\Desktop\БД\CousreWorkDb\CourseWorkDB\Radiostation\DAL\obj\Debug\net5.0\RadiostationDAL.genruntimeconfig.cache
+C:\Users\nikit\Desktop\БД\CousreWorkDb\CourseWorkDB\Radiostation\DAL\obj\Debug\net5.0\RadiostationDAL.csproj.AssemblyReference.cache

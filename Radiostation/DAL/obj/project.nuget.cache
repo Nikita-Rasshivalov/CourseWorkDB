@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "iAv0mK7B0VsnbD60nNTjVNryD99h3EnIupg7145phHqkXXfdBrrjdyLBTDO2E1Kre1gtnYJx9UxZ+Qe7alvGLA==",
+  "dgSpecHash": "qfbeFiWZZe2O4/IJ9x6yXzRrKnqB9dBS2hnThUrgKmGX8b+ViUhBXci7+4KNMG6bb0mRHmTbg+rP6hxdRjy28A==",
   "success": true,
   "projectFilePath": "C:\\Users\\nikit\\Desktop\\БД\\CousreWorkDb\\CourseWorkDB\\Radiostation\\DAL\\RadiostationDAL.csproj",
   "expectedPackageFiles": [
@@ -13,7 +13,7 @@
     "C:\\Users\\nikit\\.nuget\\packages\\microsoft.entityframeworkcore.analyzers\\5.0.11\\microsoft.entityframeworkcore.analyzers.5.0.11.nupkg.sha512",
     "C:\\Users\\nikit\\.nuget\\packages\\microsoft.entityframeworkcore.design\\5.0.11\\microsoft.entityframeworkcore.design.5.0.11.nupkg.sha512",
     "C:\\Users\\nikit\\.nuget\\packages\\microsoft.entityframeworkcore.relational\\5.0.11\\microsoft.entityframeworkcore.relational.5.0.11.nupkg.sha512",
-    "C:\\Users\\nikit\\.nuget\\packages\\microsoft.entityframeworkcore.sqlserver\\5.0.11\\microsoft.entityframeworkcore.sqlserver.5.0.11.nupkg.sha512",
+    "C:\\Users\\nikit\\.nuget\\packages\\microsoft.entityframeworkcore.sqlserver\\5.0.10\\microsoft.entityframeworkcore.sqlserver.5.0.10.nupkg.sha512",
     "C:\\Users\\nikit\\.nuget\\packages\\microsoft.entityframeworkcore.tools\\5.0.11\\microsoft.entityframeworkcore.tools.5.0.11.nupkg.sha512",
     "C:\\Users\\nikit\\.nuget\\packages\\microsoft.extensions.caching.abstractions\\5.0.0\\microsoft.extensions.caching.abstractions.5.0.0.nupkg.sha512",
     "C:\\Users\\nikit\\.nuget\\packages\\microsoft.extensions.caching.memory\\5.0.0\\microsoft.extensions.caching.memory.5.0.0.nupkg.sha512",

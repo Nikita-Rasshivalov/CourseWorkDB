@@ -10,3 +10,6 @@ C:\Users\nikit\Desktop\БД\CousreWorkDb\CourseWorkDB\Radiostation\RadiostationB
 C:\Users\nikit\Desktop\БД\CousreWorkDb\CourseWorkDB\Radiostation\RadiostationBLL\obj\Debug\net5.0\ref\RadiostationBLL.dll
 C:\Users\nikit\Desktop\БД\CousreWorkDb\CourseWorkDB\Radiostation\RadiostationBLL\obj\Debug\net5.0\RadiostationBLL.pdb
 C:\Users\nikit\Desktop\БД\CousreWorkDb\CourseWorkDB\Radiostation\RadiostationBLL\obj\Debug\net5.0\RadiostationBLL.csproj.AssemblyReference.cache
+C:\Users\nikit\Desktop\БД\CousreWorkDb\CourseWorkDB\Radiostation\RadiostationBLL\bin\Debug\net5.0\RadiostationDAL.dll
+C:\Users\nikit\Desktop\БД\CousreWorkDb\CourseWorkDB\Radiostation\RadiostationBLL\bin\Debug\net5.0\RadiostationDAL.pdb
+C:\Users\nikit\Desktop\БД\CousreWorkDb\CourseWorkDB\Radiostation\RadiostationBLL\obj\Debug\net5.0\RadiostationBLL.csproj.CopyComplete

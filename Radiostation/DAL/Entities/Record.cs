@@ -11,7 +11,7 @@ namespace RadiostationDAL.Entities
         }
 
         public int Id { get; set; }
-        public string СompositionName { get; set; }
+        public string ComposName { get; set; }
         public int PerformerId { get; set; }
         public int GenreId { get; set; }
         public string Album { get; set; }
