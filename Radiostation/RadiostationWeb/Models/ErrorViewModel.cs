@@ -1,5 +1,3 @@
-using System;
-
 namespace RadiostationWeb.Models
 {
     public class ErrorViewModel
@@ -9,3 +7,4 @@ namespace RadiostationWeb.Models
         public bool ShowRequestId => !string.IsNullOrEmpty(RequestId);
     }
 }
+ 

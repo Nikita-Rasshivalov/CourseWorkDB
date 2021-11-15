@@ -1,17 +1,21 @@
+
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using RadiostationDAL.EntityFrameworkRepositories;
 using RadiostationWeb.Data;
+using RadiostationWeb.Middleware;
+
 
 namespace RadiostationWeb
 {
+
     public class Startup
     {
         public Startup(IConfiguration configuration)
@@ -40,7 +44,7 @@ namespace RadiostationWeb
                 options.Password.RequireLowercase = true;
             })
             .AddEntityFrameworkStores<ApplicationDbContext>();
-            services.AddDbContext<RadiostationDbContext>(options =>
+            services.AddDbContext<BDLab1Context>(options =>
                 options.UseSqlServer(Configuration["ConnectionStrings:RadiostationDb"]));
             services.AddDistributedMemoryCache();
             services.AddSession();
@@ -59,13 +63,15 @@ namespace RadiostationWeb
             }
 
             app.UseSession();
+            app.UseDbInitializer();
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
             app.UseRouting();
-
+            app.UseAuthentication();
             app.UseAuthorization();
+       
 
             app.UseEndpoints(endpoints =>
             {
@@ -75,4 +81,5 @@ namespace RadiostationWeb
             });
         }
     }
+
 }

@@ -15,7 +15,6 @@
         <form asp-action="Edit" asp-controller="Account" method="post" class="form">
             <input asp-for="Id" value="@Model.Id" hidden />
             <input asp-for="UserName" value="@Model.UserName" class="form-box" placeholder="username" />
-            <input asp-for="PhoneNumber" value="@Model.PhoneNumber" class="form-box" placeholder="+xxx(xxx)xxxxxxx" />
             <input asp-for="Email" value="@Model.Email" class="form-box" placeholder="email" />
             <div class="submit-box"><button type="submit" class="crud-button submit-button">Submit</button></div>
         </form>

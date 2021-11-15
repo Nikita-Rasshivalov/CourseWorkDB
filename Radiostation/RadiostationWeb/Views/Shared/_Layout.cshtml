@@ -4,12 +4,11 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - RadiostationWeb</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <!-- Compiled and minified CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <!-- Compiled and minified JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-    <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="~/css/site.css"/>
 </head>
 <body>
     <header>
@@ -19,12 +18,19 @@
 
                 <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
                 <ul id="nav-mobile" class="right hide-on-med-and-down">
-                    <li>
-                        <a asp-controller="Account" asp-action="Registration">Registration</a>
-                    </li>
-                    <li>
-                        <a asp-controller="Account" asp-action="Login">Login</a>
-                    </li>
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <li><a asp-controller="Account" asp-action="ManageUsers">Manage users</a></li>
+                    }
+
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <li><a asp-controller="Account" asp-action="Logout">Log out</a></li>
+                    }
+                    else
+                    {
+                        <li><a asp-controller="Account" asp-action="Login">Log in</a></li>
+                    }
                 </ul>
             </div>
             <div class="nav-content">
@@ -33,26 +39,26 @@
                         <a class="tab" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                     </li>
                     <li class="tab">
-                        <a  asp-area="" asp-controller="Record" asp-action="Records">Records</a>
+                        <a asp-area="" asp-controller="Record" asp-action="Records">Records</a>
                     </li>
                     <li class="tab">
-                        <a  asp-area="" asp-controller="Performer" asp-action="Performers">Performers</a>
+                        <a asp-area="" asp-controller="Performer" asp-action="Performers">Performers</a>
                     </li>
                     <li class="tab">
-                        <a  asp-area="" asp-controller="Employee" asp-action="Employees">Employees</a>
+                        <a asp-area="" asp-controller="Employee" asp-action="Employees">Employees</a>
                     </li>
                     <li class="tab">
-                        <a  asp-area="" asp-controller="Group" asp-action="Groups">Groups</a>
+                        <a asp-area="" asp-controller="Group" asp-action="Groups">Groups</a>
                     </li>
                     <li class="tab">
-                        <a  asp-area="" asp-controller="Genre" asp-action="Genres">Genres</a>
+                        <a asp-area="" asp-controller="Genre" asp-action="Genres">Genres</a>
                     </li>
                 </ul>
             </div>
         </nav>
     </header>
     <div class="container">
-        <main role="main" class="pb-3">
+        <main role="main">
             @RenderBody()
         </main>
     </div>
