@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using RadiostationWeb.Data;
 using RadiostationWeb.Models;
 using System.Linq;
 using System.Threading.Tasks;
@@ -9,19 +10,23 @@ namespace RadiostationWeb.Controllers
 {
     public class AccountController : Controller
     {
-        private readonly UserManager<IdentityUser> _userManager; 
-        private readonly SignInManager<IdentityUser> _signInManager;
+        private readonly UserManager<ApplicationUser> _userManager;
+        private readonly SignInManager<ApplicationUser> _signInManager;
 
-        public AccountController(UserManager<IdentityUser> userManager,
-        SignInManager<IdentityUser> signInManager)
+        public AccountController(UserManager<ApplicationUser> userManager,
+        SignInManager<ApplicationUser> signInManager)
         {
-            
+
             _userManager = userManager;
             _signInManager = signInManager;
         }
 
-        public ActionResult Login(string returnUrl)
+        public ActionResult Login(string returnUrl = "/")
         {
+            if (User.Identity.IsAuthenticated)
+            {
+                return Redirect(returnUrl);
+            }
             return View(new LoginViewModel
             {
                 ReturnUrl = returnUrl,
@@ -44,10 +49,12 @@ namespace RadiostationWeb.Controllers
                     }
                 }
             }
-
             ModelState.AddModelError("", "Invalid name or password");
             return View(loginModel);
         }
+
+
+
 
         [Authorize]
         public async Task<RedirectResult> Logout(string returnUrl = "/")
@@ -57,11 +64,46 @@ namespace RadiostationWeb.Controllers
         }
 
         [Authorize(Roles = "Admin")]
-        public ActionResult ManageUsers()
+        public ActionResult ManageUsers(string nameFilter, string surnameFilter, int page = 1)
         {
-            var users = _userManager.Users.ToList();
+            var pageSize = 20;
+            var users = FilterUsers(nameFilter, surnameFilter);
+            var pageUsers = users.OrderBy(o => o.Id).Skip((page - 1) * pageSize).Take(pageSize);
+            PageViewModel pageViewModel = new PageViewModel(users.Count(), page, pageSize);
+            var viewUsers = pageUsers.ToList();
+            var pageItemsModel = new PageItemsModel<ApplicationUser> { Items = viewUsers, PageModel = pageViewModel };
+            return View(pageItemsModel);
+        }
 
-            return View(users);
+        private IQueryable<ApplicationUser> FilterUsers(string nameFilter, string surnameFilter)
+        {
+            IQueryable<ApplicationUser> users = _userManager.Users;
+            nameFilter = nameFilter ?? HttpContext.Request.Cookies["nameFilter"];
+            if (!string.IsNullOrEmpty(nameFilter))
+            {
+                users = users.Where(e => e.Name.Contains(nameFilter));
+                HttpContext.Response.Cookies.Append("nameFilter", nameFilter);
+            }
+
+            surnameFilter = surnameFilter ?? HttpContext.Request.Cookies["surnameFilter"];
+            if (!string.IsNullOrEmpty(surnameFilter))
+            {
+                users = users.Where(e => e.Surname.Contains(surnameFilter));
+                HttpContext.Response.Cookies.Append("surnameFilter", surnameFilter);
+            }
+
+            if (nameFilter == " " && surnameFilter == " ")
+            {
+                users = _userManager.Users;
+            }
+            return users;
+        }
+
+        public IActionResult ResetManageFilter()
+        {
+            HttpContext.Response.Cookies.Delete("nameFilter");
+            HttpContext.Response.Cookies.Delete("surnameFilter");
+            return RedirectToAction(nameof(ManageUsers));
         }
 
         [Authorize(Roles = "Admin")]
@@ -72,7 +114,6 @@ namespace RadiostationWeb.Controllers
             {
                 await _userManager.AddToRoleAsync(user, roleName);
             }
-
             return RedirectToAction("ManageUsers");
         }
 
@@ -88,7 +129,6 @@ namespace RadiostationWeb.Controllers
                     await _userManager.RemoveFromRoleAsync(user, roleName);
                 }
             }
-
             return RedirectToAction("ManageUsers");
         }
 
@@ -127,10 +167,13 @@ namespace RadiostationWeb.Controllers
 
             if (ModelState.IsValid)
             {
-                var user = new IdentityUser
+                var user = new ApplicationUser
                 {
                     UserName = registrationModel.Username,
                     Email = registrationModel.Email,
+                    Name=registrationModel.Name,
+                    Surname=registrationModel.Surname,
+                    MiddleName=registrationModel.MiddleName
                 };
                 var creatingReuslt = await _userManager.CreateAsync(user, registrationModel.Password);
                 if (creatingReuslt.Succeeded)
@@ -159,7 +202,7 @@ namespace RadiostationWeb.Controllers
 
         [Authorize(Roles = "Admin")]
         [HttpPost]
-        public async Task<ActionResult> Edit(IdentityUser user)
+        public async Task<ActionResult> Edit(ApplicationUser user)
         {
             var userByUsername = await _userManager.FindByNameAsync(user.UserName);
             if (userByUsername != null && userByUsername.Id != user.Id)
@@ -175,18 +218,26 @@ namespace RadiostationWeb.Controllers
 
             if (ModelState.IsValid)
             {
-                var foundUser = await _userManager.FindByIdAsync(user.Id);
+                ApplicationUser foundUser = await _userManager.FindByIdAsync(user.Id);
                 foundUser.UserName = user.UserName;
                 foundUser.Email = user.Email;
+                foundUser.Name = user.Name;
+                foundUser.Surname = user.Surname;
+                foundUser.MiddleName = user.MiddleName;
+
                 await _userManager.UpdateAsync(foundUser);
                 ViewData["SuccessMessage"] = "Successfully edited";
             }
 
-            return View(user);
+            return RedirectToAction("ManageUsers");
         }
 
-        public ActionResult Registration()
+        public ActionResult Registration(string returnUrl="/")
         {
+            if (User.Identity.IsAuthenticated)
+            {
+                return Redirect(returnUrl);
+            }
             return View(new RegistrationViewModel());
         }
 
@@ -205,10 +256,13 @@ namespace RadiostationWeb.Controllers
 
             if (ModelState.IsValid)
             {
-                var user = new IdentityUser
+                var user = new ApplicationUser
                 {
                     UserName = registrationModel.Username,
                     Email = registrationModel.Email,
+                    Name=registrationModel.Name,
+                    Surname=registrationModel.Surname,
+                    MiddleName=registrationModel.MiddleName
                 };
                 var creatingReuslt = await _userManager.CreateAsync(user, registrationModel.Password);
                 if (creatingReuslt.Succeeded)

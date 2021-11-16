@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Mvc;
 using RadiostationWeb.Data;
 using RadiostationWeb.Models;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -200,6 +199,7 @@ namespace RadiostationWeb.Controllers
                 if (_dbContext.SaveChanges() != 0)
                 {
                     ViewData["SuccessMessage"] = "Information has been successfully edited";
+                    return RedirectToAction(nameof(ManageRecords));
                 }
             }
 

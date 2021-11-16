@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-
-#nullable disable
-
 namespace RadiostationWeb.Models
 {
     public partial class BroadcastSchedule
@@ -12,7 +8,5 @@ namespace RadiostationWeb.Models
         public int EmployeeId { get; set; }
         public int RecordId { get; set; }
 
-        public virtual Employee Employee { get; set; }
-        public virtual Record Record { get; set; }
     }
 }

@@ -18,6 +18,14 @@ namespace RadiostationWeb.Models
         [Compare("Password", ErrorMessage = "Repeat must match")]
         public string RepeatPassword { get; set; } = "";
 
+        [Required(ErrorMessage = "Name is requred")]
+        public string Name { get; set; } = "";
+
+        [Required(ErrorMessage = "Surname is requred")]
+        public string Surname { get; set; } = "";
+
+        public string MiddleName { get; set; } = "";
+
         [Required(ErrorMessage = "Email")]
         [EmailAddress(ErrorMessage = "Incorrect email")]
         public string Email { get; set; } = "";

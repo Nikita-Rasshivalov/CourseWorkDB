@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using RadiostationWeb.Data;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -16,15 +16,16 @@ namespace RadiostationWeb.Middleware
             _next = next;
 
         }
-        public Task Invoke(HttpContext context, BDLab1Context dbContext)
+        public async Task Invoke(HttpContext context, BDLab1Context dbContext, UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager)
         {
             if (!(context.Session.Keys.Contains("isDbInitialized")))
             {
                 DbInitializer.InitializeDb(dbContext);
+                await DbInitializer.InitializeIdentity(userManager, roleManager);
                 context.Session.SetString("isDbInitialized", "Yes");
             }
 
-            return _next.Invoke(context);
+            await _next.Invoke(context);
         }
     }
     public static class DbInitializerExtensions

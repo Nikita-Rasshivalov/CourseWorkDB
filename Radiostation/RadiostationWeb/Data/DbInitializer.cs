@@ -70,7 +70,7 @@ namespace RadiostationWeb.Data
                 );
             context.SaveChanges();
 
-            if (context.Employees.Any())
+/*            if (context.Employees.Any())
                 return;
             context.Employees.AddRange(
                 new List<Employee> {
@@ -78,8 +78,27 @@ namespace RadiostationWeb.Data
                     new Employee { Name = "Doroshko" , Surname ="Denis", Middlename = "Denosovich" },
                     new Employee { Name = "Mataras" , Surname ="Atrem", Middlename = "Artemovich" } }
                 );
-            context.SaveChanges();
+            context.SaveChanges();*/
 
+        }
+
+        public static async Task InitializeIdentity(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager)
+        {
+            if (!await roleManager.RoleExistsAsync("Admin"))
+            {
+                await roleManager.CreateAsync(new IdentityRole { Name = "Admin" });
+                await roleManager.CreateAsync(new IdentityRole { Name = "User" });
+                await roleManager.CreateAsync(new IdentityRole { Name = "Employee" });
+                var admin = new ApplicationUser
+                {
+                    UserName = "Admin",
+                    Email = "admin@mail.com",
+
+                };
+
+                await userManager.CreateAsync(admin, "zHell323q");
+                await userManager.AddToRoleAsync(admin, "Admin");
+            }
         }
     }
 }

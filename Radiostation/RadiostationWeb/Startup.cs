@@ -1,10 +1,8 @@
-
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -12,10 +10,8 @@ using Microsoft.Extensions.Hosting;
 using RadiostationWeb.Data;
 using RadiostationWeb.Middleware;
 
-
 namespace RadiostationWeb
 {
-
     public class Startup
     {
         public Startup(IConfiguration configuration)
@@ -36,7 +32,7 @@ namespace RadiostationWeb
                 });
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(Configuration["ConnectionStrings:RadiostationDb"]));
-            services.AddIdentity<IdentityUser, IdentityRole>(options => {
+            services.AddIdentity<ApplicationUser, IdentityRole>(options => {
                 options.Password.RequireDigit = true;
                 options.Password.RequiredLength = 6;
                 options.Password.RequireNonAlphanumeric = false;

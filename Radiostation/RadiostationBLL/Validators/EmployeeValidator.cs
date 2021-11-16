@@ -25,9 +25,6 @@ namespace RadiostationBLL.Validators
                 RuleFor(t => t.Surname)
                     .Must(t => t != null && t != "")
                     .WithMessage("Surname cannot be null or empty.");
-                RuleFor(t => t.Middlename)
-                    .Must(t => t != null && t != "")
-                    .WithMessage("MiddleName cannot be null or empty.");
             });
 
             RuleSet("Update", () =>
@@ -41,9 +38,6 @@ namespace RadiostationBLL.Validators
                 RuleFor(t => t.Surname)
                     .Must(t => t != null && t != "")
                     .WithMessage("Surname cannot be null or empty.");
-                RuleFor(t => t.Middlename)
-                    .Must(t => t != null && t != "")
-                    .WithMessage("MiddleName cannot be null or empty.");
             });
 
             RuleSet("Delete", () =>

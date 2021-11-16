@@ -136,6 +136,7 @@ namespace RadiostationWeb.Controllers
                 if (_dbContext.SaveChanges() != 0)
                 {
                     ViewData["SuccessMessage"] = "Information has been successfully edited";
+                    return RedirectToAction(nameof(ManageGroups));
                 }
             }
 

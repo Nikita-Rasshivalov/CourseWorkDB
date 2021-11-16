@@ -1,17 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 
-#nullable disable
 
 namespace RadiostationWeb.Models
 {
     public partial class Record
     {
-        public Record()
-        {
-            BroadcastSchedules = new HashSet<BroadcastSchedule>();
-        }
-
         public int Id { get; set; }
         public int PerformerId { get; set; }
         public int GenreId { get; set; }
@@ -21,8 +14,5 @@ namespace RadiostationWeb.Models
         public decimal Rating { get; set; }
         public string ComposName { get; set; }
 
-        public virtual Genre Genre { get; set; }
-        public virtual Performer Performer { get; set; }
-        public virtual ICollection<BroadcastSchedule> BroadcastSchedules { get; set; }
     }
 }

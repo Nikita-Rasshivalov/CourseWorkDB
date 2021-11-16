@@ -168,7 +168,8 @@ input[type=button], input[type=submit], input[type=reset] {
     }
 
 input[type=text]:not(.browser-default), input[type=password], input[type=email],
-input[type=number]:not(.browser-default), input[type=date]:not(.browser-default) {
+input[type=number]:not(.browser-default), input[type=date]:not(.browser-default),
+input[type=email]:not(.browser-default), input[type=password]:not(.browser-default) {
     background-color: #f6f6f6;
     border: none;
     color: #0d0d0d;
@@ -295,8 +296,20 @@ input[type=number]:not(.browser-default), input[type=date]:not(.browser-default)
     flex-direction: row;
 }
 
-    .wrapper-items .items {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-    }
+.wrapper-items .items {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.header-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.role-buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+}

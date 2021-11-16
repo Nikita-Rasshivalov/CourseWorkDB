@@ -7,20 +7,21 @@
 }
 <div class="all-container">
     <div class="header-item">
-        <h1>User creating</h1>
-    </div>
-    <div class="header-item">
+        <h1 class="title">Add user</h1>
+        <form asp-action="Create" asp-controller="Account" method="post" class="form">
+            <input asp-for="Username" type="text" placeholder="Username" />
+            <input asp-for="Password" type="password" placeholder="Password" />
+            <input asp-for="RepeatPassword" type="password" placeholder="Repeat password" />
+            <input asp-for="Email" type="email" placeholder="Email" />
+            <input asp-for="Name" type="text" placeholder="Name" />
+            <input asp-for="Surname" type="text" placeholder="Surname" />
+            <input asp-for="MiddleName" type="text" placeholder="Middle Name" />
+            <select name="userRole" class="select-items" asp-items="@roles"><option value="0"></option></select>
+            <div class="formButtons">
+                <input type="submit" class="addRecordbtn" value="Add">
+            </div>
+        </form>
         <p class="success-message">@ViewData["SuccessMessage"]</p>
         <div class="error-box" asp-validation-summary="All"></div>
-        <form asp-action="Create" asp-controller="Account" method="post" class="form">
-            <input asp-for="Username" class="form-box" placeholder="username" />
-            <input asp-for="Password" class="form-box" type="password" placeholder="password" />
-            <input asp-for="RepeatPassword" class="form-box" type="password" placeholder="repeat password" />
-            <input asp-for="Email" class="form-box" placeholder="email" />
-            <select name="userRole" class="form-box"
-                    asp-items="@roles">
-            </select>
-            <div class="submit-box"><button type="submit" class="crud-button submit-button">Submit</button></div>
-        </form>
     </div>
 </div>

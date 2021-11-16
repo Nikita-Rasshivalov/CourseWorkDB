@@ -15,7 +15,7 @@ namespace RadiostationWeb.Controllers
         }
 
 
-        [Authorize]
+/*        [Authorize]
         public ActionResult Employees(string nameFilter, string surnameFilter, int page = 1)
         {
             var pageSize = 20;
@@ -135,7 +135,7 @@ namespace RadiostationWeb.Controllers
 
         [Authorize(Roles = "Admin")]
         [HttpPost]
-        public ActionResult Edit(Employee employee)
+        public ActionResult Edit(Employee employee, string returnUrl = "Employees")
         {
             if (ModelState.IsValid)
             {
@@ -143,11 +143,12 @@ namespace RadiostationWeb.Controllers
                 if (_dbContext.SaveChanges() != 0)
                 {
                     ViewData["SuccessMessage"] = "Information has been successfully edited";
+                    return Redirect(returnUrl);
                 }
             }
 
             return View(employee);
-        }
+        }*/
     }
 }
 
