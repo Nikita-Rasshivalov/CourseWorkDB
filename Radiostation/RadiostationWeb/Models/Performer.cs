@@ -2,7 +2,7 @@
 
 namespace RadiostationWeb.Models
 {
-    public partial class Performer
+    public  class Performer
     {
 
         [HiddenInput(DisplayValue = false)]

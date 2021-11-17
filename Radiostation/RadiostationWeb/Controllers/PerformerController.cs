@@ -23,13 +23,13 @@ namespace RadiostationWeb.Controllers
             var pagePerformers = performers.OrderBy(o => o.Id).Skip((page - 1) * pageSize).Take(pageSize);
             PageViewModel pageViewModel = new PageViewModel(performers.Count(), page, pageSize);
             var viewPerformers = pagePerformers.ToList().Join(_dbContext.Groups.ToList(),
-            e => e.Id, t => t.Id,
+            e => e.GroupId, t => t.Id,
             (e, t) => new PerformerViewModel
             {
                 Id = e.Id,
-                Name=e.Name,
-                Surname=e.Surname,
-                GroupName=t.Description
+                Name = e.Name,
+                Surname = e.Surname,
+                GroupName = t.Description
             });
             var pageItemsModel = new PageItemsModel<PerformerViewModel> { Items = viewPerformers, PageModel = pageViewModel };
             return View(pageItemsModel);
@@ -80,7 +80,7 @@ namespace RadiostationWeb.Controllers
             var pagePerformers = performers.ToList().OrderBy(o => o.Id).Skip((page - 1) * pageSize).Take(pageSize);
             PageViewModel pageViewModel = new PageViewModel(performers.Count(), page, pageSize);
             var viewPerformers = pagePerformers.ToList().Join(_dbContext.Groups.ToList(),
-            e => e.Id, t => t.Id,
+            e => e.GroupId, t => t.Id,
             (e, t) => new PerformerViewModel
             {
                 Id = e.Id,
