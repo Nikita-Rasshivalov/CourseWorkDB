@@ -45,12 +45,6 @@ namespace RadiostationWeb.Controllers
                 genres = genres.Where(e => e.Description.Contains(genreNameFilter));
                 HttpContext.Response.Cookies.Append("genreNameFilter", genreNameFilter);
             }
-
-
-            if (genreNameFilter == " ")
-            {
-                genres = _dbContext.Genres;
-            }
             return genres;
         }
 

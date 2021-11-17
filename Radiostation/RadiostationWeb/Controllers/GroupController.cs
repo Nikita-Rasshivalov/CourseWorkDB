@@ -44,12 +44,6 @@ namespace RadiostationWeb.Controllers
                 groups = groups.Where(e => e.Description.Contains(groupFilter));
                 HttpContext.Response.Cookies.Append("groupFilter", groupFilter);
             }
-
-         
-            if (groupFilter == " ")
-            {
-                groups = _dbContext.Groups;
-            }
             return groups;
         }
 

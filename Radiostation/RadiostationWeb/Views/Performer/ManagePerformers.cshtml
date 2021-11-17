@@ -26,6 +26,7 @@
         </form>
     </div>
     <div class="container-item">
+       <div class="crudBtn"><a class="crudLink" asp-controller="Performer" asp-action="Create"> Add performer</a></div>
         @if (@Model?.Items.Count() > 0)
         {
             <table class="table">
@@ -34,7 +35,7 @@
                         <th>Name</th>
                         <th>Surname</th>
                         <th>Group description</th>
-                        <th><div class="manage-button-container"><div class="crudBtn"><a class="crudLink" asp-controller="Performer" asp-action="Create"> Add performer</a></div></div></th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -55,11 +56,12 @@
                     }
                 </tbody>
             </table>
+            <div class="pages-container"><page-link page-model="Model.PageModel" page-action="Performers"></page-link></div>
         }
         else
         {
             <h3>There are no performers</h3>
         }
-        <div class="pages-container"><page-link page-model="Model.PageModel" page-action="Performers"></page-link></div>
+
     </div>
 </div>

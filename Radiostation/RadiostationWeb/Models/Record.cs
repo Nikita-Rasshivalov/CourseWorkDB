@@ -12,7 +12,7 @@ namespace RadiostationWeb.Models
         public DateTime RecordDate { get; set; }
         public int Lasting { get; set; }
         public decimal Rating { get; set; }
-        public string ComposName { get; set; }
+        public string СompositionName { get; set; }
 
     }
 }

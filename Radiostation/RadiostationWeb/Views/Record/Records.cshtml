@@ -36,7 +36,7 @@
 
         @if (User.Identity.IsAuthenticated && User.IsInRole(RoleType.Admin))
         {
-        <div class="crudBtn"><a class="crudLink" asp-action="ManageRecords" asp-controller="Record">Manage</a></div>
+            <div class="crudBtn"><a class="crudLink" asp-action="ManageRecords" asp-controller="Record">Manage</a></div>
         }
         @if (@Model?.Items?.Count() > 0)
         {
@@ -57,7 +57,7 @@
                     @foreach (var record in Model.Items)
                     {
                         <tr>
-                            <td>@record.ComposName</td>
+                            <td>@record.СompositionName</td>
                             <td>@record.Album</td>
                             <td>@record.GenreName</td>
                             <td>@record.PerformerName</td>
@@ -68,12 +68,13 @@
                     }
                 </tbody>
             </table>
+            <div class="pages-container"><page-link page-model="Model.PageModel" page-action="Records"></page-link></div>
         }
         else
         {
             <h3>There are no record</h3>
         }
-        <div class="pages-container"><page-link page-model="Model.PageModel" page-action="Records"></page-link></div>
+
     </div>
 </div>
 

@@ -33,7 +33,7 @@ namespace RadiostationWeb.Controllers
                 RecordDate = (e.RecordDate),
                 Lasting = e.Lasting,
                 Rating = e.Rating,
-                ComposName = e.ComposName
+                СompositionName = e.СompositionName
             }).Join(_dbContext.Genres.ToList(), e => e.GenreId, t => t.Id,
             (e, t) => new RecordViewModel
             {
@@ -44,7 +44,7 @@ namespace RadiostationWeb.Controllers
                 RecordDate = e.RecordDate,
                 Lasting = e.Lasting,
                 Rating = e.Rating,
-                ComposName = e.ComposName
+                СompositionName = e.СompositionName
             }
             );
             var pageItemsModel = new PageItemsModel<RecordViewModel> { Items = viewRecords, PageModel = pageViewModel };
@@ -72,7 +72,7 @@ namespace RadiostationWeb.Controllers
             nameFilter = nameFilter ?? HttpContext.Request.Cookies["nameFilter"];
             if (!string.IsNullOrEmpty(nameFilter))
             {
-                records = records.Where(e => e.ComposName.Contains(nameFilter));
+                records = records.Where(e => e.СompositionName.Contains(nameFilter));
                 HttpContext.Response.Cookies.Append("nameFilter", nameFilter);
             }
             int cookiePerformerFilter;
@@ -82,11 +82,6 @@ namespace RadiostationWeb.Controllers
             {
                 records = records.Where(e => e.PerformerId == performerFilter);
                 HttpContext.Response.Cookies.Append("performerFilter", performerFilter.ToString());
-            }
-
-            if(performerFilter==0 && nameFilter == " ")
-            {
-                records = _dbContext.Records;
             }
             return records;
         }
@@ -110,7 +105,7 @@ namespace RadiostationWeb.Controllers
                 RecordDate = (e.RecordDate),
                 Lasting = e.Lasting,
                 Rating = e.Rating,
-                ComposName = e.ComposName
+                СompositionName = e.СompositionName
             }).Join(_dbContext.Genres.ToList(), e => e.GenreId, t => t.Id,
             (e, t) => new RecordViewModel
             {
@@ -121,7 +116,7 @@ namespace RadiostationWeb.Controllers
                 RecordDate = e.RecordDate,
                 Lasting = e.Lasting,
                 Rating = e.Rating,
-                ComposName = e.ComposName
+                СompositionName = e.СompositionName
             }
             );
             var pageItemsModel = new PageItemsModel<RecordViewModel> { Items = viewRecords, PageModel = pageViewModel };

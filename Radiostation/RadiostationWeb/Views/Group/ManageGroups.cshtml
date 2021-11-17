@@ -5,13 +5,14 @@
         <h1 class="title">Groups management</h1>
     </div>
     <div class="container-item">
+     <div class="crudBtn"><a class="crudLink" asp-controller="Group" asp-action="Create"> Add group</a></div>
         @if (@Model?.Items.Count() > 0)
         {
             <table class="table">
                 <thead>
                     <tr>
                         <th>Discription</th>
-                        <th><div class="manage-button-container"><div class="crudBtn"><a class="crudLink" asp-controller="Group" asp-action="Create"> Add group</a></div></div></th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -31,11 +32,12 @@
                     }
                 </tbody>
             </table>
+            <div class="pages-container"><page-link page-model="Model.PageModel" page-action="Groups"></page-link></div>
         }
         else
         {
             <h3>There are no group</h3>
         }
-        <div class="pages-container"><page-link page-model="Model.PageModel" page-action="Groups"></page-link></div>
+
     </div>
 </div>

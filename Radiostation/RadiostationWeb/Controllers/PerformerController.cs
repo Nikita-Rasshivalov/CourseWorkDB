@@ -16,7 +16,7 @@ namespace RadiostationWeb.Controllers
         }
 
         [Authorize]
-        public ActionResult Performers(string nameFilter,string surnameFilter, int page = 1)
+        public ActionResult Performers(string nameFilter, string surnameFilter, int page = 1)
         {
             var pageSize = 20;
             var performers = FilterPerformers(nameFilter, surnameFilter);
@@ -27,13 +27,14 @@ namespace RadiostationWeb.Controllers
             (e, t) => new PerformerViewModel
             {
                 Id = e.Id,
-                Name = e.Name,
-                Surname = e.Surname,
-                GroupName = t.Description
+                Name=e.Name,
+                Surname=e.Surname,
+                GroupName=t.Description
             });
             var pageItemsModel = new PageItemsModel<PerformerViewModel> { Items = viewPerformers, PageModel = pageViewModel };
             return View(pageItemsModel);
         }
+
 
         public IActionResult ResetFilter()
         {
@@ -49,6 +50,7 @@ namespace RadiostationWeb.Controllers
             HttpContext.Response.Cookies.Delete("surnameFilter");
             return RedirectToAction(nameof(ManagePerformers));
         }
+
         private IQueryable<Performer> FilterPerformers(string nameFilter, string surnameFilter)
         {
             IQueryable<Performer> performers = _dbContext.Performers;
@@ -66,12 +68,9 @@ namespace RadiostationWeb.Controllers
                 HttpContext.Response.Cookies.Append("surnameFilter", surnameFilter);
             }
 
-            if (nameFilter == " " && surnameFilter == " ")
-            {
-                performers = _dbContext.Performers;
-            }
             return performers;
         }
+
 
         [Authorize(Roles = "Admin")]
         public ActionResult ManagePerformers(string nameFilter, string surnameFilter, int page = 1)

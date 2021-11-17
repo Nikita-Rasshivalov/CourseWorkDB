@@ -33,6 +33,7 @@
         </form>
     </div>
     <div class="container-item">
+        <div class="crudBtn"><a class="crudLink" asp-controller="Record" asp-action="Create"> Add record</a></div>
         @if (@Model?.Items.Count() > 0)
         {
             <table class="table">
@@ -45,7 +46,7 @@
                         <th>Lasting</th>
                         <th>Rating</th>
                         <th>Record date</th>
-                        <th><div class="manage-button-container"><div class="crudBtn"><a class="crudLink" asp-controller="Record" asp-action="Create"> Add record</a></div></div></th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -53,7 +54,7 @@
                     @foreach (var records in @Model.Items)
                     {
                         <tr>
-                            <td>@records.ComposName</td>
+                            <td>@records.СompositionName</td>
                             <td>@records.Album</td>
                             <td>@records.GenreName</td>
                             <td>@records.PerformerName</td>
@@ -70,11 +71,12 @@
                     }
                 </tbody>
             </table>
+            <div class="pages-container"><page-link page-model="Model.PageModel" page-action="Records"></page-link></div>
         }
         else
         {
             <h3>There are no records</h3>
         }
-        <div class="pages-container"><page-link page-model="Model.PageModel" page-action="Records"></page-link></div>
+
     </div>
 </div>

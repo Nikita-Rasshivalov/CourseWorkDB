@@ -8,7 +8,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using RadiostationWeb.Data;
-using RadiostationWeb.Middleware;
 
 namespace RadiostationWeb
 {
@@ -59,7 +58,6 @@ namespace RadiostationWeb
             }
 
             app.UseSession();
-            app.UseDbInitializer();
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
