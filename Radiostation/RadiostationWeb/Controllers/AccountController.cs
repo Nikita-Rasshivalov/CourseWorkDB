@@ -12,13 +12,13 @@ namespace RadiostationWeb.Controllers
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
-
+        private readonly BDLab1Context _dbContext;
         public AccountController(UserManager<ApplicationUser> userManager,
-        SignInManager<ApplicationUser> signInManager)
+        SignInManager<ApplicationUser> signInManager, BDLab1Context dbContext)
         {
-
             _userManager = userManager;
             _signInManager = signInManager;
+            _dbContext = dbContext;
         }
 
         public ActionResult Login(string returnUrl = "/")
@@ -113,6 +113,11 @@ namespace RadiostationWeb.Controllers
             if (user != null && roleName != null)
             {
                 await _userManager.AddToRoleAsync(user, roleName);
+                if (roleName.Equals("Employee"))
+                {
+                    _dbContext.Employees.Add(new Employee { AspNetUserId = userId });
+                    _dbContext.SaveChanges();
+                }
             }
             return RedirectToAction("ManageUsers");
         }
@@ -124,9 +129,15 @@ namespace RadiostationWeb.Controllers
             if (currentUserId != userId || roleName != "Admin")
             {
                 var user = await _userManager.FindByIdAsync(userId);
+                var employee = _dbContext.Employees.FirstOrDefault(o => o.AspNetUserId.Equals(userId));
                 if (user != null && roleName != null)
                 {
                     await _userManager.RemoveFromRoleAsync(user, roleName);
+                    if (roleName.Equals("Employee"))
+                    {
+                        _dbContext.Employees.Remove(employee);
+                        _dbContext.SaveChanges();
+                    }
                 }
             }
             return RedirectToAction("ManageUsers");
