@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using RadiostationWeb.Data;
 using RadiostationWeb.Models;
@@ -35,6 +34,8 @@ namespace RadiostationWeb.Controllers
                     Name = t.Name,
                     Surname = t.Surname,
                     MiddleName = t.MiddleName,
+                    Username = t.UserName,
+                    Email=t.Email
                 });
             var pageItemsModel = new PageItemsModel<EmployeeViewModel> { Items = viewEmployees, PageModel = pageViewModel };
             return View(pageItemsModel);

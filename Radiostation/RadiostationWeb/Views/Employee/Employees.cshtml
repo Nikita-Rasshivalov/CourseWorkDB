@@ -7,6 +7,8 @@
             <table class="table">
                 <thead>
                     <tr>
+                        <th>Username</th>
+                        <th>Email</th>
                         <th>Name</th>
                         <th>Surname</th>
                         <th>Middle Name</th>
@@ -17,11 +19,13 @@
 
                     @foreach (var empl in @Model.Items)
                     {
-                        <tr>
-                            <td>@empl.Name</td>
-                            <td>@empl.Surname</td>
-                            <td>@empl.MiddleName</td>
-                        </tr>
+                    <tr>
+                        <td>@empl.Username</td>
+                        <td>@empl.Email</td>
+                        <td>@empl.Name</td>
+                        <td>@empl.Surname</td>
+                        <td>@empl.MiddleName</td>
+                    </tr>
                     }
                 </tbody>
             </table>

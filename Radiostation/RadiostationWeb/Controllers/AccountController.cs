@@ -187,9 +187,15 @@ namespace RadiostationWeb.Controllers
                     MiddleName=registrationModel.MiddleName
                 };
                 var creatingReuslt = await _userManager.CreateAsync(user, registrationModel.Password);
+
                 if (creatingReuslt.Succeeded)
                 {
                     await _userManager.AddToRoleAsync(user, userRole);
+                    if (userRole.Equals("Employee"))
+                    {
+                        _dbContext.Employees.Add(new Employee { AspNetUserId = user.Id });
+                        _dbContext.SaveChanges();
+                    }
                     return RedirectToAction("ManageUsers");
                 }
             }
