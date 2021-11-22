@@ -27,7 +27,7 @@
     </div>
 
     <div class="container-item">
-        @if (User.Identity.IsAuthenticated && User.IsInRole(RoleType.Admin))
+        @if (User.IsInRole(RoleType.Admin) || User.IsInRole(RoleType.Employeе))
         {
             <div class="crudBtn"><a class="crudLink" asp-action="ManagePerformers" asp-controller="Performer">Manage</a></div>
         }

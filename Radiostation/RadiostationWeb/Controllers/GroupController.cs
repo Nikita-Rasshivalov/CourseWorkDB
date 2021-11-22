@@ -47,7 +47,7 @@ namespace RadiostationWeb.Controllers
             return groups;
         }
 
-        [Authorize(Roles = "Admin")]
+        [AuthorizeRoles(RoleType.Admin, RoleType.Employeе)]
         public ActionResult ManageGroups(int page = 1)
         {
             IQueryable<Group> groups = _dbContext.Groups;
@@ -59,7 +59,7 @@ namespace RadiostationWeb.Controllers
             return View(pageItemsModel);
         }
 
-        [Authorize(Roles = "Admin")]
+        [AuthorizeRoles(RoleType.Admin, RoleType.Employeе)]
         public ActionResult Delete(int id)
         {
             var group = _dbContext.Groups.Find(id);
@@ -85,13 +85,13 @@ namespace RadiostationWeb.Controllers
             return RedirectToAction("ManageGroups");
         }
 
-        [Authorize(Roles = "Admin")]
+        [AuthorizeRoles(RoleType.Admin, RoleType.Employeе)]
         public ActionResult Create()
         {
             return View(new Group());
         }
 
-        [Authorize(Roles = "Admin")]
+        [AuthorizeRoles(RoleType.Admin, RoleType.Employeе)]
         [HttpPost]
         public ActionResult Create(Group group)
         {
@@ -105,7 +105,7 @@ namespace RadiostationWeb.Controllers
             return View(group);
         }
 
-        [Authorize(Roles = "Admin")]
+        [AuthorizeRoles(RoleType.Admin, RoleType.Employeе)]
         public ActionResult Edit(int id)
         {
             var group = _dbContext.Groups.Find(id);
@@ -120,7 +120,7 @@ namespace RadiostationWeb.Controllers
             }
         }
 
-        [Authorize(Roles = "Admin")]
+        [AuthorizeRoles(RoleType.Admin, RoleType.Employeе)]
         [HttpPost]
         public ActionResult Edit(Group group)
         {

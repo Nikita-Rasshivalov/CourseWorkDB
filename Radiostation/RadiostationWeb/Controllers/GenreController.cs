@@ -48,7 +48,7 @@ namespace RadiostationWeb.Controllers
             return genres;
         }
 
-        [Authorize(Roles = "Admin")]
+        [AuthorizeRoles(RoleType.Admin,RoleType.Employeе)]
         public ActionResult ManageGenres(int page = 1)
         {
             IQueryable<Genre> genres = _dbContext.Genres;
@@ -60,7 +60,7 @@ namespace RadiostationWeb.Controllers
             return View(pageItemsModel);
         }
 
-        [Authorize(Roles = "Admin")]
+        [AuthorizeRoles(RoleType.Admin, RoleType.Employeе)]
         public ActionResult Delete(int id)
         {
             var genre = _dbContext.Genres.Find(id);
@@ -86,13 +86,13 @@ namespace RadiostationWeb.Controllers
             return RedirectToAction("ManageGenres");
         }
 
-        [Authorize(Roles = "Admin")]
+        [AuthorizeRoles(RoleType.Admin, RoleType.Employeе)]
         public ActionResult Create()
         {
             return View(new Genre());
         }
 
-        [Authorize(Roles = "Admin")]
+        [AuthorizeRoles(RoleType.Admin, RoleType.Employeе)]
         [HttpPost]
         public ActionResult Create(Genre genre)
         {
@@ -105,8 +105,7 @@ namespace RadiostationWeb.Controllers
 
             return View(genre);
         }
-
-        [Authorize(Roles = "Admin")]
+        [AuthorizeRoles(RoleType.Admin, RoleType.Employeе)]
         public ActionResult Edit(int id)
         {
             var genre = _dbContext.Genres.Find(id);
@@ -121,7 +120,7 @@ namespace RadiostationWeb.Controllers
             }
         }
 
-        [Authorize(Roles = "Admin")]
+        [AuthorizeRoles(RoleType.Admin, RoleType.Employeе)]
         [HttpPost]
         public ActionResult Edit(Genre genre)
         {

@@ -72,7 +72,7 @@ namespace RadiostationWeb.Controllers
         }
 
 
-        [Authorize(Roles = "Admin")]
+        [AuthorizeRoles(RoleType.Admin,RoleType.Employeе)]
         public ActionResult ManagePerformers(string nameFilter, string surnameFilter, int page = 1)
         {
             var performers = FilterPerformers(nameFilter, surnameFilter);
@@ -92,7 +92,7 @@ namespace RadiostationWeb.Controllers
             return View(pageItemsModel);
         }
 
-        [Authorize(Roles = "Admin")]
+        [AuthorizeRoles(RoleType.Admin,RoleType.Employeе)]
         public ActionResult Delete(int id)
         {
             var performer = _dbContext.Performers.Find(id);
@@ -118,13 +118,13 @@ namespace RadiostationWeb.Controllers
             return RedirectToAction("ManagePerformers");
         }
 
-        [Authorize(Roles = "Admin")]
+        [AuthorizeRoles(RoleType.Admin,RoleType.Employeе)]
         public ActionResult Create()
         {
             return View(new Performer());
         }
 
-        [Authorize(Roles = "Admin")]
+        [AuthorizeRoles(RoleType.Admin,RoleType.Employeе)]
         [HttpPost]
         public ActionResult Create(Performer performer)
         {
@@ -138,7 +138,7 @@ namespace RadiostationWeb.Controllers
             return View(performer);
         }
 
-        [Authorize(Roles = "Admin")]
+        [AuthorizeRoles(RoleType.Admin,RoleType.Employeе)]
         public ActionResult Edit(int id)
         {
             var performer = _dbContext.Performers.Find(id);
@@ -153,7 +153,7 @@ namespace RadiostationWeb.Controllers
             }
         }
 
-        [Authorize(Roles = "Admin")]
+        [AuthorizeRoles(RoleType.Admin,RoleType.Employeе)]
         [HttpPost]
         public ActionResult Edit(Performer performer)
         {

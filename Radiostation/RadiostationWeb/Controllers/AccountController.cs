@@ -63,7 +63,7 @@ namespace RadiostationWeb.Controllers
             return Redirect(returnUrl);
         }
 
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = RoleType.Admin)]
         public ActionResult ManageUsers(string nameFilter, string surnameFilter, int page = 1)
         {
             var pageSize = 20;
@@ -106,14 +106,14 @@ namespace RadiostationWeb.Controllers
             return RedirectToAction(nameof(ManageUsers));
         }
 
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = RoleType.Admin)]
         public async Task<ActionResult> AddRole(string userId, string roleName)
         {
             var user = await _userManager.FindByIdAsync(userId);
             if (user != null && roleName != null)
             {
                 await _userManager.AddToRoleAsync(user, roleName);
-                if (roleName.Equals("Employee"))
+                if (roleName.Equals(RoleType.Employeе))
                 {
                     _dbContext.Employees.Add(new Employee { AspNetUserId = userId });
                     _dbContext.SaveChanges();
@@ -122,18 +122,18 @@ namespace RadiostationWeb.Controllers
             return RedirectToAction("ManageUsers");
         }
 
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = RoleType.Admin)]
         public async Task<ActionResult> DeleteRole(string userId, string roleName)
         {
             var currentUserId = _userManager.GetUserId(User);
-            if (currentUserId != userId || roleName != "Admin")
+            if (currentUserId != userId || roleName != RoleType.Admin)
             {
                 var user = await _userManager.FindByIdAsync(userId);
                 var employee = _dbContext.Employees.FirstOrDefault(o => o.AspNetUserId.Equals(userId));
                 if (user != null && roleName != null)
                 {
                     await _userManager.RemoveFromRoleAsync(user, roleName);
-                    if (roleName.Equals("Employee"))
+                    if (roleName.Equals(RoleType.Employeе))
                     {
                         _dbContext.Employees.Remove(employee);
                         _dbContext.SaveChanges();
@@ -143,7 +143,7 @@ namespace RadiostationWeb.Controllers
             return RedirectToAction("ManageUsers");
         }
 
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = RoleType.Admin)]
         public async Task<ActionResult> Delete(string userId)
         {
             var currentUserId = _userManager.GetUserId(User);
@@ -156,15 +156,15 @@ namespace RadiostationWeb.Controllers
             return RedirectToAction("ManageUsers");
         }
 
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = RoleType.Admin)]
         public ActionResult Create()
         {
             return View(new RegistrationViewModel());
         }
 
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = RoleType.Admin)]
         [HttpPost]
-        public async Task<ActionResult> Create(RegistrationViewModel registrationModel, string userRole = "User")
+        public async Task<ActionResult> Create(RegistrationViewModel registrationModel, string userRole = RoleType.User)
         {
             if (await _userManager.FindByNameAsync(registrationModel.Username) != null)
             {
@@ -191,7 +191,7 @@ namespace RadiostationWeb.Controllers
                 if (creatingReuslt.Succeeded)
                 {
                     await _userManager.AddToRoleAsync(user, userRole);
-                    if (userRole.Equals("Employee"))
+                    if (userRole.Equals(RoleType.Employeе))
                     {
                         _dbContext.Employees.Add(new Employee { AspNetUserId = user.Id });
                         _dbContext.SaveChanges();
@@ -203,7 +203,7 @@ namespace RadiostationWeb.Controllers
             return View(registrationModel);
         }
 
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = RoleType.Admin)]
         public async Task<ActionResult> Edit(string userId)
         {
             var user = await _userManager.FindByIdAsync(userId);
@@ -217,7 +217,7 @@ namespace RadiostationWeb.Controllers
             }
         }
 
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = RoleType.Admin)]
         [HttpPost]
         public async Task<ActionResult> Edit(ApplicationUser user)
         {
@@ -284,7 +284,7 @@ namespace RadiostationWeb.Controllers
                 var creatingReuslt = await _userManager.CreateAsync(user, registrationModel.Password);
                 if (creatingReuslt.Succeeded)
                 {
-                    await _userManager.AddToRoleAsync(user, "User");
+                    await _userManager.AddToRoleAsync(user, RoleType.User);
                     await _signInManager.PasswordSignInAsync(user, registrationModel.Password, false, false);
                     return RedirectToAction("Index", "Home");
                 }

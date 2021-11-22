@@ -3,7 +3,7 @@
 <div class="all-container">
     <div class="container-item">
         <h1 class="title">Genres</h1>
-        @if (User.Identity.IsAuthenticated && User.IsInRole(RoleType.Admin))
+        @if (User.IsInRole(RoleType.Admin) || User.IsInRole(RoleType.Employeе))
         {
             <div class="crudBtn"><a class="crudLink" asp-action="ManageGenres" asp-controller="Genre">Manage</a></div>
         }
