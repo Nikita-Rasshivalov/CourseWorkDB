@@ -1,4 +1,8 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using RadiostationWeb.Data;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace RadiostationWeb.Models
 {
@@ -14,6 +18,8 @@ namespace RadiostationWeb.Models
         public int Lasting { get; set; }
         public decimal Rating { get; set; }
         public string СompositionName { get; set; }
+
+        public IEnumerable<SelectListItem> PerformerSelectItems { get; set; }
 
     }
 }

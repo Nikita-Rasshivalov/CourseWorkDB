@@ -4,12 +4,15 @@
 @addTagHelper *, RadiostationWeb
 @inject UserManager<RadiostationWeb.Data.ApplicationUser> UserManager
 @{
+    
+        ViewData["Title"] = "Manage users";
+    
     var currentNameFilter = (string)Context.Request.Query["nameFilter"] ?? Context.Request.Cookies["nameFilter"];
     var currentSurnameFilter = (string)Context.Request.Query["surnameFilter"] ?? Context.Request.Cookies["surnameFilter"];
 
 }
 <link href="~/css/site.css" rel="stylesheet">
-<div class="all-container">
+<div class="main-container">
     <div class="formContainer">
         <h1 class="title">Users managment</h1>
         <form asp-action="ManageUsers" asp-controller="Account" method="get" class="form">

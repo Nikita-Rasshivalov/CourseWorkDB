@@ -1,11 +1,12 @@
 ﻿@model PageItemsModel<PerformerViewModel>
 @addTagHelper *, RadiostationWeb
 @{
+    ViewData["Title"] = "Performers";
     var currentNameFilter = (string)Context.Request.Query["nameFilter"] ?? Context.Request.Cookies["nameFilter"];
     var currentSurnameFilter = (string)Context.Request.Query["surnameFilter"] ?? Context.Request.Cookies["surnameFilter"];
 
 }
-<div class="all-container">
+<div class="main-container">
     <div class="formContainer">
         <h1 class="title">Performers</h1>
         <form asp-action="Performers" asp-controller="Performer" method="get" class="form">

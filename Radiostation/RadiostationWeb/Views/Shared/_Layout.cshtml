@@ -4,9 +4,10 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - RadiostationWeb</title>
-    <script src="~/js/materialize.js"></script>
     <link rel="stylesheet" href="~/css/materialize.css" />
     <link rel="stylesheet" href="~/css/site.css" />
+    <link href="~/css/select2.css" rel="stylesheet" />
+
 </head>
 <body>
     <header>
@@ -71,7 +72,10 @@
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/materialize.js"></script>
+    <script src="~/js/select2.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+
     @RenderSection("Scripts", required: false)
 </body>
 </html>

@@ -2,27 +2,29 @@
 @addTagHelper *, RadiostationWeb
 @inject RadiostationWeb.Data.BDLab1Context context;
 @{
+    ViewData["Title"] = "Records";
     var performers = context.Performers.Select(c => new SelectListItem { Value = c.Id.ToString(), Text = c.Name })
-        .ToList();
+.ToList();
     var currentNameFilter = (string)Context.Request.Query["nameFilter"] ?? Context.Request.Cookies["nameFilter"];
     var currentPerformerFilter = (string)Context.Request.Query["performerFilter"] ?? Context.Request.Cookies["performerFilter"];
     var selectedItem = performers.FirstOrDefault(t => t.Value == currentPerformerFilter);
     if (selectedItem != null)
         selectedItem.Selected = true;
 }
-<div class="all-container">
+
+<div class="main-container">
     <div class="formContainer">
         <h1 class="title">Records</h1>
         <form asp-action="Records" asp-controller="Record" method="get" class="form">
             <div class="wrapper-items">
                 <div class="items">
-                    <div>Name filter</div>
+                    <div>Composition name filter</div>
                     <input class="inputStyle" name="nameFilter" type="text" value="@currentNameFilter" />
                 </div>
                 <div class="items">
                     <div>Performer filter</div>
                     <select class="select-items" name="performerFilter" asp-items="performers">
-                        <option value="0"></option>
+                        <option value="" disabled selected>Select Performer</option>
                     </select>
                 </div>
             </div>

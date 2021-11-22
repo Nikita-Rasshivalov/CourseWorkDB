@@ -1,5 +1,8 @@
 ﻿@model Group
-<div class="all-container">
+@{
+    ViewData["Title"] = "Create group";
+ }
+<div class="main-container">
     <div class="formContainer">
         <h1 class="title">Add Group</h1>
         <form asp-action="Create" asp-controller="Group" method="post" class="form">

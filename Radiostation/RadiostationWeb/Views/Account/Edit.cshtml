@@ -1,11 +1,14 @@
-﻿@model RadiostationWeb.Data.ApplicationUser 
+﻿@model RadiostationWeb.Data.ApplicationUser
 @using Microsoft.AspNetCore.Identity;
 @inject RoleManager<IdentityRole> RoleManager
 @{
+    
+        ViewData["Title"] = "Edit account";
+    
     var roles = RoleManager.Roles.Select(c => new SelectListItem { Value = c.Name, Text = c.Name })
         .ToList();
 }
-<div class="all-container">
+<div class="main-container">
     <div class="header-item">
         <h1 class="title">Edit user</h1>
         <form asp-action="Edit" asp-controller="Account" method="post" class="form">

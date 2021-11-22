@@ -2597,8 +2597,9 @@ textarea {
 }
 
 ul:not(.browser-default) {
-  padding-left: 0;
-  list-style-type: none;
+    padding-left: 0;
+    list-style-type: none;
+    padding-bottom: 5px;
 }
 
 ul:not(.browser-default) > li {
@@ -2873,7 +2874,7 @@ ul.staggered-list li {
 
 @media only screen and (max-width: 992px) {
   .hide-on-med-and-down {
-    display: none !important;
+    display: block !important;
   }
 }
 
@@ -7138,7 +7139,7 @@ input[type=checkbox]:not(:disabled).tabbed:focus ~ .lever::before {
 /* Select Field
    ========================================================================== */
 select {
-  display: none;
+  display: block;
 }
 
 select.browser-default {

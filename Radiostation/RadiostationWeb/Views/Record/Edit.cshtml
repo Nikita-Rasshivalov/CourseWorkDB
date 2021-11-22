@@ -1,14 +1,15 @@
 ﻿@model Record
 @inject RadiostationWeb.Data.BDLab1Context context;
 @{
+    ViewData["Title"] = "Edit records";
     var performers = context.Performers.Select(c => new SelectListItem { Value = c.Id.ToString(), Text = c.Name })
-        .ToList();
+.ToList();
 
     var genres = context.Genres.Select(c => new SelectListItem { Value = c.Id.ToString(), Text = c.GenreName })
     .ToList();
 }
 
-<div class="all-container">
+<div class="main-container">
     <div class="formContainer">
         <h1 class="title">Edit records</h1>
         <form asp-action="Edit" asp-controller="Record" method="post" class="form">
@@ -17,10 +18,12 @@
             <input class="inputStyle" asp-for="@Model.СompositionName" type="text" placeholder="Composition name">
             <label>Album</label>
             <input class="inputStyle" asp-for="@Model.Album" type="text" placeholder="Album">
-            <label>Performer</label>
-            <select class="select-items" asp-for="@Model.PerformerId" asp-items="performers"><option value="0"></option></select>
-            <label>Genre</label>
-            <select class="select-items" asp-for="@Model.GenreId" asp-items="genres"><option value="0"></option></select>
+            <div class="select-container">
+                <label>Performer</label>
+                <select class="select-items" asp-for="@Model.PerformerId" asp-items="performers"><option value="" disabled selected>Select Performer</option></select>
+                <label>Genre</label>
+                <select class="select-items" asp-for="@Model.GenreId" asp-items="genres"><option value="" disabled selected>Select Genre</option></select>
+            </div>
             <label>Lasting</label>
             <input class="inputStyle" asp-for="@Model.Lasting" type="number" placeholder="Lasting">
             <label>Rating</label>

@@ -11,6 +11,7 @@ html {
     }
 }
 
+
 .border-top {
     border-top: 1px solid #e5e5e5;
 }
@@ -62,7 +63,7 @@ body {
 
 
 /*Select items*/
-.all-container .info-container .form .select-items {
+.main-container .info-container .form .select-items {
     display: block;
 }
 
@@ -313,4 +314,10 @@ input[type=email]:not(.browser-default), input[type=password]:not(.browser-defau
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
+}
+
+/*Select-items*/
+.select-container{
+    display:flex;
+    flex-direction:column;
 }

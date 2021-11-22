@@ -2,9 +2,12 @@
 @addTagHelper *, RadiostationWeb
 @inject RadiostationWeb.Data.BDLab1Context context;
 @{
+   
+        ViewData["Title"] = "Grous";
+    
     var groupFilter = (string)Context.Request.Query["groupFilter"] ?? Context.Request.Cookies["groupFilter"];
 }
-<div class="all-container">
+<div class="main-container">
     <div class="info-container">
         <div class="formContainer">
             <h1 class="title">Groups</h1>
@@ -51,7 +54,7 @@
                 <h3>There are no Group </h3>
             }
         </div>
-       
+
     </div>
 </div>
 

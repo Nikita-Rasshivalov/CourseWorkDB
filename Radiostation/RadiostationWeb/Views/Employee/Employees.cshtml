@@ -1,6 +1,9 @@
 ﻿@model PageItemsModel<EmployeeViewModel>
 @addTagHelper *, RadiostationWeb
-<div class="all-container">
+@{
+    ViewData["Title"] = "Employees";
+}
+<div class="main-container">
     <div class="container-item">
         @if (@Model?.Items.Count() > 0)
         {
@@ -19,13 +22,13 @@
 
                     @foreach (var empl in @Model.Items)
                     {
-                    <tr>
-                        <td>@empl.Username</td>
-                        <td>@empl.Email</td>
-                        <td>@empl.Name</td>
-                        <td>@empl.Surname</td>
-                        <td>@empl.MiddleName</td>
-                    </tr>
+                        <tr>
+                            <td>@empl.Username</td>
+                            <td>@empl.Email</td>
+                            <td>@empl.Name</td>
+                            <td>@empl.Surname</td>
+                            <td>@empl.MiddleName</td>
+                        </tr>
                     }
                 </tbody>
             </table>
