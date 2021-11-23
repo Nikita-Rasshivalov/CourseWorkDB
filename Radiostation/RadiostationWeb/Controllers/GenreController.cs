@@ -9,8 +9,8 @@ namespace RadiostationWeb.Controllers
 {
     public class GenreController : Controller
     {
-        private readonly BDLab1Context _dbContext;
-        public GenreController(BDLab1Context context)
+        private readonly RadiostationWebDbContext _dbContext;
+        public GenreController(RadiostationWebDbContext context)
         {
             _dbContext = context;
         }

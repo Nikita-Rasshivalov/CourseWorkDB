@@ -9,8 +9,8 @@ namespace RadiostationWeb.Controllers
 {
     public class GroupController : Controller
     {
-        private readonly BDLab1Context _dbContext;
-        public GroupController(BDLab1Context context)
+        private readonly RadiostationWebDbContext _dbContext;
+        public GroupController(RadiostationWebDbContext context)
         {
             _dbContext = context;
         }

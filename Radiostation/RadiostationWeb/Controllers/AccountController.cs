@@ -12,9 +12,9 @@ namespace RadiostationWeb.Controllers
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
-        private readonly BDLab1Context _dbContext;
+        private readonly RadiostationWebDbContext _dbContext;
         public AccountController(UserManager<ApplicationUser> userManager,
-        SignInManager<ApplicationUser> signInManager, BDLab1Context dbContext)
+        SignInManager<ApplicationUser> signInManager, RadiostationWebDbContext dbContext)
         {
             _userManager = userManager;
             _signInManager = signInManager;

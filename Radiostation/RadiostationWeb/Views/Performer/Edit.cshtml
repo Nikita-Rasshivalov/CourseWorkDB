@@ -1,5 +1,5 @@
 ﻿@model Performer
-@inject RadiostationWeb.Data.BDLab1Context context;
+@inject RadiostationWeb.Data.RadiostationWebDbContext context;
 @{
     ViewData["Title"] = "Edit performer";
     var groups = context.Groups.Select(c => new SelectListItem { Value = c.Id.ToString(), Text = c.Description })

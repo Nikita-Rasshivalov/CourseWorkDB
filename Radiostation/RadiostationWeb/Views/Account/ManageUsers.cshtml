@@ -68,14 +68,6 @@
                                     {
                                         <div class="crudBtn"><a class="crudLink" asp-controller="Account" asp-action="AddRole" asp-route-userId="@user.Id" asp-route-roleName="Admin">Add Admin</a></div>
                                     }
-                                    @if (await UserManager.IsInRoleAsync(user, "User"))
-                                    {
-                                        <div class="crudBtn"><a class="crudLink" asp-controller="Account" asp-action="DeleteRole" asp-route-userId="@user.Id" asp-route-roleName="User">Delete User</a></div>
-                                    }
-                                    else
-                                    {
-                                        <div class="crudBtn"><a class="crudLink" asp-controller="Account" asp-action="AddRole" asp-route-userId="@user.Id" asp-route-roleName="User">Add User</a></div>
-                                    }
                                     @if (await UserManager.IsInRoleAsync(user, "Employee"))
                                     {
                                         <div class="crudBtn"><a class="crudLink" asp-controller="Account" asp-action="DeleteRole" asp-route-userId="@user.Id" asp-route-roleName="Employee">Del Employee</a></div>

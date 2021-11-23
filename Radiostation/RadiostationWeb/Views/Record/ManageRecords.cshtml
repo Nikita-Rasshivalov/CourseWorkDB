@@ -1,6 +1,6 @@
 ﻿@model PageItemsModel<RecordViewModel>
 @addTagHelper *, RadiostationWeb
-@inject RadiostationWeb.Data.BDLab1Context context;
+@inject RadiostationWeb.Data.RadiostationWebDbContext context;
 @{
     ViewData["Title"] = "Manage records";
     var performers = context.Performers.Select(c => new SelectListItem { Value = c.Id.ToString(), Text = c.Name })

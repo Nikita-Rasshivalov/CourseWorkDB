@@ -1,5 +1,5 @@
 ﻿@model Record
-@inject RadiostationWeb.Data.BDLab1Context context;
+@inject RadiostationWeb.Data.RadiostationWebDbContext context;
 @{
     var performers = context.Performers.Select(c => new SelectListItem { Value = c.Id.ToString(), Text = c.Name })
         .ToList();

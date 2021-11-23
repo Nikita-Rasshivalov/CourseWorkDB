@@ -39,7 +39,7 @@ namespace RadiostationWeb
                 options.Password.RequireLowercase = true;
             })
             .AddEntityFrameworkStores<ApplicationDbContext>();
-            services.AddDbContext<BDLab1Context>(options =>
+            services.AddDbContext<RadiostationWebDbContext>(options =>
                 options.UseSqlServer(Configuration["ConnectionStrings:RadiostationDb"]));
             services.AddDistributedMemoryCache();
             services.AddSession();

@@ -8,10 +8,10 @@ namespace RadiostationWeb.Controllers
 {
     public class EmployeeController : Controller
     {
-        private readonly BDLab1Context _dbContext;
+        private readonly RadiostationWebDbContext _dbContext;
         private readonly ApplicationDbContext _applicationDbContext;
 
-        public EmployeeController(BDLab1Context context, ApplicationDbContext applicationDbContext)
+        public EmployeeController(RadiostationWebDbContext context, ApplicationDbContext applicationDbContext)
         {
             _dbContext = context;
             _applicationDbContext = applicationDbContext;
