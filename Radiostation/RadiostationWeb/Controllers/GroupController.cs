@@ -82,7 +82,7 @@ namespace RadiostationWeb.Controllers
                     new { message = "Group not found" });
             }
 
-            return RedirectToAction("ManageGroups");
+            return RedirectToAction(nameof(ManageGroups));
         }
 
         [AuthorizeRoles(RoleType.Admin, RoleType.Employeе)]
@@ -99,7 +99,7 @@ namespace RadiostationWeb.Controllers
             {
                 _dbContext.Groups.Add(group);
                 _dbContext.SaveChanges();
-                return RedirectToAction("ManageGroups");
+                return RedirectToAction(nameof(ManageGroups));
             }
 
             return View(group);

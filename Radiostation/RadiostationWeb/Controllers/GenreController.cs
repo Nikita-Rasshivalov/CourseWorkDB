@@ -83,7 +83,7 @@ namespace RadiostationWeb.Controllers
                     new { message = "Genre not found" });
             }
 
-            return RedirectToAction("ManageGenres");
+            return RedirectToAction(nameof(ManageGenres));
         }
 
         [AuthorizeRoles(RoleType.Admin, RoleType.Employeе)]
@@ -100,7 +100,7 @@ namespace RadiostationWeb.Controllers
             {
                 _dbContext.Genres.Add(genre);
                 _dbContext.SaveChanges();
-                return RedirectToAction("ManageGenres");
+                return RedirectToAction(nameof(ManageGenres));
             }
 
             return View(genre);

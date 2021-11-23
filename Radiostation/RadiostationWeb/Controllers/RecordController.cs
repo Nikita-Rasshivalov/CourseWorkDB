@@ -146,7 +146,7 @@ namespace RadiostationWeb.Controllers
                     new { message = "Record not found" });
             }
 
-            return RedirectToAction("ManageRecords");
+            return RedirectToAction(nameof(ManageRecords));
         }
 
         [AuthorizeRoles(RoleType.Admin,RoleType.Employeе)]
@@ -163,7 +163,7 @@ namespace RadiostationWeb.Controllers
             {
                 _dbContext.Records.Add(record);
                 _dbContext.SaveChanges();
-                return RedirectToAction("ManageRecords");
+                return RedirectToAction(nameof(ManageRecords));
             }
 
             return View(record);

@@ -171,7 +171,8 @@ input[type=button], input[type=submit], input[type=reset] {
 
 input[type=text]:not(.browser-default), input[type=password], input[type=email],
 input[type=number]:not(.browser-default), input[type=date]:not(.browser-default),
-input[type=email]:not(.browser-default), input[type=password]:not(.browser-default) {
+input[type=email]:not(.browser-default), input[type=password]:not(.browser-default), 
+input[type=datetime-local]:not(.browser-default) {
     background-color: #f6f6f6;
     border: none;
     color: #0d0d0d;

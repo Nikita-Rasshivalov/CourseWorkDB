@@ -10,7 +10,7 @@
     <div class="container-item">
         @if (User.IsInRole(RoleType.Admin) || User.IsInRole(RoleType.Employeе))
         {
-            <div class="crudBtn"><a class="crudLink" asp-action="ManageRecords" asp-controller="Record">Manage</a></div>
+            <div class="crudBtn"><a class="crudLink" asp-action="ManageBroadcasts" asp-controller="Broadcast">Manage</a></div>
         }
         @if (@Model?.Items?.Count() > 0)
         {
@@ -37,12 +37,12 @@
                     }
                 </tbody>
             </table>
-            <div class="pages-container"><page-link page-model="Model.PageModel" page-action="Records"></page-link></div>
+            <div class="pages-container"><page-link page-model="Model.PageModel" page-action="Broadcasts"></page-link></div>
 
         }
         else
         {
-            <h3>There are no record</h3>
+            <h3>There are no broadcasts</h3>
         }
 
     </div>

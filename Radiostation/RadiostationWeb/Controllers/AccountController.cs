@@ -119,7 +119,7 @@ namespace RadiostationWeb.Controllers
                     _dbContext.SaveChanges();
                 }
             }
-            return RedirectToAction("ManageUsers");
+            return RedirectToAction(nameof(ManageUsers));
         }
 
         [Authorize(Roles = RoleType.Admin)]
@@ -140,7 +140,7 @@ namespace RadiostationWeb.Controllers
                     }
                 }
             }
-            return RedirectToAction("ManageUsers");
+            return RedirectToAction(nameof(ManageUsers));
         }
 
         [Authorize(Roles = RoleType.Admin)]
@@ -153,7 +153,7 @@ namespace RadiostationWeb.Controllers
                 await _userManager.DeleteAsync(user);
             }
 
-            return RedirectToAction("ManageUsers");
+            return RedirectToAction(nameof(ManageUsers));
         }
 
         [Authorize(Roles = RoleType.Admin)]
@@ -196,7 +196,7 @@ namespace RadiostationWeb.Controllers
                         _dbContext.Employees.Add(new Employee { AspNetUserId = user.Id });
                         _dbContext.SaveChanges();
                     }
-                    return RedirectToAction("ManageUsers");
+                    return RedirectToAction(nameof(ManageUsers));
                 }
             }
 
@@ -246,7 +246,7 @@ namespace RadiostationWeb.Controllers
                 ViewData["SuccessMessage"] = "Successfully edited";
             }
 
-            return RedirectToAction("ManageUsers");
+            return RedirectToAction(nameof(ManageUsers));
         }
 
         public ActionResult Registration(string returnUrl="/")

@@ -115,7 +115,7 @@ namespace RadiostationWeb.Controllers
                     new { message = "Performer not found" });
             }
 
-            return RedirectToAction("ManagePerformers");
+            return RedirectToAction(nameof(ManagePerformers));
         }
 
         [AuthorizeRoles(RoleType.Admin,RoleType.Employeе)]
@@ -132,7 +132,7 @@ namespace RadiostationWeb.Controllers
             {
                 _dbContext.Performers.Add(performer);
                 _dbContext.SaveChanges();
-                return RedirectToAction("ManagePerformers");
+                return RedirectToAction(nameof(ManagePerformers));
             }
 
             return View(performer);
