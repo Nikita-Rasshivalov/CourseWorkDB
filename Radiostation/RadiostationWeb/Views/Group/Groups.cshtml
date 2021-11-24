@@ -13,14 +13,15 @@
             <h1 class="title">Groups</h1>
             <form asp-action="Groups" asp-controller="Group" method="get" class="form">
                 <div class="wrapper-items">
-                    <div class="items">
+                    <div class="items group-item">
                         <div>Name filter</div>
                         <input class="inputStyle" name="groupFilter" type="text" value="@groupFilter" />
                     </div>
-                </div>
-                <div class="formButtons">
-                    <input type="submit" class="addRecordbtn" value="Find">
-                    <div class="crudBtn reset"><a class="crudLink" asp-controller="Group" asp-action="ResetFilter"> Reset</a></div>
+
+                    <div class="formButtons">
+                        <input type="submit" class="addRecordbtn" value="Find">
+                        <div class="crudBtn reset"><a class="crudLink" asp-controller="Group" asp-action="ResetFilter"> Reset</a></div>
+                    </div>
                 </div>
             </form>
         </div>

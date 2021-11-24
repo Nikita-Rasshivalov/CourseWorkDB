@@ -305,6 +305,13 @@ input[type=datetime-local]:not(.browser-default) {
     align-items: center;
 }
 
+.wrapper-items .items.group-item {
+    display: flex;
+    flex-direction: row;
+    align-items: center; 
+
+}
+
 .header-item {
     display: flex;
     flex-direction: column;
