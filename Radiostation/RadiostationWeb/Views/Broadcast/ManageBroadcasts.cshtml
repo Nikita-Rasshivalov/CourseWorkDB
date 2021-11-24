@@ -2,12 +2,13 @@
 @addTagHelper *, RadiostationWeb
 @inject RadiostationWeb.Data.RadiostationWebDbContext context;
 @{
-    ViewData["Title"] = "Records";
+    ViewData["Title"] = "Broadcasts";
 }
 
 
 <div class="main-container">
     <div class="container-item">
+        <h2 class="title">Broadcasts</h2>
         <div class="crudBtn"><a class="crudLink" asp-controller="Broadcast" asp-action="Create"> Add broadcast</a></div>
         @if (@Model?.Items?.Count() > 0)
         {
@@ -25,20 +26,20 @@
 
                     @foreach (var broadcast in Model.Items)
                     {
-                    <tr>
-                        <td>@broadcast.EmployeeName</td>
-                        <td>@broadcast.EmployeeSurname</td>
-                        <td>@broadcast.DateAndTime</td>
-                        <td>@broadcast.RecordName</td>
+                        <tr>
+                            <td>@broadcast.EmployeeName</td>
+                            <td>@broadcast.EmployeeSurname</td>
+                            <td>@broadcast.DateAndTime</td>
+                            <td>@broadcast.RecordName</td>
 
-                        <td>
-                            <div class="manage-button-container">
-                                <div class="crudBtn"><a class="crudLink" asp-controller="Broadcast" asp-action="Edit" asp-route-id="@broadcast.Id">Edit</a></div>
-                                <div class="crudBtn"><a class="crudLink" asp-controller="Broadcast" asp-action="Delete" asp-route-id="@broadcast.Id">Delete</a></div>
-                            </div>
-                        </td>
+                            <td>
+                                <div class="manage-button-container">
+                                    <div class="crudBtn"><a class="crudLink" asp-controller="Broadcast" asp-action="Edit" asp-route-id="@broadcast.Id">Edit</a></div>
+                                    <div class="crudBtn"><a class="crudLink" asp-controller="Broadcast" asp-action="Delete" asp-route-id="@broadcast.Id">Delete</a></div>
+                                </div>
+                            </td>
 
-                    </tr>
+                        </tr>
                     }
                 </tbody>
             </table>

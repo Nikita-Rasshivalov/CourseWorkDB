@@ -2,12 +2,13 @@
 @addTagHelper *, RadiostationWeb
 @inject RadiostationWeb.Data.RadiostationWebDbContext context;
 @{
-    ViewData["Title"] = "Records";
+    ViewData["Title"] = "Broadcasts";
 }
 
 
 <div class="main-container">
     <div class="container-item">
+        <h2 class="title">Broadcasts</h2>
         @if (User.IsInRole(RoleType.Admin) || User.IsInRole(RoleType.Employeе))
         {
             <div class="crudBtn"><a class="crudLink" asp-action="ManageBroadcasts" asp-controller="Broadcast">Manage</a></div>
