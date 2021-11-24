@@ -64,11 +64,11 @@
     <Build Include="Tables\Groups.sql" />
     <Build Include="Tables\Genres.sql" />
     <Build Include="Tables\Records.sql" />
-    <Build Include="Tables\BroadcastSchedule.sql" />
+    <Build Include="Tables\Broadcasts.sql" />
     <Build Include="Tables\Employees.sql" />
     <Build Include="FKeys\FK_Performers_Groups.sql" />
-    <Build Include="FKeys\FK_BroadcastSchedule_Employees.sql" />
-    <Build Include="FKeys\FK_BroadcastSchedule_Records.sql" />
+    <Build Include="FKeys\FK_Broadcasts_Employees.sql" />
+    <Build Include="FKeys\FK_Broadcasts_Records.sql" />
     <Build Include="Tables\AspNetRoleClaims.sql" />
     <Build Include="Tables\AspNetRoles.sql" />
     <Build Include="Tables\AspNetUserClaims.sql" />

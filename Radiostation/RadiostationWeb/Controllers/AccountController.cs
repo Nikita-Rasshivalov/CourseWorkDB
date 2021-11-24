@@ -151,6 +151,7 @@ namespace RadiostationWeb.Controllers
             {
                 var user = await _userManager.FindByIdAsync(userId);
                 await _userManager.DeleteAsync(user);
+
             }
 
             return RedirectToAction(nameof(ManageUsers));
