@@ -3,6 +3,9 @@
 @inject RadiostationWeb.Data.RadiostationWebDbContext context;
 @{
     ViewData["Title"] = "Broadcasts";
+    ViewData["Title"] = "Broadcasts";
+    var start = (string)Context.Request.Query["broadcastsFrom"] ?? Context.Request.Cookies["broadcastsFrom"];
+    var end = (string)Context.Request.Query["broadcastsTo"] ?? Context.Request.Cookies["broadcastsTo"];
 }
 <div class="main-container">
     <div class="formContainer">
@@ -11,11 +14,11 @@
             <div class="wrapper-items">
                 <div class="items">
                     <div>Date from</div>
-                    <input class="inputStyle" name="nameFilter" type="date" value="" />
+                    <input class="inputStyle" name="start" type="date" value="@start" />
                 </div>
                 <div class="items">
                     <div>Date to</div>
-                    <input class="inputStyle" name="nameFilter" type="date" value="" />
+                    <input class="inputStyle" name="end" type="date" value="@end" />
                 </div>
             </div>
             <div class="formButtons">

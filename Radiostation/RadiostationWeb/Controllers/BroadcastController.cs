@@ -81,10 +81,10 @@ namespace RadiostationWeb.Controllers
 
 
         [AuthorizeRoles(RoleType.Admin, RoleType.Employeе)]
-        public ActionResult ManageBroadcasts(string nameFilter, int? performerFilter, int page = 1)
+        public ActionResult ManageBroadcasts(DateTime? start, DateTime? end, int page = 1)
         {
             var pageSize = 20;
-            var broadcasts = _dbContext.Broadcasts.ToList();
+            var broadcasts = FilterBroadcasts(start, end).ToList();
             var pageBroadcasts = broadcasts.OrderBy(o => o.Id).Skip((page - 1) * pageSize).Take(pageSize);
             PageViewModel pageViewModel = new PageViewModel(broadcasts.Count(), page, pageSize);
             var viewBroadcasts = from b in broadcasts
