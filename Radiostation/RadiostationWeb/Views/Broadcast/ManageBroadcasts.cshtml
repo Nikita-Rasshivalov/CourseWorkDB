@@ -4,11 +4,27 @@
 @{
     ViewData["Title"] = "Broadcasts";
 }
-
-
 <div class="main-container">
-    <div class="container-item">
+    <div class="formContainer">
         <h2 class="title">Broadcasts</h2>
+        <form asp-action="Broadcasts" asp-controller="Broadcast" method="get" class="form">
+            <div class="wrapper-items">
+                <div class="items">
+                    <div>Date from</div>
+                    <input class="inputStyle" name="nameFilter" type="date" value="" />
+                </div>
+                <div class="items">
+                    <div>Date to</div>
+                    <input class="inputStyle" name="nameFilter" type="date" value="" />
+                </div>
+            </div>
+            <div class="formButtons">
+                <input type="submit" class="addRecordbtn" value="Find">
+                <div class="crudBtn reset"><a class="crudLink" asp-controller="Broadcast" asp-action="ResetFilter"> Reset</a></div>
+            </div>
+        </form>
+    </div>
+    <div class="container-item">
         <div class="crudBtn"><a class="crudLink" asp-controller="Broadcast" asp-action="Create"> Add broadcast</a></div>
         @if (@Model?.Items?.Count() > 0)
         {
