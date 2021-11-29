@@ -1,18 +1,4 @@
-﻿@model Broadcast
-@inject RadiostationWeb.Data.RadiostationWebDbContext context;
-@inject RadiostationWeb.Data.ApplicationDbContext appContext;
-@{
-    var emoployees = context.Employees.ToList().Join(appContext.Users.ToList(), e => e.AspNetUserId, t => t.Id,
-        (e, t) => new SelectListItem
-        {
-
-            Value = e.Id.ToString(),
-            Text = t.Name + " " + t.Surname,
-        }).ToList();
-
-    var records = context.Records.Select(c => new SelectListItem { Value = c.Id.ToString(), Text = c.СompositionName })
-.ToList();
-}
+﻿@model EditBroadcastViewModel
 <div class="main-container">
     <div class="formContainer">
         <h1 class="title">Edit broadcast</h1>
@@ -20,9 +6,13 @@
             <input asp-for="@Model.Id" type="hidden" />
             <div class="select-container">
                 <label>Employee</label>
-                <select class="select-items" asp-for="@Model.EmployeeId" asp-items="emoployees"> <option value="" disabled selected>Select  Employee</option></select>
+                <select class="select-items" asp-for="@Model.EmployeeId" asp-items="@Model.EmployeeList">
+                <option value="" disabled>Select  Employee</option>
+                </select>
                 <label>Record</label>
-                <select class="select-items" asp-for="@Model.RecordId" asp-items="records"> <option value="" disabled selected>Select  Record</option></select>
+                <select class="select-items" asp-for="@Model.RecordId" asp-items="@Model.RecordList">
+                <option value="" disabled>Select  Record</option>
+                </select>
             </div>
             <label>Date and time</label>
             <input class="inputStyle" asp-for="@Model.DateAndTime" type="datetime-local" min="2016-06-01T08:30" placeholder="Date and time">

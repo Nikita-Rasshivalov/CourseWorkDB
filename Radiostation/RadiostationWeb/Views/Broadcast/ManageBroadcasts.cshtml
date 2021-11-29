@@ -1,8 +1,6 @@
 ﻿@model PageItemsModel<BroadcastViewModel>
 @addTagHelper *, RadiostationWeb
-@inject RadiostationWeb.Data.RadiostationWebDbContext context;
 @{
-    ViewData["Title"] = "Broadcasts";
     ViewData["Title"] = "Broadcasts";
     var start = (string)Context.Request.Query["broadcastsFrom"] ?? Context.Request.Cookies["broadcastsFrom"];
     var end = (string)Context.Request.Query["broadcastsTo"] ?? Context.Request.Cookies["broadcastsTo"];

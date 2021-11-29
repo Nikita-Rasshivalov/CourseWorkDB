@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using RadiostationWeb.Data;
 using RadiostationWeb.Models;
 using System.Collections.Generic;
@@ -86,9 +87,9 @@ namespace RadiostationWeb.Controllers
             return records;
         }
 
-       
-        [AuthorizeRoles(RoleType.Admin,RoleType.Employeе)]
-        public ActionResult ManageRecords(string nameFilter, int? performerFilter,int page = 1)
+
+        [AuthorizeRoles(RoleType.Admin, RoleType.Employeе)]
+        public ActionResult ManageRecords(string nameFilter, int? performerFilter, int page = 1)
         {
             var pageSize = 20;
             var records = FilterRecords(nameFilter, performerFilter);
@@ -123,7 +124,7 @@ namespace RadiostationWeb.Controllers
             return View(pageItemsModel);
         }
 
-        [AuthorizeRoles(RoleType.Admin,RoleType.Employeе)]
+        [AuthorizeRoles(RoleType.Admin, RoleType.Employeе)]
         public ActionResult Delete(int id)
         {
             var record = _dbContext.Records.Find(id);
@@ -149,19 +150,33 @@ namespace RadiostationWeb.Controllers
             return RedirectToAction(nameof(ManageRecords));
         }
 
-        [AuthorizeRoles(RoleType.Admin,RoleType.Employeе)]
+        [AuthorizeRoles(RoleType.Admin, RoleType.Employeе)]
         public ActionResult Create()
         {
-            return View(new Record());
+            var performers = _dbContext.Performers.Select(c => new SelectListItem { Value = c.Id.ToString(), Text = c.Name})
+            .ToList();
+
+            var genres = _dbContext.Genres.Select(c => new SelectListItem { Value = c.Id.ToString(), Text = c.GenreName })
+            .ToList();
+            return View(new CreateRecordViewModel { PerformersList = performers, GenresList = genres } );
         }
 
-        [AuthorizeRoles(RoleType.Admin,RoleType.Employeе)]
+        [AuthorizeRoles(RoleType.Admin, RoleType.Employeе)]
         [HttpPost]
-        public ActionResult Create(Record record)
+        public ActionResult Create(CreateRecordViewModel record)
         {
             if (ModelState.IsValid)
             {
-                _dbContext.Records.Add(record);
+                _dbContext.Records.Add(new Record 
+                {
+                    СompositionName = record.СompositionName,
+                    Album=record.Album,
+                    GenreId=record.GenreId,
+                    Lasting=record.Lasting,
+                    Rating=record.Rating,
+                    RecordDate=record.RecordDate,
+                    PerformerId=record.PerformerId
+                });
                 _dbContext.SaveChanges();
                 return RedirectToAction(nameof(ManageRecords));
             }
@@ -169,13 +184,38 @@ namespace RadiostationWeb.Controllers
             return View(record);
         }
 
-        [AuthorizeRoles(RoleType.Admin,RoleType.Employeе)]
+        [AuthorizeRoles(RoleType.Admin, RoleType.Employeе)]
         public ActionResult Edit(int id)
         {
             var record = _dbContext.Records.Find(id);
+            var performers = _dbContext.Performers.Select(c => new SelectListItem
+            {
+                Value = c.Id.ToString(),
+                Text = c.Name,
+                Selected = record.PerformerId==c.Id
+            }).ToList();
+
+            var genres = _dbContext.Genres.Select(c => new SelectListItem 
+            {
+                Value = c.Id.ToString(),
+                Text = c.GenreName,
+                Selected = record.GenreId == c.Id
+            }).ToList();
             if (record != null)
             {
-                return View(record);
+                return View(new EditRecordViewModel
+                { 
+                    Id = id,
+                    PerformersList = performers,
+                    GenresList = genres,
+                    Album = record.Album,
+                    GenreId = record.GenreId,
+                    PerformerId = record.PerformerId,
+                    RecordDate = record.RecordDate,
+                    Lasting = record.Lasting,
+                    Rating = record.Rating,
+                    СompositionName = record.СompositionName
+                });
             }
             else
             {
@@ -184,13 +224,23 @@ namespace RadiostationWeb.Controllers
             }
         }
 
-        [AuthorizeRoles(RoleType.Admin,RoleType.Employeе)]
+        [AuthorizeRoles(RoleType.Admin, RoleType.Employeе)]
         [HttpPost]
-        public ActionResult Edit(Record record)
+        public ActionResult Edit(EditRecordViewModel record)
         {
             if (ModelState.IsValid)
             {
-                _dbContext.Records.Update(record);
+                _dbContext.Records.Update(new Record
+                {
+                    Id = record.Id,
+                    Album = record.Album,
+                    GenreId=record.GenreId,
+                    PerformerId = record.PerformerId,
+                    RecordDate=record.RecordDate,
+                    Lasting=record.Lasting,
+                    Rating=record.Rating,
+                    СompositionName=record.СompositionName
+                });
                 if (_dbContext.SaveChanges() != 0)
                 {
                     ViewData["SuccessMessage"] = "Information has been successfully edited";

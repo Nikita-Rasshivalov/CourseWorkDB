@@ -32,6 +32,14 @@ namespace RadiostationWeb.TagHelpers
             // формируем три ссылки - на текущую, предыдущую и следующую
             TagBuilder currentItem = CreateTag(PageModel.PageNumber, urlHelper);
 
+
+
+            if (PageModel.PageNumber > 2)
+            {
+                TagBuilder prevItem = CreateTag(1, urlHelper);
+                tag.InnerHtml.AppendHtml(prevItem);
+            }
+
             // создаем ссылку на предыдущую страницу, если она есть
             if (PageModel.HasPreviousPage)
             {
@@ -46,6 +54,14 @@ namespace RadiostationWeb.TagHelpers
                 TagBuilder nextItem = CreateTag(PageModel.PageNumber + 1, urlHelper);
                 tag.InnerHtml.AppendHtml(nextItem);
             }
+
+
+            if (PageModel.PageNumber+1 < PageModel.TotalPages)
+            {
+                TagBuilder nextItem = CreateTag(PageModel.TotalPages, urlHelper);
+                tag.InnerHtml.AppendHtml(nextItem);
+            }
+
             output.Content.AppendHtml(tag);
         }
 

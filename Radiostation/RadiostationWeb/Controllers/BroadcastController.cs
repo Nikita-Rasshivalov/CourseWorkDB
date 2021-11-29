@@ -1,5 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using RadiostationWeb.Data;
 using RadiostationWeb.Models;
 using System;
@@ -18,7 +18,6 @@ namespace RadiostationWeb.Controllers
             _applicationDbContext = applicationDbContext;
         }
 
-
         public ActionResult Broadcasts(DateTime? start, DateTime? end, int page = 1)
         {
             var pageSize = 20;
@@ -35,7 +34,8 @@ namespace RadiostationWeb.Controllers
                                      EmployeeName = a.Name,
                                      EmployeeSurname = a.Surname,
                                      DateAndTime = b.DateAndTime,
-                                     RecordName = r.СompositionName
+                                     RecordName = r.СompositionName,
+
                                  };
             var pageItemsModel = new PageItemsModel<BroadcastViewModel> { Items = viewBroadcasts, PageModel = pageViewModel };
             return View(pageItemsModel);
@@ -133,16 +133,28 @@ namespace RadiostationWeb.Controllers
         [AuthorizeRoles(RoleType.Admin, RoleType.Employeе)]
         public ActionResult Create()
         {
-            return View(new Broadcast());
+            var emoployees = _dbContext.Employees.ToList()
+                .Join(_applicationDbContext.Users.ToList(),
+                e => e.AspNetUserId, t => t.Id,
+                (e, t) => new SelectListItem
+                {
+                    Value = e.Id.ToString(),
+                    Text = t.Name + " " + t.Surname,
+                }).ToList();
+            var records = _dbContext.Records
+                .Select(c => new SelectListItem { Value = c.Id.ToString(), Text = c.СompositionName }).ToList();
+
+
+            return View(new CreateBroadcastViewModel { EmployeeList = emoployees, RecordList = records });
         }
 
         [AuthorizeRoles(RoleType.Admin, RoleType.Employeе)]
         [HttpPost]
-        public ActionResult Create(Broadcast broadcast)
+        public ActionResult Create(CreateBroadcastViewModel broadcast)
         {
             if (ModelState.IsValid)
             {
-                _dbContext.Broadcasts.Add(broadcast);
+                _dbContext.Broadcasts.Add((new Broadcast { EmployeeId = broadcast.EmployeeId, RecordId = broadcast.RecordId, DateAndTime = broadcast.DateAndTime }));
                 _dbContext.SaveChanges();
                 return RedirectToAction(nameof(ManageBroadcasts));
             }
@@ -154,9 +166,28 @@ namespace RadiostationWeb.Controllers
         public ActionResult Edit(int id)
         {
             var broadcast = _dbContext.Broadcasts.Find(id);
+            var emoployees = _dbContext.Employees.ToList()
+                .Join(_applicationDbContext.Users.ToList(),
+                e => e.AspNetUserId, t => t.Id,
+                (e, t) => new SelectListItem
+                {
+                    Value = e.Id.ToString(),
+                    Text = t.Name + " " + t.Surname,
+                    Selected = broadcast.EmployeeId == e.Id,
+
+                })
+                .ToList();
+            var records = _dbContext.Records
+                .Select(c => new SelectListItem
+                {
+                    Value = c.Id.ToString(),
+                    Text = c.СompositionName,
+                    Selected = broadcast.RecordId == c.Id 
+                })
+                .ToList();
             if (broadcast != null)
             {
-                return View(broadcast);
+                return View(new EditBroadcastViewModel {Id=id,EmployeeList = emoployees, RecordList = records });
             }
             else
             {
@@ -167,11 +198,11 @@ namespace RadiostationWeb.Controllers
 
         [AuthorizeRoles(RoleType.Admin, RoleType.Employeе)]
         [HttpPost]
-        public ActionResult Edit(Broadcast broadcast)
+        public ActionResult Edit(EditBroadcastViewModel broadcast)
         {
             if (ModelState.IsValid)
             {
-                _dbContext.Broadcasts.Update(broadcast);
+                _dbContext.Broadcasts.Update(new Broadcast { Id = broadcast.Id, EmployeeId = broadcast.EmployeeId, RecordId = broadcast.RecordId, DateAndTime = broadcast.DateAndTime });
                 if (_dbContext.SaveChanges() != 0)
                 {
                     ViewData["SuccessMessage"] = "Information has been successfully edited";

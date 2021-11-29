@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using RadiostationWeb.Data;
 using RadiostationWeb.Models;
 using System.Collections.Generic;
@@ -72,7 +73,7 @@ namespace RadiostationWeb.Controllers
         }
 
 
-        [AuthorizeRoles(RoleType.Admin,RoleType.Employeе)]
+        [AuthorizeRoles(RoleType.Admin, RoleType.Employeе)]
         public ActionResult ManagePerformers(string nameFilter, string surnameFilter, int page = 1)
         {
             var performers = FilterPerformers(nameFilter, surnameFilter);
@@ -92,7 +93,7 @@ namespace RadiostationWeb.Controllers
             return View(pageItemsModel);
         }
 
-        [AuthorizeRoles(RoleType.Admin,RoleType.Employeе)]
+        [AuthorizeRoles(RoleType.Admin, RoleType.Employeе)]
         public ActionResult Delete(int id)
         {
             var performer = _dbContext.Performers.Find(id);
@@ -118,19 +119,20 @@ namespace RadiostationWeb.Controllers
             return RedirectToAction(nameof(ManagePerformers));
         }
 
-        [AuthorizeRoles(RoleType.Admin,RoleType.Employeе)]
+        [AuthorizeRoles(RoleType.Admin, RoleType.Employeе)]
         public ActionResult Create()
         {
-            return View(new Performer());
+            var groups = _dbContext.Groups.Select(c => new SelectListItem { Value = c.Id.ToString(), Text = c.Description }).ToList();
+            return View(new CreatePerformerViewModel { GroupsList = groups });
         }
 
-        [AuthorizeRoles(RoleType.Admin,RoleType.Employeе)]
+        [AuthorizeRoles(RoleType.Admin, RoleType.Employeе)]
         [HttpPost]
-        public ActionResult Create(Performer performer)
+        public ActionResult Create(CreatePerformerViewModel performer)
         {
             if (ModelState.IsValid)
             {
-                _dbContext.Performers.Add(performer);
+                _dbContext.Performers.Add(new Performer { Name = performer.Name, Surname = performer.Surname, GroupId = performer.GroupId });
                 _dbContext.SaveChanges();
                 return RedirectToAction(nameof(ManagePerformers));
             }
@@ -138,13 +140,20 @@ namespace RadiostationWeb.Controllers
             return View(performer);
         }
 
-        [AuthorizeRoles(RoleType.Admin,RoleType.Employeе)]
+        [AuthorizeRoles(RoleType.Admin, RoleType.Employeе)]
         public ActionResult Edit(int id)
         {
+
             var performer = _dbContext.Performers.Find(id);
+            var groups = _dbContext.Groups.Select(c => new SelectListItem
+            {
+                Value = c.Id.ToString(),
+                Text = c.Description,
+                Selected = performer.GroupId == c.Id,
+            }).ToList();
             if (performer != null)
             {
-                return View(performer);
+                return View(new EditPerformerViewModel { Id = id, GroupsList = groups, Surname = performer.Surname, Name = performer.Name });
             }
             else
             {
@@ -153,13 +162,13 @@ namespace RadiostationWeb.Controllers
             }
         }
 
-        [AuthorizeRoles(RoleType.Admin,RoleType.Employeе)]
+        [AuthorizeRoles(RoleType.Admin, RoleType.Employeе)]
         [HttpPost]
         public ActionResult Edit(Performer performer)
         {
             if (ModelState.IsValid)
             {
-                _dbContext.Performers.Update(performer);
+                _dbContext.Performers.Update(new Performer { Id = performer.Id, GroupId = performer.GroupId, Name = performer.Name, Surname = performer.Surname });
                 if (_dbContext.SaveChanges() != 0)
                 {
                     ViewData["SuccessMessage"] = "Information has been successfully edited";
