@@ -97,7 +97,7 @@ namespace RadiostationWeb.Controllers
 
 
         [AuthorizeRoles(RoleType.Admin, RoleType.Employeе)]
-        public ActionResult ManageBroadcasts(DateTime? start, DateTime? end, int page = 1)
+        public ActionResult ManageBroadcasts(DateTime? start, DateTime? end, SortState sortOrder = SortState.DateAsc, int page = 1)
         {
             var pageSize = 20;
             var broadcasts = FilterBroadcasts(start, end).ToList();
@@ -113,10 +113,26 @@ namespace RadiostationWeb.Controllers
                                      EmployeeName = a.Name,
                                      EmployeeSurname = a.Surname,
                                      DateAndTime = b.DateAndTime,
-                                     RecordName = r.СompositionName
+                                     RecordName = r.СompositionName,
 
                                  };
-            var pageItemsModel = new PageItemsModel<BroadcastViewModel> { Items = viewBroadcasts, PageModel = pageViewModel };
+            viewBroadcasts = sortOrder switch
+            {
+                SortState.NameDsc => viewBroadcasts.OrderByDescending(s => s.EmployeeName),
+                SortState.NameAsc => viewBroadcasts.OrderBy(s => s.EmployeeName),
+                SortState.SurnameAsc => viewBroadcasts.OrderBy(s => s.EmployeeSurname),
+                SortState.SurnameDsc => viewBroadcasts.OrderByDescending(s => s.EmployeeSurname),
+                SortState.RecorNameAsc => viewBroadcasts.OrderBy(s => s.RecordName),
+                SortState.RecordNameDsc => viewBroadcasts.OrderByDescending(s => s.RecordName),
+                SortState.DateDsc => viewBroadcasts.OrderByDescending(s => s.DateAndTime),
+                _ => viewBroadcasts.OrderBy(s => s.DateAndTime),
+            };
+            var pageItemsModel = new BroadcastsItemModel
+            {
+                Items = viewBroadcasts,
+                PageModel = pageViewModel,
+                SortViewModel = new SortViewModel(sortOrder)
+            };
             return View(pageItemsModel);
         }
 
