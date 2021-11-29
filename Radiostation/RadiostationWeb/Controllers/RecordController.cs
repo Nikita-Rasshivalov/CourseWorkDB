@@ -21,6 +21,8 @@ namespace RadiostationWeb.Controllers
         {
             var pageSize = 20;
             var records = FilterRecords(nameFilter, performerFilter);
+            var performers = _dbContext.Performers.Select(c => new SelectListItem { Value = c.Id.ToString(), Text = c.Name })
+            .ToList();
             var pageRecords = records.OrderBy(o => o.Id).Skip((page - 1) * pageSize).Take(pageSize);
             PageViewModel pageViewModel = new PageViewModel(records.Count(), page, pageSize);
             var viewRecords = pageRecords.ToList().Join(_dbContext.Performers.ToList(),
@@ -48,7 +50,7 @@ namespace RadiostationWeb.Controllers
                 СompositionName = e.СompositionName
             }
             );
-            var pageItemsModel = new PageItemsModel<RecordViewModel> { Items = viewRecords, PageModel = pageViewModel };
+            var pageItemsModel = new RecordsItemModel { Items = viewRecords, PageModel = pageViewModel, SelectPerformers = performers };
             return View(pageItemsModel);
         }
 
@@ -93,6 +95,8 @@ namespace RadiostationWeb.Controllers
         {
             var pageSize = 20;
             var records = FilterRecords(nameFilter, performerFilter);
+            var performers = _dbContext.Performers.Select(c => new SelectListItem { Value = c.Id.ToString(), Text = c.Name })
+            .ToList();
             var pageRecords = records.ToList().OrderBy(o => o.Id).Skip((page - 1) * pageSize).Take(pageSize);
             PageViewModel pageViewModel = new PageViewModel(records.Count(), page, pageSize);
             var viewRecords = pageRecords.ToList().Join(_dbContext.Performers.ToList(),
@@ -120,7 +124,7 @@ namespace RadiostationWeb.Controllers
                 СompositionName = e.СompositionName
             }
             );
-            var pageItemsModel = new PageItemsModel<RecordViewModel> { Items = viewRecords, PageModel = pageViewModel };
+            var pageItemsModel = new RecordsItemModel { Items = viewRecords, PageModel = pageViewModel,SelectPerformers = performers };
             return View(pageItemsModel);
         }
 
