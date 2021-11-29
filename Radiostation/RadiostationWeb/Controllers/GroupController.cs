@@ -28,6 +28,23 @@ namespace RadiostationWeb.Controllers
             return View(pageItemsModel);
         }
 
+        [Authorize]
+        public ActionResult GroupDetail(int id)
+        {
+            var groupDetail = _dbContext.Performers.ToList();
+            var groupPage = _dbContext.Groups.FirstOrDefault(o => o.Id.Equals(id)).Description;
+            var viewDetails = from p in groupDetail
+                              join g in _dbContext.Groups.ToList() on p.GroupId equals g.Id
+                              where g.Id.Equals(id)
+                              select new GroupDetailView
+                              {
+                                  PerformerName = p.Name,
+                                  PerformerSurname = p.Surname,
+                                  GroupName = g.Description
+                              };
+            return View(new GroupItemsViewModel { GroupsItems = viewDetails,GroupName= groupPage });
+        }
+
         public IActionResult ResetFilter()
         {
 

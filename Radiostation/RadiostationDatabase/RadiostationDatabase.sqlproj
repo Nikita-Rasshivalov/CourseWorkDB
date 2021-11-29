@@ -83,6 +83,9 @@
     <Build Include="FKeys\FK_AspNetRoleClaims_AspNetRoles_RoleId.sql" />
     <Build Include="FKeys\FK_AspNetUserClaims_AspNetUsers_UserId.sql" />
     <Build Include="FKeys\FK_AspNetUserLogins_AspNetUsers_UserId.sql" />
+    <Build Include="Tables\GroupDetails.sql" />
+    <Build Include="FKeys\FK_GroupDetail_Performers.sql" />
+    <Build Include="FKeys\FK_GroupDetail_Groups.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="FKeys\FK_Records_Genres.sql" />

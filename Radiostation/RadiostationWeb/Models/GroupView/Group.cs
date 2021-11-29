@@ -1,6 +1,6 @@
 ﻿namespace RadiostationWeb.Models
 {
-    public partial class Group
+    public  class Group
     {
 
         public int Id { get; set; }

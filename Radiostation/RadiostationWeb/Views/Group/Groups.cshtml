@@ -1,9 +1,9 @@
 ﻿@model PageItemsModel<Group>
 @addTagHelper *, RadiostationWeb
 @{
-   
-        ViewData["Title"] = "Groups";
-    
+
+    ViewData["Title"] = "Groups";
+
     var groupFilter = (string)Context.Request.Query["groupFilter"] ?? Context.Request.Cookies["groupFilter"];
 }
 <div class="main-container">
@@ -42,7 +42,9 @@
                         @foreach (var group in @Model.Items)
                         {
                             <tr>
-                                <td>@group.Description</td>
+                                <td>
+                                    <a asp-controller="Group" asp-action="GroupDetail" asp-route-id="@group.Id">@group.Description</a>
+                                </td>
                             </tr>
                         }
                     </tbody>
