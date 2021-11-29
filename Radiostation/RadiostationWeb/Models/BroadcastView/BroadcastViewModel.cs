@@ -8,6 +8,5 @@ namespace RadiostationWeb.Models
         public string EmployeeName { get; set; }
         public string EmployeeSurname { get; set; }
         public string RecordName { get; set; }
-
     }
 }

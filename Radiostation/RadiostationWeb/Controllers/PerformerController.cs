@@ -132,7 +132,11 @@ namespace RadiostationWeb.Controllers
         {
             if (ModelState.IsValid)
             {
-                _dbContext.Performers.Add(new Performer { Name = performer.Name, Surname = performer.Surname, GroupId = performer.GroupId });
+                _dbContext.Performers.Add(new Performer 
+                {
+                    Name = performer.Name,
+                    Surname = performer.Surname,
+                    GroupId = performer.GroupId });
                 _dbContext.SaveChanges();
                 return RedirectToAction(nameof(ManagePerformers));
             }
@@ -153,7 +157,12 @@ namespace RadiostationWeb.Controllers
             }).ToList();
             if (performer != null)
             {
-                return View(new EditPerformerViewModel { Id = id, GroupsList = groups, Surname = performer.Surname, Name = performer.Name });
+                return View(new EditPerformerViewModel
+                { 
+                    Id = id,
+                    GroupsList = groups, 
+                    Surname = performer.Surname,
+                    Name = performer.Name });
             }
             else
             {
@@ -168,7 +177,13 @@ namespace RadiostationWeb.Controllers
         {
             if (ModelState.IsValid)
             {
-                _dbContext.Performers.Update(new Performer { Id = performer.Id, GroupId = performer.GroupId, Name = performer.Name, Surname = performer.Surname });
+                _dbContext.Performers.Update(new Performer 
+                { 
+                    Id = performer.Id,
+                    GroupId = performer.GroupId,
+                    Name = performer.Name,
+                    Surname = performer.Surname 
+                });
                 if (_dbContext.SaveChanges() != 0)
                 {
                     ViewData["SuccessMessage"] = "Information has been successfully edited";
