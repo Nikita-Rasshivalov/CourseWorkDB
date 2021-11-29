@@ -3,10 +3,8 @@
 @{
     ViewData["Title"] = "Broadcasts";
     var start = (string)Context.Request.Query["broadcastsFrom"] ?? Context.Request.Cookies["broadcastsFrom"];
-    var end= (string)Context.Request.Query["broadcastsTo"] ?? Context.Request.Cookies["broadcastsTo"];
+    var end = (string)Context.Request.Query["broadcastsTo"] ?? Context.Request.Cookies["broadcastsTo"];
 }
-
-
 <div class="main-container">
     <div class="formContainer">
         <h2 class="title">Broadcasts</h2>
@@ -38,10 +36,30 @@
                 <thead>
                     <tr>
 
-                        <th>Employee Name</th>
-                        <th>Employee Surname</th>
-                        <th>Date and time</th>
-                        <th>Record name</th>
+                        <th>
+                            <sort-header action="Broadcasts" up="@Model.SortViewModel.Up"
+                                         current="@Model.SortViewModel.Current" property="@Model.SortViewModel.NameSort">
+                                Employee Name
+                            </sort-header>
+                        </th>
+                        <th>
+                            <sort-header action="Broadcasts" up="@Model.SortViewModel.Up"
+                                         current="@Model.SortViewModel.Current" property="@Model.SortViewModel.SurnameSort">
+                                Employee Surname
+                            </sort-header>
+                        </th>
+                        <th>
+                            <sort-header action="Broadcasts" up="@Model.SortViewModel.Up"
+                                         current="@Model.SortViewModel.Current" property="@Model.SortViewModel.DateSort">
+                                Date and time
+                            </sort-header>
+                        </th>
+                        <th>
+                            <sort-header action="Broadcasts" up="@Model.SortViewModel.Up"
+                                         current="@Model.SortViewModel.Current" property="@Model.SortViewModel.RecordSort">
+                                Record name
+                            </sort-header>
+                        </th>
                     </tr>
                 </thead>
                 <tbody>
