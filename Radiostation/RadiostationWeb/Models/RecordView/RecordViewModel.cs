@@ -18,6 +18,5 @@ namespace RadiostationWeb.Models
         public int Lasting { get; set; }
         public decimal Rating { get; set; }
         public string СompositionName { get; set; }
-        public IEnumerable<SelectListItem> PerformersList{ get; set; }
 }
 }

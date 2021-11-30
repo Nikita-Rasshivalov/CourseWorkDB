@@ -15,20 +15,23 @@
                         <th>Name</th>
                         <th>Surname</th>
                         <th>Middle Name</th>
-                        <th></th>
+                        <th>Education</th>
+                        <th>Position</th>
                     </tr>
                 </thead>
                 <tbody>
 
                     @foreach (var empl in @Model.Items)
                     {
-                        <tr>
-                            <td>@empl.Username</td>
-                            <td>@empl.Email</td>
-                            <td>@empl.Name</td>
-                            <td>@empl.Surname</td>
-                            <td>@empl.MiddleName</td>
-                        </tr>
+                    <tr>
+                        <td>@empl.Username</td>
+                        <td>@empl.Email</td>
+                        <td>@empl.Name</td>
+                        <td>@empl.Surname</td>
+                        <td>@empl.MiddleName</td>
+                        <td>@empl.Education</td>
+                        <td>@empl.PositionName</td>
+                    </tr>
                     }
                 </tbody>
             </table>

@@ -1,8 +1,10 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using RadiostationWeb.Data;
 using RadiostationWeb.Models;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -91,11 +93,6 @@ namespace RadiostationWeb.Controllers
                 users = users.Where(e => e.Surname.Contains(surnameFilter));
                 HttpContext.Response.Cookies.Append("surnameFilter", surnameFilter);
             }
-
-            if (nameFilter == " " && surnameFilter == " ")
-            {
-                users = _userManager.Users;
-            }
             return users;
         }
 
@@ -183,9 +180,9 @@ namespace RadiostationWeb.Controllers
                 {
                     UserName = registrationModel.Username,
                     Email = registrationModel.Email,
-                    Name=registrationModel.Name,
-                    Surname=registrationModel.Surname,
-                    MiddleName=registrationModel.MiddleName
+                    Name = registrationModel.Name,
+                    Surname = registrationModel.Surname,
+                    MiddleName = registrationModel.MiddleName
                 };
                 var creatingReuslt = await _userManager.CreateAsync(user, registrationModel.Password);
 
@@ -207,10 +204,46 @@ namespace RadiostationWeb.Controllers
         [Authorize(Roles = RoleType.Admin)]
         public async Task<ActionResult> Edit(string userId)
         {
-            var user = await _userManager.FindByIdAsync(userId);
-            if (user != null)
+
+            var currentUser = await _userManager.FindByIdAsync(userId);
+            var userRoles = await _userManager.GetRolesAsync(currentUser);
+            var emplRole = userRoles.Contains("Employee");
+            var positions = _dbContext.Positions.Select(c => new SelectListItem
             {
-                return View(user);
+                Value = c.Id.ToString(),
+                Text = c.Name,
+            }).ToList();
+
+            IList<SelectListItem> educations = new List<SelectListItem>
+            {
+                new SelectListItem{Text = "higher", Value = "ehigher"},
+                new SelectListItem{Text = "secondary", Value = "secondary"},
+                new SelectListItem{Text = "without education", Value = "without education"},
+            };
+            if (currentUser != null)
+            {
+                var userEditViewModel = new UserEditViewModel
+                {
+                    Id = currentUser.Id,
+                    UserName = currentUser.UserName,
+                    Email = currentUser.Email,
+                    Name = currentUser.Name,
+                    Surname = currentUser.Surname,
+                    MiddleName = currentUser.MiddleName,
+                    EmployeeRole = emplRole,
+                    PositionList = positions,
+                    EducationList = educations,
+                    
+                };
+                if (userEditViewModel.EmployeeRole)
+                {
+                    var currentEmployee = _dbContext.Employees.FirstOrDefault(o => o.AspNetUserId == currentUser.Id);
+                    userEditViewModel.PositionId = currentEmployee.PositionId;
+                    userEditViewModel.Education = currentEmployee.Education;
+                    userEditViewModel.EmployeeId = currentEmployee.Id;
+                }
+
+                return View(userEditViewModel);
             }
             else
             {
@@ -220,9 +253,10 @@ namespace RadiostationWeb.Controllers
 
         [Authorize(Roles = RoleType.Admin)]
         [HttpPost]
-        public async Task<ActionResult> Edit(ApplicationUser user)
+        public async Task<ActionResult> Edit(UserEditViewModel user)
         {
             var userByUsername = await _userManager.FindByNameAsync(user.UserName);
+
             if (userByUsername != null && userByUsername.Id != user.Id)
             {
                 ModelState.AddModelError("", "Username already exists");
@@ -236,21 +270,35 @@ namespace RadiostationWeb.Controllers
 
             if (ModelState.IsValid)
             {
-                ApplicationUser foundUser = await _userManager.FindByIdAsync(user.Id);
-                foundUser.UserName = user.UserName;
-                foundUser.Email = user.Email;
-                foundUser.Name = user.Name;
-                foundUser.Surname = user.Surname;
-                foundUser.MiddleName = user.MiddleName;
+                ApplicationUser currentUser = await _userManager.FindByIdAsync(user.Id);
+                currentUser.UserName = user.UserName;
+                currentUser.Email = user.Email;
+                currentUser.Name = user.Name;
+                currentUser.Surname = user.Surname;
+                currentUser.MiddleName = user.MiddleName;
+                await _userManager.UpdateAsync(currentUser);
+                var userRoles = await _userManager.GetRolesAsync(currentUser);
+                var emplRole = userRoles.Contains("Employee");
 
-                await _userManager.UpdateAsync(foundUser);
+                if (emplRole)
+                {
+                    _dbContext.Employees.Update(new Employee
+                    {
+                        Id = user.EmployeeId,
+                        AspNetUserId = user.Id,
+                        PositionId = user.PositionId,
+                        Education = user.Education,
+                        
+                    });
+                    _dbContext.SaveChanges();
+                }
+
                 ViewData["SuccessMessage"] = "Successfully edited";
             }
-
             return RedirectToAction(nameof(ManageUsers));
         }
 
-        public ActionResult Registration(string returnUrl="/")
+        public ActionResult Registration(string returnUrl = "/")
         {
             if (User.Identity.IsAuthenticated)
             {
@@ -278,9 +326,9 @@ namespace RadiostationWeb.Controllers
                 {
                     UserName = registrationModel.Username,
                     Email = registrationModel.Email,
-                    Name=registrationModel.Name,
-                    Surname=registrationModel.Surname,
-                    MiddleName=registrationModel.MiddleName
+                    Name = registrationModel.Name,
+                    Surname = registrationModel.Surname,
+                    MiddleName = registrationModel.MiddleName
                 };
                 var creatingReuslt = await _userManager.CreateAsync(user, registrationModel.Password);
                 if (creatingReuslt.Succeeded)

@@ -329,3 +329,15 @@ input[type=datetime-local]:not(.browser-default) {
     display:flex;
     flex-direction:column;
 }
+
+/*FOR index*/
+.popular-item {
+    display: grid;
+    grid-template-columns: repeat(auto-fit,minmax(210px,1fr));
+    justify-items: center;
+    gap: 10px;
+}
+
+.popular-item img{
+    width:250px;
+}

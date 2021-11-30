@@ -86,6 +86,8 @@
     <Build Include="Tables\GroupDetails.sql" />
     <Build Include="FKeys\FK_GroupDetail_Performers.sql" />
     <Build Include="FKeys\FK_GroupDetail_Groups.sql" />
+    <Build Include="Tables\Positions.sql" />
+    <Build Include="FKeys\FK_Employees_Positions.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="FKeys\FK_Records_Genres.sql" />

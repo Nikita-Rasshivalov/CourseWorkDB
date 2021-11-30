@@ -9,6 +9,10 @@
 
         public string AspNetUserId { get; set; }
 
+        public string PositionName { get; set; }
+
+        public string Education { get; set; }
+
         public string Name { get; set; }
         public string Surname { get; set; }
         public string MiddleName { get; set; }
