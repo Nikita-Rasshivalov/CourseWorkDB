@@ -1,0 +1,18 @@
+﻿@model HomePageImage
+<div class="main-container">
+    <div class="formContainer">
+        <h1 class="title">Edit image</h1>
+        <form asp-action="Edit" asp-controller="Home" method="post" class="form">
+            <div class="img-items">
+                <input asp-for="@Model.Id" type="hidden" />
+                <label>Src</label>
+                <input class="browse-img" asp-for="@Model.SrcImg" type="file" placeholder="src">
+                <label>Caption</label>
+                <input class="inputStyle" asp-for="@Model.ImgCaption" type="text" placeholder="caption">
+                <input type="submit" class="addRecordbtn" value="Add">
+            </div>
+        </form>
+        <p class="success-message">@ViewData["SuccessMessage"]</p>
+        <div class="error-box" asp-validation-summary="All"></div>
+    </div>
+</div>

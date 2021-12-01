@@ -282,14 +282,10 @@ namespace RadiostationWeb.Controllers
 
                 if (emplRole)
                 {
-                    _dbContext.Employees.Update(new Employee
-                    {
-                        Id = user.EmployeeId,
-                        AspNetUserId = user.Id,
-                        PositionId = user.PositionId,
-                        Education = user.Education,
-                        
-                    });
+                    var currentEmployee = _dbContext.Employees.FirstOrDefault(o=>o.AspNetUserId.Equals(currentUser.Id));
+                    currentEmployee.Education = user.Education;
+                    currentEmployee.PositionId = user.PositionId;
+                    _dbContext.Employees.Update(currentEmployee);
                     _dbContext.SaveChanges();
                 }
 

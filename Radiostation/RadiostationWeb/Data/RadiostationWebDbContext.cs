@@ -22,6 +22,8 @@ namespace RadiostationWeb.Data
         public virtual DbSet<Performer> Performers { get; set; }
         public virtual DbSet<Record> Records { get; set; }
         public virtual DbSet<Position> Positions { get; set; }
+        public virtual DbSet<HomePageImage> HomePageImages { get; set; }
+        
 
     }
 }

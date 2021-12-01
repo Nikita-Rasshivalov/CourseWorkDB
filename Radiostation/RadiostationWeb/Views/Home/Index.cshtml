@@ -1,56 +1,59 @@
-﻿@{
+﻿@model IEnumerable<HomePageImage>
+
+@{
     ViewData["Title"] = "Popular albums";
 }
 <h2 class="title home"> <span style="color: #ee6e73; font-size: 2em;">P</span>opular albums - <span style="color: #ee6e73;">2021</span></h2>
+@if (User.IsInRole(RoleType.Admin) || User.IsInRole(RoleType.Employeе))
+{
+    <div class="crudBtn"><a class="crudLink" asp-controller="Home" asp-action="Create"> Add album</a></div>
+}
 <div class="popular-item">
-    <figure class="figure-img">
-        <img src="~/img/del-ray.png" alt="album">
-        <figcaption>Chemtrails Over the Country Club</figcaption>
-    </figure>
-    <figure class="figure-img">
-        <img src="~/img/foo.png" alt="album">
-        <figcaption>Foo Fighters Medicine at Midnight</figcaption>
-    </figure>
-    <figure class="figure-img">
-        <img src="~/img/morgen.png" alt="album">
-        <figcaption>Morgenshtern Million dollar happiness</figcaption>
-    </figure>
-    <figure class="figure-img">
-        <img src="~/img/OG.png" alt="album">
-        <figcaption>OG Buda FREERIO</figcaption>
-    </figure>
-    <figure class="figure-img">
-        <img src="~/img/obladaet.png" alt="album">
-        <figcaption>Obladaet Players Club</figcaption>
-    </figure>
-    <figure class="figure-img">
-        <img src="~/img/Pharaoh.png" alt="album">
-        <figcaption>Pharaoh Million Dollar Depression</figcaption>
-    </figure>
-    <figure class="figure-img">
-        <img src="~/img/rolling.png" alt="album">
-        <figcaption>The Rolling Stones — Sticky Fingers</figcaption>
-    </figure>
-    <figure class="figure-img">
-        <img src="~/img/Dry.png" alt="album">
-        <figcaption>Dry Cleaning - New Long Leg</figcaption>
-    </figure>
-    <figure class="figure-img">
-        <img src="~/img/Arlo.png" alt="album">
-        <figcaption>Arlo Parks - Collapsed in Sunbeams</figcaption>
-    </figure>
-    <figure class="figure-img">
-        <img src="~/img/del-ray.png" alt="album">
-        <figcaption>Sometimes I Might be Introvert</figcaption>
-    </figure>
-    <figure class="figure-img">
-        <img src="~/img/Park.png" alt="album">
-        <figcaption>Park Hye Jin - Before I Die</figcaption>
-    </figure>
-    <figure class="figure-img">
-        <img src="~/img/Mdou.png" alt="album">
-        <figcaption>Mdou Moctar - Afrique Victime</figcaption>
-    </figure>
+    @foreach (var item in @Model)
+    {
+        <figure class="figure-img">
+
+            @if (User.IsInRole(RoleType.Admin) || User.IsInRole(RoleType.Employeе))
+            {
+                <div style="display:flex;flex-direction:row;">
+                    <a style="margin:0 2px;" asp-controller="Home" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
+                    <a style="margin: 0 2px;" asp-controller="Home" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                </div>
+            }
+            <img src="@item.SrcImg" alt="album">
+            <figcaption>@item.ImgCaption</figcaption>
+        </figure>
+    }
+
+    @*
+        <figure class="figure-img">
+            <img src="~/img/Pharaoh.png" alt="album">
+            <figcaption>Pharaoh Million Dollar Depression</figcaption>
+        </figure>
+        <figure class="figure-img">
+            <img src="~/img/rolling.png" alt="album">
+            <figcaption>The Rolling Stones — Sticky Fingers</figcaption>
+        </figure>
+        <figure class="figure-img">
+            <img src="~/img/Dry.png" alt="album">
+            <figcaption>Dry Cleaning - New Long Leg</figcaption>
+        </figure>
+        <figure class="figure-img">
+            <img src="~/img/Arlo.png" alt="album">
+            <figcaption>Arlo Parks - Collapsed in Sunbeams</figcaption>
+        </figure>
+        <figure class="figure-img">
+            <img src="~/img/del-ray.png" alt="album">
+            <figcaption>Sometimes I Might be Introvert</figcaption>
+        </figure>
+        <figure class="figure-img">
+            <img src="~/img/Park.png" alt="album">
+            <figcaption>Park Hye Jin - Before I Die</figcaption>
+        </figure>
+        <figure class="figure-img">
+            <img src="~/img/Mdou.png" alt="album">
+            <figcaption>Mdou Moctar - Afrique Victime</figcaption>
+        </figure>*@
 </div>
 
 
