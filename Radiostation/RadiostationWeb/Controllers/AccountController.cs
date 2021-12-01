@@ -222,7 +222,7 @@ namespace RadiostationWeb.Controllers
             };
             if (currentUser != null)
             {
-                var userEditViewModel = new UserEditViewModel
+                var userEditViewModel = new UserEmployeeEditViewModel
                 {
                     Id = currentUser.Id,
                     UserName = currentUser.UserName,
@@ -241,6 +241,7 @@ namespace RadiostationWeb.Controllers
                     userEditViewModel.PositionId = currentEmployee.PositionId;
                     userEditViewModel.Education = currentEmployee.Education;
                     userEditViewModel.EmployeeId = currentEmployee.Id;
+                    userEditViewModel.WorkTime = currentEmployee.WorkTime;
                 }
 
                 return View(userEditViewModel);
@@ -253,7 +254,7 @@ namespace RadiostationWeb.Controllers
 
         [Authorize(Roles = RoleType.Admin)]
         [HttpPost]
-        public async Task<ActionResult> Edit(UserEditViewModel user)
+        public async Task<ActionResult> Edit(UserEmployeeEditViewModel user)
         {
             var userByUsername = await _userManager.FindByNameAsync(user.UserName);
 
@@ -285,6 +286,7 @@ namespace RadiostationWeb.Controllers
                     var currentEmployee = _dbContext.Employees.FirstOrDefault(o=>o.AspNetUserId.Equals(currentUser.Id));
                     currentEmployee.Education = user.Education;
                     currentEmployee.PositionId = user.PositionId;
+                    currentEmployee.WorkTime = user.WorkTime;
                     _dbContext.Employees.Update(currentEmployee);
                     _dbContext.SaveChanges();
                 }

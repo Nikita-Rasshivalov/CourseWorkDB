@@ -8,6 +8,7 @@
         public int PositionId { get; set; }
 
         public string Education { get; set; }
+        public int WorkTime { get; set; }
 
 
     }

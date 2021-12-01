@@ -1,4 +1,4 @@
-﻿@model UserEditViewModel
+﻿@model UserEmployeeEditViewModel
 @using Microsoft.AspNetCore.Identity;
 <div class="main-container">
     <div class="header-item">
@@ -26,6 +26,8 @@
                     <select class="select-items" asp-for="@Model.Education" asp-items="@Model.EducationList">
                         <option value="" disabled>Select Education</option>
                     </select>
+                    <label class="active">Work time</label>
+                    <input asp-for="@Model.WorkTime" type="number" placeholder="WorkTime" />
                 </div>
             }
             <div class="formButtons">

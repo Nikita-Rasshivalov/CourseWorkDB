@@ -12,6 +12,7 @@
         public string PositionName { get; set; }
 
         public string Education { get; set; }
+        public int WorkTime { get; set; }
 
         public string Name { get; set; }
         public string Surname { get; set; }

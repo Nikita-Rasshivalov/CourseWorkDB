@@ -39,6 +39,7 @@ namespace RadiostationWeb.Controllers
                                      Email = a.Email,
                                      Education = e.Education,
                                      PositionName = p.Name,
+                                     WorkTime = e.WorkTime,
                                  };
             var pageItemsModel = new PageItemsModel<EmployeeViewModel> { Items = viewEmployees, PageModel = pageViewModel };
             return View(pageItemsModel);

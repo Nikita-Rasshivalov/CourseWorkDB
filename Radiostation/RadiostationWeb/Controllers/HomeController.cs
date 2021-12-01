@@ -71,18 +71,37 @@ namespace RadiostationWeb.Controllers
 
         [AuthorizeRoles(RoleType.Admin, RoleType.Employeе)]
         [HttpPost]
-        public ActionResult Edit(HomePageImage img)
+        public async Task<ActionResult> Edit(HomePageImage homePageImage, IFormFile uploadedFile)
         {
-            if (ModelState.IsValid)
+            if (homePageImage.Id <= 0)
             {
-                _dbContext.HomePageImages.Update(img);
-                if (_dbContext.SaveChanges() != 0)
+                return RedirectToAction("Error", "Home", new { message = "Image not found" });
+            }
+
+            if (uploadedFile != null && uploadedFile.Length > 0)
+            {
+                var img = _dbContext.HomePageImages.Find(homePageImage.Id);
+                if (img != null)
                 {
-                    ViewData["SuccessMessage"] = "Information has been successfully edited";
-                    return RedirectToAction(nameof(Index));
+                    var imageName = $"{img.Id}{Path.GetExtension(uploadedFile.FileName)}";
+                    var imagePath = Path.Combine(_environment.WebRootPath, "img", imageName);
+                    using (Stream fileStream = new FileStream(imagePath, FileMode.Create))
+                    {
+                        await uploadedFile.CopyToAsync(fileStream);
+                    }
+
+                    img.SrcImg = $"/img/{imageName}";
+                    img.ImgCaption = homePageImage.ImgCaption;
+
+                    _dbContext.SaveChanges();
+                }
+                else
+                {
+                    return RedirectToAction("Error", "Home", new { message = "Image not found" });
                 }
             }
-            return View(img);
+
+            return RedirectToAction(nameof(Index));
         }
 
         [AuthorizeRoles(RoleType.Admin, RoleType.Employeе)]
