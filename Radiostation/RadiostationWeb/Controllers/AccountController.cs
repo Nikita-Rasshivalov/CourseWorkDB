@@ -68,7 +68,7 @@ namespace RadiostationWeb.Controllers
         [Authorize(Roles = RoleType.Admin)]
         public ActionResult ManageUsers(string nameFilter, string surnameFilter, int page = 1)
         {
-            var pageSize = 20;
+            var pageSize = 10;
             var users = FilterUsers(nameFilter, surnameFilter);
             var pageUsers = users.OrderBy(o => o.Id).Skip((page - 1) * pageSize).Take(pageSize);
             PageViewModel pageViewModel = new PageViewModel(users.Count(), page, pageSize);

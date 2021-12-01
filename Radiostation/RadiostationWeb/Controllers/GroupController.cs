@@ -18,7 +18,7 @@ namespace RadiostationWeb.Controllers
         [Authorize]
         public ActionResult Groups(string groupFilter, int page = 1)
         {
-            var pageSize = 20;
+            var pageSize = 10;
             var groups = FilterGroups(groupFilter);
             var pageGroups = groups.OrderBy(o => o.Id).Skip((page - 1) * pageSize).Take(pageSize);
             PageViewModel pageViewModel = new PageViewModel(groups.Count(), page, pageSize);
@@ -68,7 +68,7 @@ namespace RadiostationWeb.Controllers
         public ActionResult ManageGroups(int page = 1)
         {
             IQueryable<Group> groups = _dbContext.Groups;
-            var pageSize = 20;
+            var pageSize = 10;
             var pageGroups = groups.OrderBy(o => o.Id).Skip((page - 1) * pageSize).Take(pageSize);
             PageViewModel pageViewModel = new PageViewModel(groups.Count(), page, pageSize);
             var viewGroups = pageGroups.ToList();

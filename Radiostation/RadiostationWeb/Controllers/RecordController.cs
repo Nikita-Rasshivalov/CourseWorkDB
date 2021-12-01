@@ -19,7 +19,7 @@ namespace RadiostationWeb.Controllers
         [Authorize]
         public ActionResult Records(string nameFilter, int? performerFilter, int page = 1)
         {
-            var pageSize = 20;
+            var pageSize = 10;
             var records = FilterRecords(nameFilter, performerFilter);
             var performers = _dbContext.Performers.Select(c => new SelectListItem { Value = c.Id.ToString(), Text = c.Name })
             .ToList();
@@ -93,7 +93,7 @@ namespace RadiostationWeb.Controllers
         [AuthorizeRoles(RoleType.Admin, RoleType.Employeе)]
         public ActionResult ManageRecords(string nameFilter, int? performerFilter, int page = 1)
         {
-            var pageSize = 20;
+            var pageSize = 10;
             var records = FilterRecords(nameFilter, performerFilter);
             var performers = _dbContext.Performers.Select(c => new SelectListItem { Value = c.Id.ToString(), Text = c.Name })
             .ToList();

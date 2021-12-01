@@ -19,7 +19,7 @@ namespace RadiostationWeb.Controllers
         [Authorize]
         public ActionResult Genres(string genreNameFilter, int page = 1)
         {
-            var pageSize = 20;
+            var pageSize = 10;
             var genres = FilterGenres(genreNameFilter);
             var pageGenres = genres.OrderBy(o => o.Id).Skip((page - 1) * pageSize).Take(pageSize);
             PageViewModel pageViewModel = new PageViewModel(genres.Count(), page, pageSize);
@@ -52,7 +52,7 @@ namespace RadiostationWeb.Controllers
         public ActionResult ManageGenres(int page = 1)
         {
             IQueryable<Genre> genres = _dbContext.Genres;
-            var pageSize = 20;
+            var pageSize = 10;
             var pageGenres = genres.OrderBy(o => o.Id).Skip((page - 1) * pageSize).Take(pageSize);
             PageViewModel pageViewModel = new PageViewModel(genres.Count(), page, pageSize);
             var viewGenres = pageGenres.ToList();

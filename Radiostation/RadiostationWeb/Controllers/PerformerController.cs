@@ -3,8 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using RadiostationWeb.Data;
 using RadiostationWeb.Models;
-using System.Collections.Generic;
 using System.Linq;
+
 
 namespace RadiostationWeb.Controllers
 {
@@ -15,32 +15,34 @@ namespace RadiostationWeb.Controllers
         {
             _dbContext = context;
         }
-
         [Authorize]
-        public ActionResult Performers(string nameFilter, string surnameFilter, int page = 1)
+        public ActionResult Performers(string nameFilter,int? groupFilter, string surnameFilter, int page = 1)
         {
-            var pageSize = 20;
-            var performers = FilterPerformers(nameFilter, surnameFilter);
+            var pageSize = 10;
+            var performers = FilterPerformers(nameFilter, groupFilter, surnameFilter).ToList();
             var pagePerformers = performers.OrderBy(o => o.Id).Skip((page - 1) * pageSize).Take(pageSize);
             PageViewModel pageViewModel = new PageViewModel(performers.Count(), page, pageSize);
-            var viewPerformers = pagePerformers.ToList().Join(_dbContext.Groups.ToList(),
-            e => e.GroupId, t => t.Id,
-            (e, t) => new PerformerViewModel
-            {
-                Id = e.Id,
-                Name = e.Name,
-                Surname = e.Surname,
-                GroupName = t.Description
-            });
-            var pageItemsModel = new PageItemsModel<PerformerViewModel> { Items = viewPerformers, PageModel = pageViewModel };
+            var groups = _dbContext.Groups.ToList();
+
+            var viewPerformers = from b in pagePerformers
+                                 select new PerformerViewModel
+                                 {
+                                     Id = b.Id,
+                                     Name = b.Name,
+                                     Surname = b.Surname,
+                                     GroupName = groups.FirstOrDefault(g => g.Id == b.GroupId)?.Description,
+                                 };
+
+            var groupsList = _dbContext.Groups.Select(c => new SelectListItem { Value = c.Id.ToString(), Text = c.Description }).ToList();
+            var pageItemsModel = new PerformersItemsModel { Items = viewPerformers, PageModel = pageViewModel, SelectGroups = groupsList };
             return View(pageItemsModel);
         }
 
 
         public IActionResult ResetFilter()
         {
-
             HttpContext.Response.Cookies.Delete("nameFilter");
+            HttpContext.Response.Cookies.Delete("groupFilter");
             HttpContext.Response.Cookies.Delete("surnameFilter");
             return RedirectToAction(nameof(Performers));
         }
@@ -48,11 +50,12 @@ namespace RadiostationWeb.Controllers
         public IActionResult ResetManageFilter()
         {
             HttpContext.Response.Cookies.Delete("nameFilter");
+            HttpContext.Response.Cookies.Delete("groupFilter");
             HttpContext.Response.Cookies.Delete("surnameFilter");
             return RedirectToAction(nameof(ManagePerformers));
         }
 
-        private IQueryable<Performer> FilterPerformers(string nameFilter, string surnameFilter)
+        private IQueryable<Performer> FilterPerformers(string nameFilter, int? groupFilter, string surnameFilter)
         {
             IQueryable<Performer> performers = _dbContext.Performers;
             nameFilter = nameFilter ?? HttpContext.Request.Cookies["nameFilter"];
@@ -60,6 +63,14 @@ namespace RadiostationWeb.Controllers
             {
                 performers = performers.Where(e => e.Name.Contains(nameFilter));
                 HttpContext.Response.Cookies.Append("nameFilter", nameFilter);
+            }
+            int cookieGroupFilter;
+            int.TryParse(HttpContext.Request.Cookies["groupFilter"], out cookieGroupFilter);
+            groupFilter = groupFilter ?? cookieGroupFilter;
+            if (groupFilter != 0)
+            {
+                performers = performers.Where(e => e.GroupId == groupFilter);
+                HttpContext.Response.Cookies.Append("groupFilter", groupFilter.ToString());
             }
 
             surnameFilter = surnameFilter ?? HttpContext.Request.Cookies["surnameFilter"];
@@ -74,22 +85,23 @@ namespace RadiostationWeb.Controllers
 
 
         [AuthorizeRoles(RoleType.Admin, RoleType.Employeе)]
-        public ActionResult ManagePerformers(string nameFilter, string surnameFilter, int page = 1)
+        public ActionResult ManagePerformers(string nameFilter,int? groupFilter, string surnameFilter, int page = 1)
         {
-            var performers = FilterPerformers(nameFilter, surnameFilter);
-            var pageSize = 20;
+            var performers = FilterPerformers(nameFilter,groupFilter, surnameFilter).ToList();
+            var pageSize = 10;
             var pagePerformers = performers.ToList().OrderBy(o => o.Id).Skip((page - 1) * pageSize).Take(pageSize);
             PageViewModel pageViewModel = new PageViewModel(performers.Count(), page, pageSize);
-            var viewPerformers = pagePerformers.ToList().Join(_dbContext.Groups.ToList(),
-            e => e.GroupId, t => t.Id,
-            (e, t) => new PerformerViewModel
-            {
-                Id = e.Id,
-                Name = e.Name,
-                Surname = e.Surname,
-                GroupName = t.Description
-            });
-            var pageItemsModel = new PageItemsModel<PerformerViewModel> { Items = viewPerformers, PageModel = pageViewModel };
+            var groups = _dbContext.Groups.ToList();
+            var viewPerformers = from b in pagePerformers
+                                 select new PerformerViewModel
+                                 {
+                                     Id = b.Id,
+                                     Name = b.Name,
+                                     Surname = b.Surname,
+                                     GroupName = groups.FirstOrDefault(g => g.Id == b.GroupId)?.Description,
+                                 };
+            var groupsList = _dbContext.Groups.Select(c => new SelectListItem { Value = c.Id.ToString(), Text = c.Description }).ToList();
+            var pageItemsModel = new PerformersItemsModel { Items = viewPerformers, PageModel = pageViewModel, SelectGroups = groupsList };
             return View(pageItemsModel);
         }
 
@@ -132,11 +144,25 @@ namespace RadiostationWeb.Controllers
         {
             if (ModelState.IsValid)
             {
-                _dbContext.Performers.Add(new Performer 
+
+                if (performer.GroupId == 0)
                 {
-                    Name = performer.Name,
-                    Surname = performer.Surname,
-                    GroupId = performer.GroupId });
+                    _dbContext.Performers.Add(new Performer
+                    {
+                        Name = performer.Name,
+                        Surname = performer.Surname,
+                    });
+                }
+                else
+                {
+                    _dbContext.Performers.Add(new Performer
+                    {
+                        Name = performer.Name,
+                        Surname = performer.Surname,
+                        GroupId = performer.GroupId
+                    });
+                }
+
                 _dbContext.SaveChanges();
                 return RedirectToAction(nameof(ManagePerformers));
             }
@@ -158,11 +184,13 @@ namespace RadiostationWeb.Controllers
             if (performer != null)
             {
                 return View(new EditPerformerViewModel
-                { 
+                {
                     Id = id,
-                    GroupsList = groups, 
+                    GroupsList = groups,
                     Surname = performer.Surname,
-                    Name = performer.Name });
+                    Name = performer.Name,
+                    GroupId = performer.GroupId,
+                });
             }
             else
             {
@@ -177,12 +205,12 @@ namespace RadiostationWeb.Controllers
         {
             if (ModelState.IsValid)
             {
-                _dbContext.Performers.Update(new Performer 
-                { 
+                _dbContext.Performers.Update(new Performer
+                {
                     Id = performer.Id,
                     GroupId = performer.GroupId,
                     Name = performer.Name,
-                    Surname = performer.Surname 
+                    Surname = performer.Surname
                 });
                 if (_dbContext.SaveChanges() != 0)
                 {

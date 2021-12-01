@@ -21,7 +21,7 @@ namespace RadiostationWeb.Controllers
         [Authorize]
         public ActionResult Employees(int page = 1)
         {
-            var pageSize = 20;
+            var pageSize = 10;
             var employees = _dbContext.Employees.ToList();
             var pageEmployees = employees.OrderBy(o => o.Id).Skip((page - 1) * pageSize).Take(pageSize);
             PageViewModel pageViewModel = new PageViewModel(employees.Count(), page, pageSize);

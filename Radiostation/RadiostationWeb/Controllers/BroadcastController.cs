@@ -20,7 +20,7 @@ namespace RadiostationWeb.Controllers
 
         public ActionResult Broadcasts(DateTime? start, DateTime? end, SortState sortOrder = SortState.DateAsc, int page = 1)
         {
-            var pageSize = 20;
+            var pageSize = 10;
             var broadcasts = FilterBroadcasts(start, end).ToList();
             var pageBroadcasts = broadcasts.OrderBy(o => o.Id).Skip((page - 1) * pageSize).Take(pageSize);
             PageViewModel pageViewModel = new PageViewModel(broadcasts.Count(), page, pageSize);
@@ -99,7 +99,7 @@ namespace RadiostationWeb.Controllers
         [AuthorizeRoles(RoleType.Admin, RoleType.Employeе)]
         public ActionResult ManageBroadcasts(DateTime? start, DateTime? end, SortState sortOrder = SortState.DateAsc, int page = 1)
         {
-            var pageSize = 20;
+            var pageSize = 10;
             var broadcasts = FilterBroadcasts(start, end).ToList();
             var pageBroadcasts = broadcasts.OrderBy(o => o.Id).Skip((page - 1) * pageSize).Take(pageSize);
             PageViewModel pageViewModel = new PageViewModel(broadcasts.Count(), page, pageSize);

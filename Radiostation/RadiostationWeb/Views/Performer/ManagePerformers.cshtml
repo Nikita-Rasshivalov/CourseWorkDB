@@ -1,9 +1,9 @@
-﻿@model PageItemsModel<PerformerViewModel>
+﻿@model PerformersItemsModel
 @addTagHelper *, RadiostationWeb
 @{
     ViewData["Title"] = "Manage performers";
-    var currentNameFilter = (string)Context.Request.Query["nameFilter"] ?? Context.Request.Cookies["nameFilter"];
     var currentSurnameFilter = (string)Context.Request.Query["surnameFilter"] ?? Context.Request.Cookies["surnameFilter"];
+    var currentNameFilter = (string)Context.Request.Query["nameFilter"] ?? Context.Request.Cookies["nameFilter"];
 
 }
 <div class="main-container">
@@ -19,15 +19,21 @@
                     <div>Surname filter</div>
                     <input class="inputStyle" name="surnameFilter" type="text" value="@currentSurnameFilter" />
                 </div>
+                <div class="items">
+                    <div>Group filter</div>
+                    <select class="select-items" name="groupFilter" asp-items="@Model.SelectGroups">
+                        <option value="" disabled selected>Select Group</option>
+                    </select>
+                </div>
             </div>
-            <div class="formButtons">
+            <div class="formButtons performer-item ">
                 <input type="submit" class="addRecordbtn" value="Find">
                 <div class="crudBtn reset"><a class="crudLink" asp-controller="Performer" asp-action="ResetManageFilter"> Reset</a></div>
             </div>
         </form>
     </div>
     <div class="container-item">
-       <div class="crudBtn"><a class="crudLink" asp-controller="Performer" asp-action="Create"> Add performer</a></div>
+        <div class="crudBtn"><a class="crudLink" asp-controller="Performer" asp-action="Create"> Add performer</a></div>
         @if (@Model?.Items.Count() > 0)
         {
             <table class="table">
@@ -46,7 +52,14 @@
                         <tr>
                             <td>@performer.Name</td>
                             <td>@performer.Surname</td>
-                            <td>@performer.GroupName</td>
+                            @if (@performer.GroupName != null)
+                            {
+                                <td>@performer.GroupName</td>
+                            }
+                            else
+                            {
+                                <td>-</td>
+                            }
                             <td>
                                 <div class="manage-button-container">
                                     <div class="crudBtn"><a class="crudLink" asp-controller="Performer" asp-action="Edit" asp-route-id="@performer.Id">Edit</a></div>
@@ -57,7 +70,7 @@
                     }
                 </tbody>
             </table>
-            <div class="pages-container"><page-link page-model="Model.PageModel" page-action="Performers"></page-link></div>
+            <div class="pages-container"><page-link page-model="Model.PageModel" page-action="ManagePerformers"></page-link></div>
         }
         else
         {
