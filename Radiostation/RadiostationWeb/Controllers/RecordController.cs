@@ -6,6 +6,7 @@ using RadiostationWeb.Models;
 using System.Collections.Generic;
 using System.Linq;
 
+
 namespace RadiostationWeb.Controllers
 {
     public class RecordController : Controller
@@ -15,13 +16,12 @@ namespace RadiostationWeb.Controllers
         {
             _dbContext = context;
         }
-
         [Authorize]
         public ActionResult Records(string nameFilter, int? performerFilter, int page = 1)
         {
             var pageSize = 10;
             var records = FilterRecords(nameFilter, performerFilter);
-            var performers = _dbContext.Performers.Select(c => new SelectListItem { Value = c.Id.ToString(), Text = c.Name })
+            var performers = _dbContext.Performers.Select(c => new SelectListItem { Value = c.Id.ToString(), Text = c.Name+" "+c.Surname })
             .ToList();
             var pageRecords = records.OrderBy(o => o.Id).Skip((page - 1) * pageSize).Take(pageSize);
             PageViewModel pageViewModel = new PageViewModel(records.Count(), page, pageSize);

@@ -25,8 +25,8 @@ namespace RadiostationWeb.Controllers
             var employees = _dbContext.Employees.ToList();
             var pageEmployees = employees.OrderBy(o => o.Id).Skip((page - 1) * pageSize).Take(pageSize);
             PageViewModel pageViewModel = new PageViewModel(employees.Count(), page, pageSize);
+            var positions = _dbContext.Positions.ToList();
             var viewEmployees = from e in employees
-                                 join p in _dbContext.Positions.ToList() on e.PositionId equals p.Id
                                  join a in _applicationDbContext.Users.ToList() on e.AspNetUserId equals a.Id
                                  select new EmployeeViewModel
                                  {
@@ -38,7 +38,7 @@ namespace RadiostationWeb.Controllers
                                      Username = a.UserName,
                                      Email = a.Email,
                                      Education = e.Education,
-                                     PositionName = p.Name,
+                                     PositionName = positions.FirstOrDefault(g => g.Id == e.PositionId)?.Name,
                                      WorkTime = e.WorkTime,
                                  };
             var pageItemsModel = new PageItemsModel<EmployeeViewModel> { Items = viewEmployees, PageModel = pageViewModel };

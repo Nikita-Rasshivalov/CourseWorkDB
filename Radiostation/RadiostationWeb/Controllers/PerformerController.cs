@@ -5,7 +5,6 @@ using RadiostationWeb.Data;
 using RadiostationWeb.Models;
 using System.Linq;
 
-
 namespace RadiostationWeb.Controllers
 {
     public class PerformerController : Controller

@@ -25,10 +25,10 @@ namespace RadiostationWeb.Models
         [EmailAddress(ErrorMessage = "Incorrect email")]
         public string Email { get; set; } = "";
         [Required(ErrorMessage = "Position is required")]
-        public int PositionId { get; set; }
+        public int? PositionId { get; set; }
         public string Education { get; set; }
         public bool EmployeeRole { get; set; }
-        public int WorkTime { get; set; }
+        public int? WorkTime { get; set; }
         public IEnumerable<SelectListItem> PositionList { get; set; }
         public IEnumerable<SelectListItem> EducationList { get; set; }
     }

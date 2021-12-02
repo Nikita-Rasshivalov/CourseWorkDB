@@ -191,7 +191,7 @@ namespace RadiostationWeb.Controllers
                     await _userManager.AddToRoleAsync(user, userRole);
                     if (userRole.Equals(RoleType.Employeе))
                     {
-                        _dbContext.Employees.Add(new Employee { AspNetUserId = user.Id });
+                        _dbContext.Employees.Add(new Employee { AspNetUserId = user.Id,Education="",PositionId = null,WorkTime= null  });
                         _dbContext.SaveChanges();
                     }
                     return RedirectToAction(nameof(ManageUsers));

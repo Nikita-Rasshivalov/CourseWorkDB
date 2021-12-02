@@ -20,11 +20,11 @@
                 <div class="select-container">
                     <label class="active">Position</label>
                     <select class="select-items" asp-for="PositionId" asp-items="@Model.PositionList">
-                        <option value="" disabled>Select Position</option>
+                        <option value="" >Select Position</option>
                     </select>
                     <label class="active">Education</label>
                     <select class="select-items" asp-for="@Model.Education" asp-items="@Model.EducationList">
-                        <option value="" disabled>Select Education</option>
+                        <option value="" >Select Education</option>
                     </select>
                     <label class="active">Work time</label>
                     <input asp-for="@Model.WorkTime" type="number" placeholder="WorkTime" />
