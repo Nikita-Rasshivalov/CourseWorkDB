@@ -4,9 +4,9 @@
 @addTagHelper *, RadiostationWeb
 @inject UserManager<RadiostationWeb.Data.ApplicationUser> UserManager
 @{
-    
-        ViewData["Title"] = "Manage users";
-    
+
+    ViewData["Title"] = "Manage users";
+
     var currentNameFilter = (string)Context.Request.Query["nameFilter"] ?? Context.Request.Cookies["nameFilter"];
     var currentSurnameFilter = (string)Context.Request.Query["surnameFilter"] ?? Context.Request.Cookies["surnameFilter"];
 

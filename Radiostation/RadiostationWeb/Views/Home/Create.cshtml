@@ -5,7 +5,7 @@
         <form asp-action="Create" asp-controller="Home" method="post" class="form" enctype="multipart/form-data">
             <div class="img-items">
                 <label>Src</label>
-                <input class="browse-img" type="file" name="uploadedFile" placeholder="src">
+                <input class="browse-img" type="file" name="uploadedFile" placeholder="src" required>
                 <label>Caption</label>
                 <input class="inputStyle" asp-for="@Model.ImgCaption" type="text" placeholder="caption">
                 <input type="submit" class="addRecordbtn" value="Add">

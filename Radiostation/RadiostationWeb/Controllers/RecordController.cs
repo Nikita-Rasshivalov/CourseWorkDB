@@ -23,7 +23,7 @@ namespace RadiostationWeb.Controllers
             var records = FilterRecords(nameFilter, performerFilter);
             var performers = _dbContext.Performers.Select(c => new SelectListItem { Value = c.Id.ToString(), Text = c.Name+" "+c.Surname })
             .ToList();
-            var pageRecords = records.OrderBy(o => o.Id).Skip((page - 1) * pageSize).Take(pageSize);
+            var pageRecords = records.OrderByDescending(o => o.Id).Skip((page - 1) * pageSize).Take(pageSize);
             PageViewModel pageViewModel = new PageViewModel(records.Count(), page, pageSize);
             var viewRecords = pageRecords.ToList().Join(_dbContext.Performers.ToList(),
             e => e.PerformerId, t => t.Id,
@@ -97,7 +97,7 @@ namespace RadiostationWeb.Controllers
             var records = FilterRecords(nameFilter, performerFilter);
             var performers = _dbContext.Performers.Select(c => new SelectListItem { Value = c.Id.ToString(), Text = c.Name })
             .ToList();
-            var pageRecords = records.ToList().OrderBy(o => o.Id).Skip((page - 1) * pageSize).Take(pageSize);
+            var pageRecords = records.ToList().OrderByDescending(o => o.Id).Skip((page - 1) * pageSize).Take(pageSize);
             PageViewModel pageViewModel = new PageViewModel(records.Count(), page, pageSize);
             var viewRecords = pageRecords.ToList().Join(_dbContext.Performers.ToList(),
             e => e.PerformerId, t => t.Id,

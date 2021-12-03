@@ -24,11 +24,11 @@
             <input asp-for="Name" type="text" placeholder="Name" />
             <input asp-for="Surname" type="text" placeholder="Surname" />
             <input asp-for="MiddleName" type="text" placeholder="Middle Name" />
+            <div class="error-box" asp-validation-summary="All"></div>
             <div class="formButtons">
                 <input type="submit" class="addRecordbtn" value="Add">
             </div>
         </form>
         <p class="success-message">@ViewData["SuccessMessage"]</p>
-        <div class="error-box" asp-validation-summary="All"></div>
     </div>
 </div>

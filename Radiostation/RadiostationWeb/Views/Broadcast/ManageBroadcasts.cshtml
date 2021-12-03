@@ -8,7 +8,7 @@
 <div class="main-container">
     <div class="formContainer">
         <h2 class="title">Broadcasts</h2>
-        <form asp-action="Broadcasts" asp-controller="Broadcast" method="get" class="form">
+        <form asp-action="ManageBroadcasts" asp-controller="Broadcast" method="get" class="form">
             <div class="wrapper-items">
                 <div class="items">
                     <div>Date from</div>
@@ -21,7 +21,7 @@
             </div>
             <div class="formButtons">
                 <input type="submit" class="addRecordbtn" value="Find">
-                <div class="crudBtn reset"><a class="crudLink" asp-controller="Broadcast" asp-action="ResetFilter"> Reset</a></div>
+                <div class="crudBtn reset"><a class="crudLink" asp-controller="Broadcast" asp-action="ResetManageFilter"> Reset</a></div>
             </div>
         </form>
     </div>

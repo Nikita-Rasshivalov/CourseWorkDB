@@ -22,9 +22,9 @@ namespace RadiostationWeb.Controllers
         {
             var pageSize = 10;
             var broadcasts = FilterBroadcasts(start, end).ToList();
-            var pageBroadcasts = broadcasts.OrderBy(o => o.Id).Skip((page - 1) * pageSize).Take(pageSize);
+            var pageBroadcasts = broadcasts.OrderByDescending(o => o.Id).Skip((page - 1) * pageSize).Take(pageSize);
             PageViewModel pageViewModel = new PageViewModel(broadcasts.Count(), page, pageSize);
-            var viewBroadcasts = from b in broadcasts
+            var viewBroadcasts = from b in pageBroadcasts
                                  join e in _dbContext.Employees.ToList() on b.EmployeeId equals e.Id
                                  join a in _applicationDbContext.Users.ToList() on e.AspNetUserId equals a.Id
                                  join r in _dbContext.Records on b.RecordId equals r.Id
@@ -46,7 +46,7 @@ namespace RadiostationWeb.Controllers
                 SortState.RecorNameAsc => viewBroadcasts.OrderBy(s => s.RecordName),
                 SortState.RecordNameDsc => viewBroadcasts.OrderByDescending(s => s.RecordName),
                 SortState.DateDsc => viewBroadcasts.OrderByDescending(s => s.DateAndTime),
-                _ => viewBroadcasts.OrderBy(s => s.DateAndTime),
+                _ => viewBroadcasts.OrderByDescending(s => s.DateAndTime),
             };
             var pageItemsModel = new BroadcastsItemModel 
             {
@@ -101,9 +101,9 @@ namespace RadiostationWeb.Controllers
         {
             var pageSize = 10;
             var broadcasts = FilterBroadcasts(start, end).ToList();
-            var pageBroadcasts = broadcasts.OrderBy(o => o.Id).Skip((page - 1) * pageSize).Take(pageSize);
+            var pageBroadcasts = broadcasts.OrderByDescending(o => o.Id).Skip((page - 1) * pageSize).Take(pageSize);
             PageViewModel pageViewModel = new PageViewModel(broadcasts.Count(), page, pageSize);
-            var viewBroadcasts = from b in broadcasts
+            var viewBroadcasts = from b in pageBroadcasts
                                  join e in _dbContext.Employees.ToList() on b.EmployeeId equals e.Id
                                  join a in _applicationDbContext.Users.ToList() on e.AspNetUserId equals a.Id
                                  join r in _dbContext.Records on b.RecordId equals r.Id
@@ -125,7 +125,7 @@ namespace RadiostationWeb.Controllers
                 SortState.RecorNameAsc => viewBroadcasts.OrderBy(s => s.RecordName),
                 SortState.RecordNameDsc => viewBroadcasts.OrderByDescending(s => s.RecordName),
                 SortState.DateDsc => viewBroadcasts.OrderByDescending(s => s.DateAndTime),
-                _ => viewBroadcasts.OrderBy(s => s.DateAndTime),
+                _ => viewBroadcasts.OrderByDescending(s => s.DateAndTime),
             };
             var pageItemsModel = new BroadcastsItemModel
             {

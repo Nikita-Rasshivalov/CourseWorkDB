@@ -20,7 +20,7 @@ namespace RadiostationWeb.Controllers
         {
             var pageSize = 10;
             var groups = FilterGroups(groupFilter);
-            var pageGroups = groups.OrderBy(o => o.Id).Skip((page - 1) * pageSize).Take(pageSize);
+            var pageGroups = groups.OrderByDescending(o => o.Id).Skip((page - 1) * pageSize).Take(pageSize);
             PageViewModel pageViewModel = new PageViewModel(groups.Count(), page, pageSize);
             var viewGroups = pageGroups.ToList();
 
@@ -36,7 +36,7 @@ namespace RadiostationWeb.Controllers
             var viewDetails = from p in groupDetail
                               join g in _dbContext.Groups.ToList() on p.GroupId equals g.Id
                               where g.Id.Equals(id)
-                              select new GroupDetailView
+                              select new GroupDetailViewModel
                               {
                                   PerformerName = p.Name,
                                   PerformerSurname = p.Surname,
@@ -69,7 +69,7 @@ namespace RadiostationWeb.Controllers
         {
             IQueryable<Group> groups = _dbContext.Groups;
             var pageSize = 10;
-            var pageGroups = groups.OrderBy(o => o.Id).Skip((page - 1) * pageSize).Take(pageSize);
+            var pageGroups = groups.OrderByDescending(o => o.Id).Skip((page - 1) * pageSize).Take(pageSize);
             PageViewModel pageViewModel = new PageViewModel(groups.Count(), page, pageSize);
             var viewGroups = pageGroups.ToList();
             var pageItemsModel = new PageItemsModel<Group> { Items = viewGroups, PageModel = pageViewModel };

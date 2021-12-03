@@ -9,6 +9,6 @@
         RecorNameAsc,
         RecordNameDsc,
         DateAsc,
-        DateDsc
+        DateDsc,
     }
 }

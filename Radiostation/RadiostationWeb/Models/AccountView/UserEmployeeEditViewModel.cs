@@ -28,6 +28,7 @@ namespace RadiostationWeb.Models
         public int? PositionId { get; set; }
         public string Education { get; set; }
         public bool EmployeeRole { get; set; }
+        [Range(1, 12, ErrorMessage = "The value must be in the limit from 1 to 12")]
         public int? WorkTime { get; set; }
         public IEnumerable<SelectListItem> PositionList { get; set; }
         public IEnumerable<SelectListItem> EducationList { get; set; }

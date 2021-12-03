@@ -21,7 +21,7 @@ namespace RadiostationWeb.Controllers
         {
             var pageSize = 10;
             var genres = FilterGenres(genreNameFilter);
-            var pageGenres = genres.OrderBy(o => o.Id).Skip((page - 1) * pageSize).Take(pageSize);
+            var pageGenres = genres.OrderByDescending(o => o.Id).Skip((page - 1) * pageSize).Take(pageSize);
             PageViewModel pageViewModel = new PageViewModel(genres.Count(), page, pageSize);
             var viewGenres = pageGenres.ToList();
 
@@ -53,7 +53,7 @@ namespace RadiostationWeb.Controllers
         {
             IQueryable<Genre> genres = _dbContext.Genres;
             var pageSize = 10;
-            var pageGenres = genres.OrderBy(o => o.Id).Skip((page - 1) * pageSize).Take(pageSize);
+            var pageGenres = genres.OrderByDescending(o => o.Id).Skip((page - 1) * pageSize).Take(pageSize);
             PageViewModel pageViewModel = new PageViewModel(genres.Count(), page, pageSize);
             var viewGenres = pageGenres.ToList();
             var pageItemsModel = new PageItemsModel<Genre> { Items = viewGenres, PageModel = pageViewModel };
@@ -100,7 +100,7 @@ namespace RadiostationWeb.Controllers
             {
                 _dbContext.Genres.Add(genre);
                 _dbContext.SaveChanges();
-                return RedirectToAction(nameof(ManageGenres));
+                RedirectToAction(nameof(ManageGenres));
             }
 
             return View(genre);

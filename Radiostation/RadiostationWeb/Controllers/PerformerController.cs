@@ -19,7 +19,7 @@ namespace RadiostationWeb.Controllers
         {
             var pageSize = 10;
             var performers = FilterPerformers(nameFilter, groupFilter, surnameFilter).ToList();
-            var pagePerformers = performers.OrderBy(o => o.Id).Skip((page - 1) * pageSize).Take(pageSize);
+            var pagePerformers = performers.OrderByDescending(o => o.Id).Skip((page - 1) * pageSize).Take(pageSize);
             PageViewModel pageViewModel = new PageViewModel(performers.Count(), page, pageSize);
             var groups = _dbContext.Groups.ToList();
 
@@ -88,7 +88,7 @@ namespace RadiostationWeb.Controllers
         {
             var performers = FilterPerformers(nameFilter,groupFilter, surnameFilter).ToList();
             var pageSize = 10;
-            var pagePerformers = performers.ToList().OrderBy(o => o.Id).Skip((page - 1) * pageSize).Take(pageSize);
+            var pagePerformers = performers.ToList().OrderByDescending(o => o.Id).Skip((page - 1) * pageSize).Take(pageSize);
             PageViewModel pageViewModel = new PageViewModel(performers.Count(), page, pageSize);
             var groups = _dbContext.Groups.ToList();
             var viewPerformers = from b in pagePerformers

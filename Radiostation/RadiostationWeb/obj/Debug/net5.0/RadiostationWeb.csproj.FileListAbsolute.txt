@@ -189,3 +189,4 @@ C:\Users\nikit\Desktop\БД\CousreWorkDb\CourseWorkDB\Radiostation\RadiostationW
 C:\Users\nikit\Desktop\БД\CousreWorkDb\CourseWorkDB\Radiostation\RadiostationWeb\obj\Debug\net5.0\Razor\Views\Group\GroupDetail.cshtml.g.cs
 C:\Users\nikit\Desktop\БД\CousreWorkDb\CourseWorkDB\Radiostation\RadiostationWeb\obj\Debug\net5.0\Razor\Views\Home\Create.cshtml.g.cs
 C:\Users\nikit\Desktop\БД\CousreWorkDb\CourseWorkDB\Radiostation\RadiostationWeb\obj\Debug\net5.0\Razor\Views\Home\Edit.cshtml.g.cs
+C:\Users\nikit\Desktop\БД\CousreWorkDb\CourseWorkDB\Radiostation\RadiostationWeb\obj\Debug\net5.0\Razor\Views\Account\_ModalDetailsPartial.cshtml.g.cs

@@ -4,6 +4,7 @@
     <div class="header-item">
         <h1 class="title">Edit user</h1>
         <form asp-action="Edit" asp-controller="Account" method="post" class="form">
+            <div class="error-box" asp-validation-summary="All"></div>
             <input asp-for="Id" value="@Model.Id" type="hidden" />
             <label class="active">Usename</label>
             <input asp-for="UserName" value="@Model.UserName" class="inputStyle" placeholder="Username" />
@@ -20,11 +21,11 @@
                 <div class="select-container">
                     <label class="active">Position</label>
                     <select class="select-items" asp-for="PositionId" asp-items="@Model.PositionList">
-                        <option value="" >Select Position</option>
+                        <option value="">Select Position</option>
                     </select>
                     <label class="active">Education</label>
                     <select class="select-items" asp-for="@Model.Education" asp-items="@Model.EducationList">
-                        <option value="" >Select Education</option>
+                        <option value="">Select Education</option>
                     </select>
                     <label class="active">Work time</label>
                     <input asp-for="@Model.WorkTime" type="number" placeholder="WorkTime" />
@@ -35,6 +36,5 @@
             </div>
         </form>
         <p class="success-message">@ViewData["SuccessMessage"]</p>
-        <div class="error-box" asp-validation-summary="All"></div>
     </div>
 </div>

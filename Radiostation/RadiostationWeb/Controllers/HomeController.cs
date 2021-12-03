@@ -40,16 +40,19 @@ namespace RadiostationWeb.Controllers
         {
             if (uploadedFile != null)
             {
-               
-                string path = "/img/" + uploadedFile.FileName;
-                
-                using (var fileStream = new FileStream(_environment.WebRootPath + path, FileMode.Create))
+                if (ModelState.IsValid)
                 {
-                    await uploadedFile.CopyToAsync(fileStream);
+
+                    string path = "/img/" + uploadedFile.FileName;
+
+                    using (var fileStream = new FileStream(_environment.WebRootPath + path, FileMode.Create))
+                    {
+                        await uploadedFile.CopyToAsync(fileStream);
+                    }
+                    HomePageImage file = new HomePageImage { SrcImg = path, ImgCaption = image.ImgCaption };
+                    _dbContext.HomePageImages.Add(file);
+                    _dbContext.SaveChanges();
                 }
-                HomePageImage file = new HomePageImage { SrcImg = path,ImgCaption=image.ImgCaption };
-                _dbContext.HomePageImages.Add(file);
-                _dbContext.SaveChanges();
             }
 
             return RedirectToAction(nameof(Index));
@@ -83,17 +86,20 @@ namespace RadiostationWeb.Controllers
                 var img = _dbContext.HomePageImages.Find(homePageImage.Id);
                 if (img != null)
                 {
-                    var imageName = $"{img.Id}{Path.GetExtension(uploadedFile.FileName)}";
-                    var imagePath = Path.Combine(_environment.WebRootPath, "img", imageName);
-                    using (Stream fileStream = new FileStream(imagePath, FileMode.Create))
+                    if (ModelState.IsValid)
                     {
-                        await uploadedFile.CopyToAsync(fileStream);
+                        var imageName = $"{img.Id}{Path.GetExtension(uploadedFile.FileName)}";
+                        var imagePath = Path.Combine(_environment.WebRootPath, "img", imageName);
+                        using (Stream fileStream = new FileStream(imagePath, FileMode.Create))
+                        {
+                            await uploadedFile.CopyToAsync(fileStream);
+                        }
+
+                        img.SrcImg = $"/img/{imageName}";
+                        img.ImgCaption = homePageImage.ImgCaption;
+
+                        _dbContext.SaveChanges();
                     }
-
-                    img.SrcImg = $"/img/{imageName}";
-                    img.ImgCaption = homePageImage.ImgCaption;
-
-                    _dbContext.SaveChanges();
                 }
                 else
                 {

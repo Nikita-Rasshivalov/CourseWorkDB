@@ -70,7 +70,7 @@ namespace RadiostationWeb.Controllers
         {
             var pageSize = 10;
             var users = FilterUsers(nameFilter, surnameFilter);
-            var pageUsers = users.OrderBy(o => o.Id).Skip((page - 1) * pageSize).Take(pageSize);
+            var pageUsers = users.OrderBy(o => o.UserName).Skip((page - 1) * pageSize).Take(pageSize);
             PageViewModel pageViewModel = new PageViewModel(users.Count(), page, pageSize);
             var viewUsers = pageUsers.ToList();
             var pageItemsModel = new PageItemsModel<ApplicationUser> { Items = viewUsers, PageModel = pageViewModel };
@@ -112,8 +112,13 @@ namespace RadiostationWeb.Controllers
                 await _userManager.AddToRoleAsync(user, roleName);
                 if (roleName.Equals(RoleType.Employeе))
                 {
-                    _dbContext.Employees.Add(new Employee { AspNetUserId = userId });
-                    _dbContext.SaveChanges();
+                    Employee employee = new Employee { AspNetUserId = userId };
+                    if (_dbContext.Broadcasts.ToList().Any(o => o.EmployeeId == employee.Id))
+                    {
+                        _dbContext.Employees.Add(employee);
+                        _dbContext.SaveChanges();
+
+                    }
                 }
             }
             return RedirectToAction(nameof(ManageUsers));
@@ -132,8 +137,12 @@ namespace RadiostationWeb.Controllers
                     await _userManager.RemoveFromRoleAsync(user, roleName);
                     if (roleName.Equals(RoleType.Employeе))
                     {
-                        _dbContext.Employees.Remove(employee);
-                        _dbContext.SaveChanges();
+                        if (!_dbContext.Broadcasts.ToList().Any(o=>o.EmployeeId==employee.Id))
+                        {
+                            _dbContext.Employees.Remove(employee);
+                            _dbContext.SaveChanges();
+                           return RedirectToAction(nameof(ManageUsers));
+                        }                        
                     }
                 }
             }
@@ -147,8 +156,23 @@ namespace RadiostationWeb.Controllers
             if (userId != null && userId != currentUserId)
             {
                 var user = await _userManager.FindByIdAsync(userId);
-                await _userManager.DeleteAsync(user);
+                var userRoles = await _userManager.GetRolesAsync(user);
+                var emplRole = userRoles.Contains("Employee");
+                if (emplRole)
+                {
+                    var employee = _dbContext.Employees.FirstOrDefault(o => o.AspNetUserId.Equals(userId));
 
+                    if ((!_dbContext.Broadcasts.ToList().Any(o => o.EmployeeId == employee.Id)))
+                    {
+                        await _userManager.DeleteAsync(user);
+                    }
+                }
+                else
+                {
+                    await _userManager.DeleteAsync(user);
+                }
+               
+                
             }
 
             return RedirectToAction(nameof(ManageUsers));
