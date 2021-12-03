@@ -12,7 +12,7 @@ namespace RadiostationWeb.Models
         public int EmployeeId { get; set; }
         [Required]
         public int RecordId { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Data and time is required")]
         public DateTime? DateAndTime { get; set; }
         public IEnumerable<SelectListItem> EmployeeList { get; set; }
         public IEnumerable<SelectListItem> RecordList { get; set; }

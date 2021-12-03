@@ -188,14 +188,17 @@ namespace RadiostationWeb.Controllers
         [HttpPost]
         public async Task<ActionResult> Create(RegistrationViewModel registrationModel, string userRole = RoleType.User)
         {
-            if (await _userManager.FindByNameAsync(registrationModel.Username) != null)
+            if (registrationModel.Username != null && registrationModel.Email!=null)
             {
-                ModelState.AddModelError("", "Username already exists");
-            }
+                if (await _userManager.FindByNameAsync(registrationModel.Username) != null)
+                {
+                    ModelState.AddModelError("", "Username already exists");
+                }
 
-            if (await _userManager.FindByEmailAsync(registrationModel.Email) != null)
-            {
-                ModelState.AddModelError("", "Email already exists");
+                if (await _userManager.FindByEmailAsync(registrationModel.Email) != null)
+                {
+                    ModelState.AddModelError("", "Email already exists");
+                }
             }
 
             if (ModelState.IsValid)

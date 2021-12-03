@@ -165,7 +165,8 @@ namespace RadiostationWeb.Controllers
                 _dbContext.SaveChanges();
                 return RedirectToAction(nameof(ManagePerformers));
             }
-
+            var groups = _dbContext.Groups.Select(c => new SelectListItem { Value = c.Id.ToString(), Text = c.Description }).ToList();
+            performer.GroupsList = groups;
             return View(performer);
         }
 
@@ -200,7 +201,7 @@ namespace RadiostationWeb.Controllers
 
         [AuthorizeRoles(RoleType.Admin, RoleType.Employeе)]
         [HttpPost]
-        public ActionResult Edit(Performer performer)
+        public ActionResult Edit(EditPerformerViewModel performer)
         {
             if (ModelState.IsValid)
             {
@@ -217,7 +218,8 @@ namespace RadiostationWeb.Controllers
                     return RedirectToAction(nameof(ManagePerformers));
                 }
             }
-
+            var groups = _dbContext.Groups.Select(c => new SelectListItem { Value = c.Id.ToString(), Text = c.Description }).ToList();
+            performer.GroupsList = groups;
             return View(performer);
         }
     }

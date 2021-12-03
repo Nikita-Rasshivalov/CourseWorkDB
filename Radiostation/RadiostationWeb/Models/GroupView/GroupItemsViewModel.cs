@@ -6,5 +6,8 @@ namespace RadiostationWeb.Models
     {
         public IEnumerable<GroupDetailViewModel> GroupsItems { get; set; }
         public string GroupName { get; set; }
+        public int Id { get; set; }
+
+        public PageViewModel PageModel { get; set; }
     }
 }

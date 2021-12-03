@@ -29,20 +29,27 @@ namespace RadiostationWeb.Controllers
         }
 
         [Authorize]
-        public ActionResult GroupDetail(int id)
+        public ActionResult GroupDetail(int id,int page = 1)
         {
-            var groupDetail = _dbContext.Performers.ToList();
-            var groupPage = _dbContext.Groups.FirstOrDefault(o => o.Id.Equals(id)).Description;
-            var viewDetails = from p in groupDetail
-                              join g in _dbContext.Groups.ToList() on p.GroupId equals g.Id
-                              where g.Id.Equals(id)
+            var pageSize = 10;
+            var groupPage = _dbContext.Groups.FirstOrDefault(o => o.Id.Equals(id));
+
+            var groupPerformerDetail = _dbContext.Performers.ToList().Where(o=>o.GroupId.Equals(id));
+            var pageDetail = groupPerformerDetail.OrderByDescending(o => o.Id).Skip((page - 1) * pageSize).Take(pageSize);
+            PageViewModel pageViewModel = new PageViewModel(groupPerformerDetail.Count(), page, pageSize);
+
+            var viewDetails = from p in pageDetail
                               select new GroupDetailViewModel
                               {
                                   PerformerName = p.Name,
-                                  PerformerSurname = p.Surname,
-                                  GroupName = g.Description
+                                  PerformerSurname = p.Surname
                               };
-            return View(new GroupItemsViewModel { GroupsItems = viewDetails,GroupName= groupPage });
+            return View(new GroupItemsViewModel {
+                GroupsItems = viewDetails,
+                GroupName = groupPage.Description,
+                PageModel= pageViewModel,
+                Id = groupPage.Id
+            });
         }
 
         public IActionResult ResetFilter()

@@ -194,6 +194,19 @@ namespace RadiostationWeb.Controllers
                 _dbContext.SaveChanges();
                 return RedirectToAction(nameof(ManageBroadcasts));
             }
+            var emoployees = _dbContext.Employees.ToList()
+                .Join(_applicationDbContext.Users.ToList(),
+                e => e.AspNetUserId, t => t.Id,
+                (e, t) => new SelectListItem
+                {
+                    Value = e.Id.ToString(),
+                    Text = t.Name + " " + t.Surname,
+                }).ToList();
+            var records = _dbContext.Records
+                .Select(c => new SelectListItem { Value = c.Id.ToString(), Text = c.СompositionName }).ToList();
+
+            broadcast.RecordList = records;
+            broadcast.EmployeeList = emoployees;
 
             return View(broadcast);
         }
@@ -258,7 +271,19 @@ namespace RadiostationWeb.Controllers
                     return RedirectToAction(nameof(ManageBroadcasts));
                 }
             }
+            var emoployees = _dbContext.Employees.ToList()
+                .Join(_applicationDbContext.Users.ToList(),
+                e => e.AspNetUserId, t => t.Id,
+                (e, t) => new SelectListItem
+                {
+                    Value = e.Id.ToString(),
+                    Text = t.Name + " " + t.Surname,
+                }).ToList();
+            var records = _dbContext.Records
+                .Select(c => new SelectListItem { Value = c.Id.ToString(), Text = c.СompositionName }).ToList();
 
+            broadcast.RecordList = records;
+            broadcast.EmployeeList = emoployees;
             return View(broadcast);
         }
     }

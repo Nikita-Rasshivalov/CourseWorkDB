@@ -1,11 +1,12 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using RadiostationWeb.Data;
 using RadiostationWeb.Models;
 using System.Collections.Generic;
 using System.Linq;
-
+using System.Threading.Tasks;
 
 namespace RadiostationWeb.Controllers
 {
@@ -17,12 +18,12 @@ namespace RadiostationWeb.Controllers
             _dbContext = context;
         }
         [Authorize]
-        public ActionResult Records(string nameFilter, int? performerFilter, int page = 1)
+        public async Task<ActionResult> Records(string nameFilter, int? performerFilter, int page = 1)
         {
             var pageSize = 10;
             var records = FilterRecords(nameFilter, performerFilter);
-            var performers = _dbContext.Performers.Select(c => new SelectListItem { Value = c.Id.ToString(), Text = c.Name+" "+c.Surname })
-            .ToList();
+            var performers = await _dbContext.Performers.Select(c => new SelectListItem { Value = c.Id.ToString(), Text = c.Name + " " + c.Surname })
+            .ToListAsync();
             var pageRecords = records.OrderByDescending(o => o.Id).Skip((page - 1) * pageSize).Take(pageSize);
             PageViewModel pageViewModel = new PageViewModel(records.Count(), page, pageSize);
             var viewRecords = pageRecords.ToList().Join(_dbContext.Performers.ToList(),
@@ -124,7 +125,7 @@ namespace RadiostationWeb.Controllers
                 СompositionName = e.СompositionName
             }
             );
-            var pageItemsModel = new RecordsItemModel { Items = viewRecords, PageModel = pageViewModel,SelectPerformers = performers };
+            var pageItemsModel = new RecordsItemModel { Items = viewRecords, PageModel = pageViewModel, SelectPerformers = performers };
             return View(pageItemsModel);
         }
 
@@ -157,12 +158,12 @@ namespace RadiostationWeb.Controllers
         [AuthorizeRoles(RoleType.Admin, RoleType.Employeе)]
         public ActionResult Create()
         {
-            var performers = _dbContext.Performers.Select(c => new SelectListItem { Value = c.Id.ToString(), Text = c.Name})
+            var performers = _dbContext.Performers.Select(c => new SelectListItem { Value = c.Id.ToString(), Text = c.Name })
             .ToList();
 
             var genres = _dbContext.Genres.Select(c => new SelectListItem { Value = c.Id.ToString(), Text = c.GenreName })
             .ToList();
-            return View(new CreateRecordViewModel { PerformersList = performers, GenresList = genres } );
+            return View(new CreateRecordViewModel { PerformersList = performers, GenresList = genres });
         }
 
         [AuthorizeRoles(RoleType.Admin, RoleType.Employeе)]
@@ -171,19 +172,27 @@ namespace RadiostationWeb.Controllers
         {
             if (ModelState.IsValid)
             {
-                _dbContext.Records.Add(new Record 
+                _dbContext.Records.Add(new Record
                 {
                     СompositionName = record.СompositionName,
-                    Album=record.Album,
-                    GenreId=record.GenreId,
-                    Lasting=record.Lasting,
-                    Rating=record.Rating,
-                    RecordDate=record.RecordDate,
-                    PerformerId=record.PerformerId
+                    Album = record.Album,
+                    GenreId = record.GenreId,
+                    Lasting = record.Lasting,
+                    Rating = record.Rating,
+                    RecordDate = record.RecordDate,
+                    PerformerId = record.PerformerId
                 });
                 _dbContext.SaveChanges();
                 return RedirectToAction(nameof(ManageRecords));
             }
+            var performers = _dbContext.Performers.Select(c => new SelectListItem { Value = c.Id.ToString(), Text = c.Name })
+            .ToList();
+
+            var genres = _dbContext.Genres.Select(c => new SelectListItem { Value = c.Id.ToString(), Text = c.GenreName })
+            .ToList();
+
+            record.GenresList = genres;
+            record.PerformersList = performers;
 
             return View(record);
         }
@@ -196,10 +205,10 @@ namespace RadiostationWeb.Controllers
             {
                 Value = c.Id.ToString(),
                 Text = c.Name,
-                Selected = record.PerformerId==c.Id
+                Selected = record.PerformerId == c.Id
             }).ToList();
 
-            var genres = _dbContext.Genres.Select(c => new SelectListItem 
+            var genres = _dbContext.Genres.Select(c => new SelectListItem
             {
                 Value = c.Id.ToString(),
                 Text = c.GenreName,
@@ -208,7 +217,7 @@ namespace RadiostationWeb.Controllers
             if (record != null)
             {
                 return View(new EditRecordViewModel
-                { 
+                {
                     Id = id,
                     PerformersList = performers,
                     GenresList = genres,
@@ -230,7 +239,7 @@ namespace RadiostationWeb.Controllers
 
         [AuthorizeRoles(RoleType.Admin, RoleType.Employeе)]
         [HttpPost]
-        public ActionResult Edit(EditRecordViewModel record)
+        public async Task<ActionResult> Edit(EditRecordViewModel record)
         {
             if (ModelState.IsValid)
             {
@@ -238,12 +247,12 @@ namespace RadiostationWeb.Controllers
                 {
                     Id = record.Id,
                     Album = record.Album,
-                    GenreId=record.GenreId,
+                    GenreId = record.GenreId,
                     PerformerId = record.PerformerId,
-                    RecordDate=record.RecordDate,
-                    Lasting=record.Lasting,
-                    Rating=record.Rating,
-                    СompositionName=record.СompositionName
+                    RecordDate = record.RecordDate,
+                    Lasting = record.Lasting,
+                    Rating = record.Rating,
+                    СompositionName = record.СompositionName
                 });
                 if (_dbContext.SaveChanges() != 0)
                 {
@@ -251,6 +260,15 @@ namespace RadiostationWeb.Controllers
                     return RedirectToAction(nameof(ManageRecords));
                 }
             }
+
+            var performers = await _dbContext.Performers.Select(c => new SelectListItem { Value = c.Id.ToString(), Text = c.Name })
+            .ToListAsync();
+
+            var genres = await _dbContext.Genres.Select(c => new SelectListItem { Value = c.Id.ToString(), Text = c.GenreName })
+            .ToListAsync();
+
+            record.GenresList = genres;
+            record.PerformersList = performers;
 
             return View(record);
         }

@@ -18,7 +18,10 @@ namespace RadiostationWeb.TagHelpers
         [HtmlAttributeNotBound]
         public ViewContext ViewContext { get; set; }
         public PageViewModel PageModel { get; set; }
+        public object Sorter { get; set; }
         public string PageAction { get; set; }
+
+        public object ModelId { get; set; }
 
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {
@@ -30,12 +33,10 @@ namespace RadiostationWeb.TagHelpers
 
             TagBuilder currentItem = CreateTag(PageModel.PageNumber, urlHelper);
 
-
-
             if (PageModel.PageNumber > 2)
             {
-                TagBuilder prevItem = CreateTag(1, urlHelper);
-                tag.InnerHtml.AppendHtml(prevItem);
+                TagBuilder firstItem = CreateTag(1, urlHelper);
+                tag.InnerHtml.AppendHtml(firstItem);
             }
 
             if (PageModel.HasPreviousPage)
@@ -45,20 +46,16 @@ namespace RadiostationWeb.TagHelpers
             }
 
             tag.InnerHtml.AppendHtml(currentItem);
-
             if (PageModel.HasNextPage)
             {
                 TagBuilder nextItem = CreateTag(PageModel.PageNumber + 1, urlHelper);
                 tag.InnerHtml.AppendHtml(nextItem);
             }
-
-
-            if (PageModel.PageNumber+1 < PageModel.TotalPages)
+            if (PageModel.PageNumber + 1 < PageModel.TotalPages)
             {
-                TagBuilder nextItem = CreateTag(PageModel.TotalPages, urlHelper);
-                tag.InnerHtml.AppendHtml(nextItem);
+                TagBuilder lastItem = CreateTag(PageModel.TotalPages, urlHelper);
+                tag.InnerHtml.AppendHtml(lastItem);
             }
-
             output.Content.AppendHtml(tag);
         }
 
@@ -72,9 +69,10 @@ namespace RadiostationWeb.TagHelpers
             }
             else
             {
-                link.Attributes["href"] = urlHelper.Action(PageAction, new { page = pageNumber });
+                link.Attributes["href"] = urlHelper.Action(PageAction, new { page = pageNumber, id = ModelId, sorter = Sorter });
             }
             item.AddCssClass("page-item");
+            item.AddCssClass("page-item-custom");
             link.AddCssClass("page-link");
             link.InnerHtml.Append(pageNumber.ToString());
             item.InnerHtml.AppendHtml(link);
@@ -82,3 +80,4 @@ namespace RadiostationWeb.TagHelpers
         }
     }
 }
+
