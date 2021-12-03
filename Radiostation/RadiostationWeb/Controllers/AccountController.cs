@@ -113,7 +113,7 @@ namespace RadiostationWeb.Controllers
                 if (roleName.Equals(RoleType.Employeе))
                 {
                     Employee employee = new Employee { AspNetUserId = userId };
-                    if (_dbContext.Broadcasts.ToList().Any(o => o.EmployeeId == employee.Id))
+                    if (!_dbContext.Employees.ToList().Any(o => o.AspNetUserId == userId))
                     {
                         _dbContext.Employees.Add(employee);
                         _dbContext.SaveChanges();
