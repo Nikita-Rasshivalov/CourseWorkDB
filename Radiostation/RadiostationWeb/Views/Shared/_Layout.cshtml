@@ -18,7 +18,7 @@
                     {
                         <li style="font-size: 1em; color: #e9b2ff;">Username: @User.Identity.Name </li>
                     }
-                    @if (User.IsInRole(RoleType.Admin))
+                    @if (User.IsInRole(RoleType.Admin)|| User.IsInRole(RoleType.HR_Employee))
                     {
                         <li><a asp-controller="Account" asp-action="ManageUsers">Manage users</a></li>
                     }
@@ -54,7 +54,7 @@
                         <a asp-area="" asp-controller="Broadcast" asp-action="Broadcasts">Broadcasts</a>
                     </li>
 
-                    @if (User.IsInRole(RoleType.Admin) || User.IsInRole(RoleType.Employeе))
+                    @if (User.IsInRole(RoleType.Admin) || User.IsInRole(RoleType.Employeе) || User.IsInRole(RoleType.HR_Employee))
                     {
                         <li class="tab">
                             <a asp-area="" asp-controller="Employee" asp-action="Employees">Employees</a>

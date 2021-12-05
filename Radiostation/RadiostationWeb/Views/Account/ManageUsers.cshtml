@@ -44,7 +44,7 @@
                         <th>Email</th>
                         <th>Name</th>
                         <th>Surname</th>
-                        <th>Middle Name</th>
+                        <th>Mid Name</th>
                         <th>Roles</th>
                     </tr>
                 </thead>
@@ -60,7 +60,7 @@
                             <td>@user.MiddleName</td>
                             <td>
                                 <div class="role-buttons">
-                                    @if (await UserManager.IsInRoleAsync(user, "Admin"))
+                                    @if (await UserManager.IsInRoleAsync(user, RoleType.Admin))
                                     {
                                         <div class="crudBtn"><a class="crudLink" asp-controller="Account" asp-action="DeleteRole" asp-route-userId="@user.Id" asp-route-roleName="Admin">Delete Admin</a></div>
                                     }
@@ -68,7 +68,15 @@
                                     {
                                         <div class="crudBtn"><a class="crudLink" asp-controller="Account" asp-action="AddRole" asp-route-userId="@user.Id" asp-route-roleName="Admin">Add Admin</a></div>
                                     }
-                                    @if (await UserManager.IsInRoleAsync(user, "Employee"))
+                                    @if (await UserManager.IsInRoleAsync(user, RoleType.HR_Employee))
+                                    {
+                                        <div class="crudBtn"><a class="crudLink" asp-controller="Account" asp-action="DeleteRole" asp-route-userId="@user.Id" asp-route-roleName="HR_Employee">Delete HR</a></div>
+                                    }
+                                    else
+                                    {
+                                        <div class="crudBtn"><a class="crudLink" asp-controller="Account" asp-action="AddRole" asp-route-userId="@user.Id" asp-route-roleName="HR_Employee">Add HR</a></div>
+                                    }
+                                    @if (await UserManager.IsInRoleAsync(user, RoleType.Employeе))
                                     {
                                         <div class="crudBtn"><a class="crudLink" asp-controller="Account" asp-action="DeleteRole" asp-route-userId="@user.Id" asp-route-roleName="Employee">Del Employee</a></div>
                                     }

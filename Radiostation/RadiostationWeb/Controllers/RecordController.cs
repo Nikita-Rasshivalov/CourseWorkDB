@@ -96,7 +96,7 @@ namespace RadiostationWeb.Controllers
         {
             var pageSize = 10;
             var records = FilterRecords(nameFilter, performerFilter);
-            var performers = _dbContext.Performers.Select(c => new SelectListItem { Value = c.Id.ToString(), Text = c.Name })
+            var performers = _dbContext.Performers.Select(c => new SelectListItem { Value = c.Id.ToString(), Text = c.Name+" " + c.Surname })
             .ToList();
             var pageRecords = records.ToList().OrderByDescending(o => o.Id).Skip((page - 1) * pageSize).Take(pageSize);
             PageViewModel pageViewModel = new PageViewModel(records.Count(), page, pageSize);
@@ -158,7 +158,7 @@ namespace RadiostationWeb.Controllers
         [AuthorizeRoles(RoleType.Admin, RoleType.Employeе)]
         public ActionResult Create()
         {
-            var performers = _dbContext.Performers.Select(c => new SelectListItem { Value = c.Id.ToString(), Text = c.Name })
+            var performers = _dbContext.Performers.Select(c => new SelectListItem { Value = c.Id.ToString(), Text = c.Name+" "+c.Surname })
             .ToList();
 
             var genres = _dbContext.Genres.Select(c => new SelectListItem { Value = c.Id.ToString(), Text = c.GenreName })
@@ -185,7 +185,7 @@ namespace RadiostationWeb.Controllers
                 _dbContext.SaveChanges();
                 return RedirectToAction(nameof(ManageRecords));
             }
-            var performers = _dbContext.Performers.Select(c => new SelectListItem { Value = c.Id.ToString(), Text = c.Name })
+            var performers = _dbContext.Performers.Select(c => new SelectListItem { Value = c.Id.ToString(), Text = c.Name+" "+ c.Surname })
             .ToList();
 
             var genres = _dbContext.Genres.Select(c => new SelectListItem { Value = c.Id.ToString(), Text = c.GenreName })
@@ -204,7 +204,7 @@ namespace RadiostationWeb.Controllers
             var performers = _dbContext.Performers.Select(c => new SelectListItem
             {
                 Value = c.Id.ToString(),
-                Text = c.Name,
+                Text = c.Name + " " + c.Surname,
                 Selected = record.PerformerId == c.Id
             }).ToList();
 
@@ -261,7 +261,7 @@ namespace RadiostationWeb.Controllers
                 }
             }
 
-            var performers = await _dbContext.Performers.Select(c => new SelectListItem { Value = c.Id.ToString(), Text = c.Name })
+            var performers = await _dbContext.Performers.Select(c => new SelectListItem { Value = c.Id.ToString(), Text = c.Name + " "+ c.Surname })
             .ToListAsync();
 
             var genres = await _dbContext.Genres.Select(c => new SelectListItem { Value = c.Id.ToString(), Text = c.GenreName })

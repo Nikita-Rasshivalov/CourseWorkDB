@@ -1,0 +1,84 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="RadiostationWeb.Controllers.AccountController">
+    <Position X="5" Y="0.5" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>QAABBAAAAAAIAAAAgABAAAoAAAEAAEAiAAAQAAAEAAA=</HashCode>
+      <FileName>Controllers\AccountController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RadiostationWeb.Controllers.BroadcastController">
+    <Position X="6.5" Y="0.5" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAABAAAQAAEIAEAAAAAAAAAAAAEAAEBCAAABAAAAAAA=</HashCode>
+      <FileName>Controllers\BroadcastController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RadiostationWeb.Controllers.EmployeeController">
+    <Position X="2" Y="3.5" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAABAAAAAAEAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Controllers\EmployeeController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RadiostationWeb.Controllers.GenreController">
+    <Position X="9.5" Y="0.5" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAABAAAAAAAAAAAAAIIAAAAAAAEAAEACAAgBAAAAAAA=</HashCode>
+      <FileName>Controllers\GenreController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RadiostationWeb.Controllers.GroupController">
+    <Position X="8" Y="0.5" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAABAEEAAAAAAAAAAABAAAAAAAEAAEACAAABEAAAAAA=</HashCode>
+      <FileName>Controllers\GroupController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RadiostationWeb.Controllers.HomeController">
+    <Position X="3.5" Y="3.5" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAABAAAAAAAAAQAAAAAAAAAAIAEAIUACAAEAAAAAAAA=</HashCode>
+      <FileName>Controllers\HomeController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RadiostationWeb.Controllers.PerformerController">
+    <Position X="3.5" Y="0.5" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAABAAIAAAAIAAAAAAAAAAAAACEAAEACCAABAAAAAAA=</HashCode>
+      <FileName>Controllers\PerformerController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RadiostationWeb.Controllers.RecordController">
+    <Position X="2" Y="0.5" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>IAABAAAAAAAIAAAAAAgAAAAAAAEAAEICAAABAAAAAAA=</HashCode>
+      <FileName>Controllers\RecordController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

@@ -7,6 +7,8 @@ Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "RadiostationDatabase", "Rad
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RadiostationWeb", "RadiostationWeb\RadiostationWeb.csproj", "{7EE1ECA2-50E0-4EF9-AA26-3D58E1EE08C3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClassLibrary1", "ClassLibrary1\ClassLibrary1.csproj", "{0E74B830-D270-4178-837F-DE4F8225ABF1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,6 +25,10 @@ Global
 		{7EE1ECA2-50E0-4EF9-AA26-3D58E1EE08C3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7EE1ECA2-50E0-4EF9-AA26-3D58E1EE08C3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7EE1ECA2-50E0-4EF9-AA26-3D58E1EE08C3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0E74B830-D270-4178-837F-DE4F8225ABF1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0E74B830-D270-4178-837F-DE4F8225ABF1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0E74B830-D270-4178-837F-DE4F8225ABF1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0E74B830-D270-4178-837F-DE4F8225ABF1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

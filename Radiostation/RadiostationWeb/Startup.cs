@@ -3,11 +3,13 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Localization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using RadiostationWeb.Data;
+using System.Globalization;
 
 namespace RadiostationWeb
 {
@@ -48,6 +50,22 @@ namespace RadiostationWeb
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            var appDefaultCulture = new CultureInfo("ru-RU")
+            {
+                NumberFormat =
+            {
+                NumberDecimalSeparator = ".",
+            },
+            };
+
+            var supportedCultures = new[] { appDefaultCulture };
+
+            app.UseRequestLocalization(new RequestLocalizationOptions
+            {
+                DefaultRequestCulture = new RequestCulture(appDefaultCulture),
+                SupportedCultures = supportedCultures,
+                SupportedUICultures = supportedCultures
+            });
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
