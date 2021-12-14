@@ -139,12 +139,12 @@ namespace RadiostationWeb.Controllers
                     await _userManager.RemoveFromRoleAsync(user, roleName);
                     if (roleName.Equals(RoleType.Employeе))
                     {
-                        if (!_dbContext.Broadcasts.ToList().Any(o=>o.EmployeeId==employee.Id))
+                        if (!_dbContext.Broadcasts.ToList().Any(o => o.EmployeeId == employee.Id))
                         {
                             _dbContext.Employees.Remove(employee);
                             _dbContext.SaveChanges();
-                           return RedirectToAction(nameof(ManageUsers));
-                        }                        
+                            return RedirectToAction(nameof(ManageUsers));
+                        }
                     }
                 }
             }
@@ -152,6 +152,7 @@ namespace RadiostationWeb.Controllers
         }
 
         [AuthorizeRoles(RoleType.Admin, RoleType.HR_Employee)]
+
         public async Task<ActionResult> Delete(string userId)
         {
             var currentUserId = _userManager.GetUserId(User);
@@ -168,13 +169,19 @@ namespace RadiostationWeb.Controllers
                     {
                         await _userManager.DeleteAsync(user);
                     }
+                    else
+                    {
+                        return BadRequest("can not delete user, delete existing links");
+                    }
                 }
                 else
                 {
                     await _userManager.DeleteAsync(user);
                 }
-               
-                
+            }
+            else
+            {
+                return BadRequest("can no delete user");
             }
 
             return RedirectToAction(nameof(ManageUsers));
@@ -190,7 +197,7 @@ namespace RadiostationWeb.Controllers
         [HttpPost]
         public async Task<ActionResult> Create(RegistrationViewModel registrationModel, string userRole = RoleType.User)
         {
-            if (registrationModel.Username != null && registrationModel.Email!=null)
+            if (registrationModel.Username != null && registrationModel.Email != null)
             {
                 if (await _userManager.FindByNameAsync(registrationModel.Username) != null)
                 {
@@ -220,7 +227,7 @@ namespace RadiostationWeb.Controllers
                     await _userManager.AddToRoleAsync(user, userRole);
                     if (userRole.Equals(RoleType.Employeе))
                     {
-                        _dbContext.Employees.Add(new Employee { AspNetUserId = user.Id,Education="",PositionId = null,WorkTime= null  });
+                        _dbContext.Employees.Add(new Employee { AspNetUserId = user.Id, Education = "", PositionId = null, WorkTime = null });
                         _dbContext.SaveChanges();
                     }
                     return RedirectToAction(nameof(ManageUsers));
@@ -262,7 +269,7 @@ namespace RadiostationWeb.Controllers
                     EmployeeRole = emplRole,
                     PositionList = positions,
                     EducationList = educations,
-                    
+
                 };
                 if (userEditViewModel.EmployeeRole)
                 {
@@ -312,7 +319,7 @@ namespace RadiostationWeb.Controllers
 
                 if (emplRole)
                 {
-                    var currentEmployee = _dbContext.Employees.FirstOrDefault(o=>o.AspNetUserId.Equals(currentUser.Id));
+                    var currentEmployee = _dbContext.Employees.FirstOrDefault(o => o.AspNetUserId.Equals(currentUser.Id));
                     currentEmployee.Education = user.Education;
                     currentEmployee.PositionId = user.PositionId;
                     currentEmployee.WorkTime = user.WorkTime;
@@ -361,7 +368,7 @@ namespace RadiostationWeb.Controllers
                 if (creatingReuslt.Succeeded)
                 {
                     await _userManager.AddToRoleAsync(user, RoleType.User);
-                    await _signInManager.PasswordSignInAsync(user, registrationModel.Password, false, false);
+                    await _signInManager.PasswordSignInAsync(user, registrationModel.Password, true, false);
                     return RedirectToAction("Index", "Home");
                 }
             }

@@ -34,6 +34,7 @@
     </div>
 
     <div class="crudBtn"><a class="crudLink" asp-action="Create" asp-controller="Account">Create</a></div>
+    <div id="info"></div>
     <div class="container-item">
         @if (@Model?.Items.Count() > 0)
         {
@@ -60,14 +61,19 @@
                             <td>@user.MiddleName</td>
                             <td>
                                 <div class="role-buttons">
-                                    @if (await UserManager.IsInRoleAsync(user, RoleType.Admin))
+                                    @if (User.IsInRole(RoleType.Admin))
                                     {
-                                        <div class="crudBtn"><a class="crudLink" asp-controller="Account" asp-action="DeleteRole" asp-route-userId="@user.Id" asp-route-roleName="Admin">Delete Admin</a></div>
+                                        @if (await UserManager.IsInRoleAsync(user, RoleType.Admin))
+                                        {
+                                            <div class="crudBtn"><a class="crudLink" asp-controller="Account" asp-action="DeleteRole" asp-route-userId="@user.Id" asp-route-roleName="Admin">Delete Admin</a></div>
+                                        }
+                                        else
+                                        {
+                                            <div class="crudBtn"><a class="crudLink" asp-controller="Account" asp-action="AddRole" asp-route-userId="@user.Id" asp-route-roleName="Admin">Add Admin</a></div>
+                                        }
                                     }
-                                    else
-                                    {
-                                        <div class="crudBtn"><a class="crudLink" asp-controller="Account" asp-action="AddRole" asp-route-userId="@user.Id" asp-route-roleName="Admin">Add Admin</a></div>
-                                    }
+
+
                                     @if (await UserManager.IsInRoleAsync(user, RoleType.HR_Employee))
                                     {
                                         <div class="crudBtn"><a class="crudLink" asp-controller="Account" asp-action="DeleteRole" asp-route-userId="@user.Id" asp-route-roleName="HR_Employee">Delete HR</a></div>
@@ -85,10 +91,11 @@
                                         <div class="crudBtn"><a class="crudLink" asp-controller="Account" asp-action="AddRole" asp-route-userId="@user.Id" asp-route-roleName="Employee">Add Employee</a></div>
                                     }
 
+
                                 </div>
                             </td>
                             <td>
-                                <div class="crudBtn"><a class="crudLink" asp-controller="Account" asp-action="Delete" asp-route-userId="@user.Id">Delete</a></div>
+                                <div class="crudBtn"><a class="crudLink"  asp-controller="Account"  asp-route-userId="@user.Id" asp-action="Delete">Delete</a></div>
                             </td>
                             <td>
                                 <div class="crudBtn"><a class="crudLink" asp-controller="Account" asp-action="Edit" asp-route-userId="@user.Id">Edit</a></div>

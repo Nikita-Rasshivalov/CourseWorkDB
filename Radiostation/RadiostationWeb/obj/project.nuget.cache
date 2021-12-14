@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "Xn4cd4p394zJg4Jfp8sbthhjcZqWyhvXrVNoTeDxAm5qqgMtm7q3XfFkSoQXdchedG55Nz9SKG3J6eylQ4Rn3Q==",
+  "dgSpecHash": "4j/WCf0gedyTJWIEnskpZ3BFa0CYBOO8AM1eCwhegkaT5yArKGdqVWR3MIJKXJEhLsdrrPKmVdBBs3ZxxwjkPQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\nikit\\Desktop\\БД\\CousreWorkDb\\CourseWorkDB\\Radiostation\\RadiostationWeb\\RadiostationWeb.csproj",
+  "projectFilePath": "C:\\Users\\nikit\\Desktop\\DataBases\\CousreWorkDb\\CourseWorkDB\\Radiostation\\RadiostationWeb\\RadiostationWeb.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\nikit\\.nuget\\packages\\entityframework\\6.4.4\\entityframework.6.4.4.nupkg.sha512",
     "C:\\Users\\nikit\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
